@@ -4,8 +4,14 @@ import '@/registerServiceWorker'
 import router from './router'
 import store from '@/store'
 import axios from 'axios'
+
+// 第三方组件
 import NProgress from 'nprogress'
 import moment from 'moment'
+import ElementPlus from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
+
+// 私有对象
 import { api } from '@/api'
 
 const app = createApp(App)
@@ -19,6 +25,7 @@ app.config.globalProperties.$axios = axios
 axios.defaults.timeout = 60000
 
 /* 插件install */
+app.use(ElementPlus)
 
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('../../../mock')
