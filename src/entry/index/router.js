@@ -16,9 +16,14 @@ const routes = [
         component: () => import('@/views/index/login/index.vue')
     },
     {
+        path: '/403',
+        name: '403',
+        component: () => import('@/views/errors/403.vue')
+    },
+    {
         path: '/404',
         name: '404',
-        component: () => import('@/views/errors/404/index.vue')
+        component: () => import('@/views/errors/404.vue')
     },
     {
         path: '/:pathMatch(.*)*',

@@ -1,5 +1,4 @@
-body {
-    @import './components/ui-xxx.scss';
-
-    @import './modules/ms-xxx.scss';
-}
+// 组件样式覆盖
+@import './components/ui-xxx.scss';
+// 模块样式
+@import './modules/ms-xxx.scss';

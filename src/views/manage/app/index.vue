@@ -1,23 +1,72 @@
 <template>
     <app-header />
-    <div class="app-content">
-        <router-view />
+    <app-menu />
+    <div class="app-body" :class="{ 'app-collapse': collapse }">
+        <app-tags />
+        <div class="container">
+            <transition name="move" mode="out-in">
+                <keep-alive :include="tagsList">
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+            <el-backtop target=".container" />
+        </div>
     </div>
-    <app-footer />
 </template>
 <script>
     import appHeader from './header.vue'
-    import appFooter from './footer.vue'
+    import appMenu from './menu.vue'
+    import appTags from './tags.vue'
     export default {
         name: 'app',
         components: {
             appHeader,
-            appFooter
+            appMenu,
+            appTags
         },
         data () {
             return {}
-        }
+        },
+        computed: {
+            collapse () {
+                return this.$store.getters.isCollapse
+            },
+            tagsList () {
+                // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
+                const aliveTags = this.$store.getters.aliveTags
+                const tagsNameArray = []
+                for (let i = 0, len = aliveTags.length; i < len; i++) {
+                    aliveTags[i].name && tagsNameArray.push(aliveTags[i].name)
+                }
+                return tagsNameArray
+            }
+        },
+        created () {},
+        methods: {}
     }
 </script>
 
-<style scoped lang="scss" src="./assets/css/index.scss"></style>
+<style lang="scss" scoped>
+.app-body {
+    position: absolute;
+    left: 250px;
+    right: 0;
+    top: 70px;
+    bottom: 0;
+    padding-bottom: 30px;
+    transition: left 0.3s ease-in-out;
+    background: #f0f0f0;
+
+    &.app-collapse {
+        left: 65px;
+    }
+
+    .container {
+        width: auto;
+        height: 100%;
+        padding: 10px;
+        overflow-y: scroll;
+        box-sizing: border-box;
+    }
+}
+</style>

@@ -1,20 +1,216 @@
 <template>
     <div class="app-header">
-        header
+        <!-- 折叠按钮 -->
+        <div class="collapse-btn" @click="changeCollapse">
+            <i v-if="!collapse" class="el-icon-s-fold"></i>
+            <i v-else class="el-icon-s-unfold"></i>
+        </div>
+        <div class="logo">后台管理系统</div>
+        <div class="app-header-right">
+            <div class="app-header-user">
+                <!-- 全屏显示 -->
+                <div class="btn-fullscreen" @click="handleFullScreen">
+                    <el-tooltip
+                        effect="dark"
+                        :content="fullscreen ? `取消全屏` : `全屏`"
+                        placement="bottom"
+                    >
+                        <i class="el-icon-rank"></i>
+                    </el-tooltip>
+                </div>
+                <!-- 消息中心 -->
+                <div class="btn-bell">
+                    <el-tooltip effect="dark" placement="bottom"
+                        :content="message ? `有${message}条未读消息` : `消息中心`">
+                        <router-link :to="{ name: 'message' }">
+                            <i class="el-icon-bell"></i>
+                        </router-link>
+                    </el-tooltip>
+                    <span class="btn-bell-badge" v-if="message"></span>
+                </div>
+                <!-- 用户头像 -->
+                <div class="user-avatar">
+                    <img v-if="user.avatar" :src="user.avatar" />
+                    <img v-else :src="require('./assets/images/default-avatar.png')">
+                </div>
+                <!-- 用户名下拉菜单 -->
+                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                    <span class="el-dropdown-link">
+                        {{ user.name }}
+                        <i class="el-icon-caret-bottom"></i>
+                    </span>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item command="userInfo">个人信息</el-dropdown-item>
+                            <el-dropdown-item command="password">修改密码</el-dropdown-item>
+                            <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+            </div>
+        </div>
     </div>
 </template>
+
 <script>
+    import { removeToken } from '@/util/cookies.js'
     export default {
         name: 'app-header',
         data () {
             return {
+                fullscreen: false
+            }
+        },
+        computed: {
+            collapse () {
+                return this.$store.getters.isCollapse
+            },
+            message () {
+                return this.$store.getters.userMsgCount.unread
+            },
+            user () {
+                return this.$store.getters.userInfo
+            }
+        },
+        created () {
+            // 获取用户信息
+            this.$store.dispatch('getUserInfo')
 
+            // 获取未读消息数量
+            this.$store.dispatch('getMsgCount')
+        },
+        mounted () {
+            if (document.body.clientWidth < 1500) {
+                this.$store.commit('SET_COLLAPSE', true)
             }
         },
         methods: {
-
+            // 用户名下拉菜单选择事件
+            handleCommand (command) {
+                if (command === 'loginout') {
+                    removeToken()
+                    this.$router.push({ name: 'login' })
+                } else {
+                    this.$router.push({ name: command })
+                }
+            },
+            // 侧边栏折叠
+            changeCollapse () {
+                this.$store.commit('SET_COLLAPSE', !this.collapse)
+            },
+            // 全屏事件
+            handleFullScreen () {
+                const element = document.documentElement
+                if (this.fullscreen) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen()
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen()
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen()
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen()
+                    }
+                } else {
+                    if (element.requestFullscreen) {
+                        element.requestFullscreen()
+                    } else if (element.webkitRequestFullScreen) {
+                        element.webkitRequestFullScreen()
+                    } else if (element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen()
+                    } else if (element.msRequestFullscreen) {
+                        // IE11
+                        element.msRequestFullscreen()
+                    }
+                }
+                this.fullscreen = !this.fullscreen
+            }
         }
     }
 </script>
+<style scoped lang="scss">
+.app-header {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 70px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #242f42;
 
-<style scoped lang="scss" src="./assets/css/header.scss"></style>
+    .collapse-btn {
+        float: left;
+        padding: 0 21px;
+        cursor: pointer;
+        line-height: 70px;
+
+        &:hover {
+            background: rgb(40, 52, 70);
+        }
+    }
+
+    .logo {
+        float: left;
+        width: 250px;
+        line-height: 70px;
+    }
+
+    .app-header-right {
+        float: right;
+        padding-right: 30px;
+
+        .app-header-user {
+            display: flex;
+            height: 70px;
+            align-items: center;
+
+            .btn-fullscreen {
+                transform: rotate(45deg);
+                margin-right: 5px;
+                font-size: 24px;
+            }
+            .btn-bell,
+            .btn-fullscreen {
+                position: relative;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                border-radius: 15px;
+                cursor: pointer;
+            }
+            .btn-bell-badge {
+                position: absolute;
+                right: 0;
+                top: -2px;
+                width: 8px;
+                height: 8px;
+                border-radius: 4px;
+                background: #f56c6c;
+                color: #fff;
+            }
+            .btn-bell .el-icon-bell {
+                color: #fff;
+            }
+
+            .user-avatar {
+                margin: 0 10px 0 20px;
+
+                img {
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .el-dropdown-link {
+            color: #fff;
+            cursor: pointer;
+        }
+        .el-dropdown-menu__item {
+            text-align: center;
+        }
+    }
+}
+</style>

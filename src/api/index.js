@@ -1,6 +1,6 @@
 export const api = {
     user: {
-        info: '/user/info'
+        info: '/api/user/info'
     },
     article: {
         list: '/article/list',

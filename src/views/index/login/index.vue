@@ -54,11 +54,11 @@
             submitForm () {
                 this.$refs.login.validate(valid => {
                     if (valid) {
-                        this.$axios.post('user/login', this.param).then(res => {
+                        this.$axios.post('/api/user/login', this.param).then(res => {
                             if (res.data.code === 200) {
                                 setToken(res.data.data)
                                 this.$message.success('登录成功')
-                                this.$router.push('/')
+                                window.location.href = '/manage'
                             } else {
                                 this.$message.error(res.data.msg)
                             }
