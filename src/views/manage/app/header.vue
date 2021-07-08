@@ -53,6 +53,7 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
     import { removeToken } from '@/util/cookies.js'
     export default {
         name: 'app-header',
@@ -62,9 +63,9 @@
             }
         },
         computed: {
-            collapse () {
-                return this.$store.getters.isCollapse
-            },
+            ...mapState({
+                collapse: state => state.common.collapse
+            }),
             message () {
                 return this.$store.getters.userMsgCount.unread
             },
@@ -89,7 +90,7 @@
             handleCommand (command) {
                 if (command === 'loginout') {
                     removeToken()
-                    this.$router.push({ name: 'login' })
+                    window.location.href = '/'
                 } else {
                     this.$router.push({ name: command })
                 }

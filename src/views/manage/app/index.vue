@@ -4,16 +4,19 @@
     <div class="app-body" :class="{ 'app-collapse': collapse }">
         <app-tags />
         <div class="container">
-            <transition name="move" mode="out-in">
-                <keep-alive :include="tagsList">
-                    <router-view></router-view>
-                </keep-alive>
-            </transition>
+            <router-view v-slot="{ Component }">
+                <transition name="move" mode="out-in">
+                    <keep-alive :include="tagsList">
+                        <component :is="Component" />
+                    </keep-alive>
+                </transition>
+            </router-view>
             <el-backtop target=".container" />
         </div>
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex'
     import appHeader from './header.vue'
     import appMenu from './menu.vue'
     import appTags from './tags.vue'
@@ -28,18 +31,18 @@
             return {}
         },
         computed: {
-            collapse () {
-                return this.$store.getters.isCollapse
-            },
-            tagsList () {
-                // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
-                const aliveTags = this.$store.getters.aliveTags
-                const tagsNameArray = []
-                for (let i = 0, len = aliveTags.length; i < len; i++) {
-                    aliveTags[i].name && tagsNameArray.push(aliveTags[i].name)
+            ...mapState({
+                collapse: state => state.common.collapse,
+                tagsList (state) {
+                    // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
+                    const aliveTags = state.common.aliveTags
+                    const tagsNameArray = []
+                    for (let i = 0, len = aliveTags.length; i < len; i++) {
+                        aliveTags[i].name && tagsNameArray.push(aliveTags[i].name)
+                    }
+                    return tagsNameArray
                 }
-                return tagsNameArray
-            }
+            })
         },
         created () {},
         methods: {}

@@ -41,23 +41,21 @@
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex'
     export default {
         name: 'app-menu',
         data () {
             return {
-                menuList: []
             }
         },
         computed: {
-            collapse () {
-                return this.$store.getters.isCollapse
-            },
+            ...mapState({
+                collapse: state => state.common.collapse,
+                menuList: state => state.user.permission
+            }),
             onRoutes () {
                 return this.$route.path.replace('/', '')
             }
-        },
-        created () {
-            this.menuList = this.$store.getters.userPermission
         },
         methods: {
         }

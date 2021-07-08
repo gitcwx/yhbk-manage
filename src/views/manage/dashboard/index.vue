@@ -5,7 +5,7 @@
 </template>
 <script>
     export default {
-        name: 'manage-dashboard',
+        name: 'dashboard',
         data () {
             return {
 

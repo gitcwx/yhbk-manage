@@ -2,31 +2,48 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
+        path: '/',
+        redirect: { name: 'dashboard' }
+    },
+    {
         path: '/manage',
-        name: 'manage',
         redirect: { name: 'dashboard' }
     },
     {
         path: '/manage/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/manage/dashboard/index.vue')
+        component: () => import('@/views/manage/dashboard/index.vue'),
+        meta: { title: '控制台' }
     },
     {
         path: '/manage/message',
         name: 'message',
-        component: () => import('@/views/manage/user/message/index.vue')
+        component: () => import('@/views/manage/user/message/index.vue'),
+        meta: { title: '系统消息' }
+    },
+    {
+        path: '/manage/userInfo',
+        name: 'userInfo',
+        component: () => import('@/views/manage/user/info/index.vue'),
+        meta: { title: '用户资料' }
+    },
+    {
+        path: '/manage/password',
+        name: 'password',
+        component: () => import('@/views/manage/user/password/index.vue'),
+        meta: { title: '修改密码' }
     },
     {
         path: '/manage/403',
         name: '403',
         component: () => import('@/views/errors/403.vue'),
-        meta: { allow: true }
+        meta: { title: '403', allow: true }
     },
     {
         path: '/manage/404',
         name: '404',
         component: () => import('@/views/errors/404.vue'),
-        meta: { allow: true }
+        meta: { title: '404', allow: true }
     },
     {
         path: '/:pathMatch(.*)*',

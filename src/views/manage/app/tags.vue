@@ -34,11 +34,8 @@
         },
         watch: {
             $route (newValue, oldValue) {
-                // this.setTags(newValue)
+                this.setTags(newValue)
             }
-        },
-        created () {
-            // this.setTags(this.$route)
         },
         methods: {
             isActive (path) {
@@ -83,7 +80,7 @@
                     this.tagsList.push({
                         title: route.meta.title,
                         path: route.fullPath,
-                        name: route.matched[1].components.default.name
+                        name: route.matched[0].components.default.name
                     })
                 }
                 this.$store.commit('SET_ALIVETAGS', this.tagsList)
