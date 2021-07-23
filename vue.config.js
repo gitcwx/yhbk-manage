@@ -19,12 +19,12 @@ module.exports = {
         disableHostCheck: true,
         proxy: {
             '/api': {
-                target: 'http://101.34.44.47:8998',
+                target: 'http://localhost:9003',
                 ws: true,
                 changeOrigin: true,
                 logLevel: 'debug',
                 pathRewrite: {
-                    '/api': 'http://101.34.44.47:8998/ykbk-backend'
+                    '/api': 'http://localhost:9003/api'
                 }
             }
         }

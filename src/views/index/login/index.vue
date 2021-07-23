@@ -10,10 +10,10 @@
                 class="login-form"
                 @keyup.enter="submitForm()"
             >
-                <el-form-item prop="username">
+                <el-form-item prop="userName">
                     <el-input
-                        v-model="param.username"
-                        placeholder="username"
+                        v-model="param.userName"
+                        placeholder="userName"
                         prefix-icon="el-icon-user"
                     />
                 </el-form-item>
@@ -41,11 +41,11 @@
         data: function () {
             return {
                 param: {
-                    username: 'admin',
-                    password: '123123'
+                    userName: 'admin',
+                    password: '123456'
                 },
                 rules: {
-                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                     password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
                 }
             }
@@ -55,13 +55,14 @@
                 this.$refs.login.validate(valid => {
                     if (valid) {
                         this.$axios.post('/api/user/login', this.param).then(res => {
-                            if (res.data.code === 200) {
+                            if (res.data.code === '00') {
                                 setToken(res.data.data)
-                                this.$message.success('登录成功')
                                 window.location.href = '/manage'
                             } else {
-                                this.$message.error(res.data.msg)
+                                this.$message.warning(res.data.msg)
                             }
+                        }).catch(() => {
+                            this.$message.error('未知错误，请稍后重试')
                         })
                     } else {
                         return false

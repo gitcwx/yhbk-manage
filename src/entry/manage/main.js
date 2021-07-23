@@ -43,7 +43,7 @@ require('@/assets/css/index.scss')
 axios.interceptors.request.use(config => {
     const token = getToken()
     if (typeof token !== 'undefined') {
-        config.headers.token = token
+        config.headers.token = JSON.parse(token).token
     }
     return config
 }, error => {
