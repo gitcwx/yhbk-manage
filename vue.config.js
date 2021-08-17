@@ -19,12 +19,12 @@ module.exports = {
         disableHostCheck: true,
         proxy: {
             '/api': {
-                target: 'http://localhost:9003',
+                target: 'http://localhost:9090',
                 ws: true,
                 changeOrigin: true,
                 logLevel: 'debug',
                 pathRewrite: {
-                    '/api': 'http://localhost:9003/api'
+                    '/api': 'http://localhost:9090/api'
                 }
             }
         }

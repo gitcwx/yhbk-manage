@@ -10,10 +10,10 @@
                 class="login-form"
                 @keyup.enter="submitForm()"
             >
-                <el-form-item prop="userName">
+                <el-form-item prop="username">
                     <el-input
-                        v-model="param.userName"
-                        placeholder="userName"
+                        v-model="param.username"
+                        placeholder="username"
                         prefix-icon="el-icon-user"
                     />
                 </el-form-item>
@@ -41,11 +41,11 @@
         data: function () {
             return {
                 param: {
-                    userName: 'admin',
+                    username: 'admin',
                     password: '123456'
                 },
                 rules: {
-                    userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                     password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
                 }
             }
@@ -54,9 +54,13 @@
             submitForm () {
                 this.$refs.login.validate(valid => {
                     if (valid) {
-                        this.$axios.post('/api/user/login', this.param).then(res => {
+                        this.$axios({
+                            url: this.api.user.login,
+                            method: 'post',
+                            data: this.param
+                        }).then(res => {
                             if (res.data.code === '00') {
-                                setToken(res.data.data)
+                                setToken(res.data.token)
                                 window.location.href = '/manage'
                             } else {
                                 this.$message.warning(res.data.msg)

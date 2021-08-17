@@ -11,29 +11,29 @@
         >
             <template v-for="firstLevel in menuList">
                 <template v-if="firstLevel.children">
-                    <el-submenu :index="firstLevel.index" :key="firstLevel.index">
+                    <el-submenu :index="firstLevel.name" :key="firstLevel.id">
                         <template #title>
                             <i :class="firstLevel.icon"></i>
-                            <span>{{ firstLevel.title }}</span>
+                            <span>{{ firstLevel.text }}</span>
                         </template>
                         <template v-for="secondLevel in firstLevel.children">
-                            <el-submenu v-if="secondLevel.children" :index="secondLevel.index" :key="secondLevel.index">
+                            <el-submenu v-if="secondLevel.children" :index="secondLevel.name" :key="secondLevel.id">
                                 <template #title>
                                     <i :class="secondLevel.icon"></i>
-                                    {{ secondLevel.title }}
+                                    {{ secondLevel.text }}
                                 </template>
                             </el-submenu>
-                            <el-menu-item v-else-if="secondLevel.isMenu" :index="secondLevel.index" :key="secondLevel.index">
+                            <el-menu-item v-else-if="secondLevel.isMenu" :index="secondLevel.name" :key="secondLevel.id">
                                 <i :class="secondLevel.icon"></i>
-                                {{ secondLevel.title }}
+                                {{ secondLevel.text }}
                             </el-menu-item>
                         </template>
                     </el-submenu>
                 </template>
                 <template v-else-if="firstLevel.isMenu">
-                    <el-menu-item :index="firstLevel.index" :key="firstLevel.index">
+                    <el-menu-item :index="firstLevel.name" :key="firstLevel.id">
                         <i :class="firstLevel.icon"></i>
-                        <span>{{ firstLevel.title }}</span>
+                        <span>{{ firstLevel.text }}</span>
                     </el-menu-item>
                 </template>
             </template>
@@ -46,18 +46,51 @@
         name: 'app-menu',
         data () {
             return {
+                menuList: []
             }
         },
         computed: {
             ...mapState({
                 collapse: state => state.common.collapse,
-                menuList: state => state.user.permission
+                permission: state => state.user.permission
             }),
             onRoutes () {
-                return this.$route.path.replace('/', '')
+                return this.$route.path.replace('/manage/', '')
+            }
+        },
+        watch: {
+            permission: {
+                deep: true,
+                immediate: true,
+                handler (newVal) {
+                    if (newVal && newVal.length) {
+                        this.menuList = this.treeByPid(JSON.parse(JSON.stringify(newVal)), null)
+                    }
+                }
             }
         },
         methods: {
+            // 权限列表转换成树形菜单结构
+            treeByPid (arr, parentMenuId) {
+                const result = []
+                const next = []
+                arr.forEach(item => {
+                    if (item.parentMenuId === parentMenuId) {
+                        result.push(item)
+                    } else {
+                        next.push(item)
+                    }
+                })
+                if (next.length) {
+                    result.forEach(item => {
+                        const children = this.treeByPid(next, item.id)
+                        if (children.length) {
+                            item.children = children
+                        }
+                    })
+                }
+                return result
+            }
         }
     }
 </script>

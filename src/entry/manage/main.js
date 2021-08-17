@@ -43,18 +43,18 @@ require('@/assets/css/index.scss')
 axios.interceptors.request.use(config => {
     const token = getToken()
     if (typeof token !== 'undefined') {
-        config.headers.token = JSON.parse(token).token
+        config.headers.Authorization = 'Bearer ' + token
     }
     return config
 }, error => {
     return Promise.reject(error)
 })
 
-// 将响应头的令牌更新到cookie
 axios.interceptors.response.use(response => {
-    const token = response.headers.token
-    if (typeof token !== 'undefined') {
-        setToken(token)
+    const Authorization = response.headers.Authorization
+    if (Authorization) {
+        const token = Authorization.split(' ')[1]
+        token && setToken(token)
     }
     return response
 }, error => {
@@ -65,21 +65,6 @@ axios.interceptors.response.use(response => {
     }
     return Promise.reject(error)
 })
-
-// 根据name检查是否有权限
-function checkAllowByName (name, permission) {
-    let allow = false
-    for (let i = 0; i < permission.length; i++) {
-        const item = permission[i]
-        if (item.children) {
-            allow = checkAllowByName(name, item.children)
-        } else if (item.index === name) {
-            allow = true
-        }
-        if (allow) { break }
-    }
-    return allow
-}
 
 router.beforeEach((to, from, next) => {
     // 检查token
@@ -106,7 +91,7 @@ router.beforeEach((to, from, next) => {
         }
         const permission = store.getters.userPermission
 
-        if (checkAllowByName(to.name, permission)) {
+        if (permission.some(v => v.name === to.name)) {
             next(); return
         }
         next({ name: '403' })

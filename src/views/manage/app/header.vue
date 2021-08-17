@@ -36,7 +36,7 @@
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{ user.name }}
+                        {{ user.nickname }}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <template #dropdown>
