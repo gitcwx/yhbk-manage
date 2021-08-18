@@ -3,7 +3,7 @@
         <div class="login-box">
             <div class="login-title">后台管理系统</div>
             <el-form
-                :model="param"
+                :model="formData"
                 :rules="rules"
                 ref="login"
                 label-width="0px"
@@ -12,7 +12,7 @@
             >
                 <el-form-item prop="username">
                     <el-input
-                        v-model="param.username"
+                        v-model="formData.username"
                         placeholder="username"
                         prefix-icon="el-icon-user"
                     />
@@ -21,7 +21,7 @@
                     <el-input
                         type="password"
                         placeholder="password"
-                        v-model="param.password"
+                        v-model="formData.password"
                         prefix-icon="el-icon-lock"
                     />
                 </el-form-item>
@@ -40,7 +40,7 @@
         name: 'login-page',
         data: function () {
             return {
-                param: {
+                formData: {
                     username: 'admin',
                     password: '123456'
                 },
@@ -57,7 +57,7 @@
                         this.$axios({
                             url: this.api.user.login,
                             method: 'post',
-                            data: this.param
+                            data: this.formData
                         }).then(res => {
                             if (res.data.code === '00') {
                                 setToken(res.data.token)

@@ -1,11 +1,11 @@
 <template>
-    <div class="manage-dashboard">
+    <div class="manage manage-dashboard">
         dashboard
     </div>
 </template>
 <script>
     export default {
-        name: 'dashboard',
+        name: 'manage manage-dashboard',
         data () {
             return {
 
@@ -19,4 +19,8 @@
         }
     }
 </script>
-<style lang="scss" scoped src="./assets/css/index.scss"></style>
+<style lang="scss" scoped>
+.manage-dashboard {
+
+}
+</style>

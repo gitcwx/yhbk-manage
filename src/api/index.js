@@ -1,7 +1,8 @@
 export const api = {
     user: {
         info: '/api/user/info',
-        login: '/api/user/login'
+        login: '/api/user/login',
+        password: '/api/user/password'
     },
     permission: {
         list: '/api/permission/list'

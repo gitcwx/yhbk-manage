@@ -3,7 +3,13 @@
     <app-menu />
     <div class="app-body" :class="{ 'app-collapse': collapse }">
         <app-tags />
-        <div class="container">
+        <div
+            class="container"
+            v-loading="isLoading"
+            :element-loading-text="loadingText"
+            :element-loading-spinner="loadingSpinner"
+            :element-loading-background="loadingBackground"
+        >
             <router-view v-slot="{ Component }">
                 <transition name="move" mode="out-in">
                     <keep-alive :include="tagsList">
@@ -34,14 +40,18 @@
             ...mapState({
                 collapse: state => state.common.collapse,
                 tagsList (state) {
-                    // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
                     const aliveTags = state.common.aliveTags
                     const tagsNameArray = []
                     for (let i = 0, len = aliveTags.length; i < len; i++) {
                         aliveTags[i].name && tagsNameArray.push(aliveTags[i].name)
                     }
                     return tagsNameArray
-                }
+                },
+
+                isLoading: state => state.common.isLoading,
+                loadingText: state => state.common.loadingText,
+                loadingSpinner: state => state.common.loadingSpinner,
+                loadingBackground: state => state.common.loadingBackground
             })
         },
         created () {},
@@ -70,6 +80,10 @@
         padding: 10px;
         overflow-y: scroll;
         box-sizing: border-box;
+
+        .manage {
+            background: #fff;
+        }
     }
 }
 </style>

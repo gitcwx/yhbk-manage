@@ -12,25 +12,25 @@ const routes = [
     {
         path: '/manage/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/manage/dashboard/index.vue'),
+        component: () => import('@/views/manage/dashboard.vue'),
         meta: { title: '控制台' }
     },
     {
         path: '/manage/message',
         name: 'message',
-        component: () => import('@/views/manage/user/message/index.vue'),
+        component: () => import('@/views/manage/user/message.vue'),
         meta: { title: '系统消息' }
     },
     {
         path: '/manage/userInfo',
         name: 'userInfo',
-        component: () => import('@/views/manage/user/info/index.vue'),
+        component: () => import('@/views/manage/user/info.vue'),
         meta: { title: '用户资料' }
     },
     {
         path: '/manage/password',
         name: 'password',
-        component: () => import('@/views/manage/user/password/index.vue'),
+        component: () => import('@/views/manage/user/password.vue'),
         meta: { title: '修改密码' }
     },
     {

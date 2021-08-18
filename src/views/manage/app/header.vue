@@ -31,7 +31,7 @@
                 <!-- 用户头像 -->
                 <div class="user-avatar">
                     <img v-if="user.avatar" :src="user.avatar" />
-                    <img v-else :src="require('./assets/images/default-avatar.png')">
+                    <img v-else :src="require('@/assets/images/default-avatar.png')">
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
     import { removeToken } from '@/util/cookies.js'
     export default {
         name: 'app-header',
@@ -63,9 +62,9 @@
             }
         },
         computed: {
-            ...mapState({
-                collapse: state => state.common.collapse
-            }),
+            collapse () {
+                return this.$store.getters.isCollapse
+            },
             message () {
                 return this.$store.getters.userMsgCount.unread
             },
