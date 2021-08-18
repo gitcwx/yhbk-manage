@@ -83,6 +83,8 @@
 
         .manage {
             background: #fff;
+            min-height: 100%;
+            padding: 20px;
         }
     }
 }

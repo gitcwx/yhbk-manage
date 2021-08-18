@@ -99,7 +99,7 @@
 .manage-user-password {
     .el-form {
         width: 600px;
-        padding: 40px;
+        padding: 20px;
     }
 }
 </style>

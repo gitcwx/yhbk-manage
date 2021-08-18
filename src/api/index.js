@@ -5,7 +5,8 @@ export const api = {
         password: '/api/user/password'
     },
     permission: {
-        list: '/api/permission/list'
+        list: '/api/permission/list',
+        edit: '/api/permission/edit'
     },
     article: {
         list: '/api/article/list',

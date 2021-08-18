@@ -16,6 +16,12 @@ const routes = [
         meta: { title: '控制台' }
     },
     {
+        path: '/manage/permission',
+        name: 'permission',
+        component: () => import('@/views/manage/permission.vue'),
+        meta: { title: '权限控制' }
+    },
+    {
         path: '/manage/message',
         name: 'message',
         component: () => import('@/views/manage/user/message.vue'),
