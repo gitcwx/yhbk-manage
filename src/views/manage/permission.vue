@@ -3,10 +3,10 @@
         <div class="table-search">
             <el-form :inline="true" :model="searchData">
                 <el-form-item label="页面名称 :">
-                    <el-input v-model="searchData.text" placeholder="请输入页面名称" size="mini" />
+                    <el-input v-model="searchData.text" placeholder="请输入页面名称" />
                 </el-form-item>
                 <el-form-item label="权限级别 :">
-                    <el-select v-model="searchData.permissionLevel" placeholder="请选择" size="mini" clearable>
+                    <el-select v-model="searchData.permissionLevel" placeholder="请选择" clearable>
                         <el-option
                             v-for="(item, index) in roles"
                             :key="index"
@@ -16,14 +16,14 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="是否为菜单 :">
-                    <el-select v-model="searchData.isMenu" placeholder="请选择" clearable size="mini">
+                    <el-select v-model="searchData.isMenu" placeholder="请选择" clearable>
                         <el-option label="是" :value="true"></el-option>
                         <el-option label="否" :value="false"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="reloadTableData" size="mini">查询</el-button>
-                    <el-button type="success" @click="dialogVisible = true" size="mini">新增页面</el-button>
+                    <el-button type="primary" @click="reloadTableData" >查询</el-button>
+                    <el-button type="success" @click="dialogVisible = true">新增页面</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -39,7 +39,6 @@
                 <template #default="scope">
                     <el-select
                         v-model="scope.row.permissionLevel"
-                        size="mini"
                         @change="selectPermission($event, scope.row)"
                     >
                         <el-option
@@ -61,7 +60,6 @@
                     <el-select
                         v-model="scope.row.parentMenuId"
                         v-if="scope.row.isMenu"
-                        size="mini"
                         clearable
                         @change="selectParent($event, scope.row)"
                         placeholder="一级菜单"
@@ -82,7 +80,7 @@
             <el-table-column prop="updatedAt" label="修改时间" min-width="180"/>
             <el-table-column label="操作" width="100" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+                    <el-button type="danger" @click="deleteItem(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -105,18 +103,17 @@
         >
             <el-form ref="add-form" :model="formData" :rules="rules" label-width="90px">
                 <el-form-item label="菜单图标" prop="icon">
-                    <el-input v-model="formData.icon" placeholder="请输入图标class" size="mini" :prefix-icon="formData.icon"/>
+                    <el-input v-model="formData.icon" placeholder="请输入图标class" :prefix-icon="formData.icon"/>
                 </el-form-item>
                 <el-form-item label="页面名称" prop="text">
-                    <el-input v-model="formData.text" placeholder="请输入页面名称" size="mini" />
+                    <el-input v-model="formData.text" placeholder="请输入页面名称" />
                 </el-form-item>
                 <el-form-item label="页面路由" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入页面路由" size="mini" />
+                    <el-input v-model="formData.name" placeholder="请输入页面路由" />
                 </el-form-item>
                 <el-form-item label="页面权限" prop="permissionLevel">
                     <el-select
                         v-model="formData.permissionLevel"
-                        size="mini"
                         placeholder="请选择"
                         style="width: 100%"
                     >
@@ -134,7 +131,6 @@
                 <el-form-item label="父级菜单" prop="isMenu">
                     <el-select
                         v-model="formData.parentMenuId"
-                        size="mini"
                         clearable
                         placeholder="一级菜单"
                         style="width: 100%"
@@ -150,8 +146,8 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="dialogCancel" size="mini">取 消</el-button>
-                    <el-button type="primary" @click="dialogSubmit" size="mini">确 定</el-button>
+                    <el-button @click="dialogCancel">取 消</el-button>
+                    <el-button type="primary" @click="dialogSubmit">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
