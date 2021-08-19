@@ -67,7 +67,7 @@
                         <!-- 只显示除自己以外的菜单项 -->
                         <el-option
                             v-for="(item, index) in tableData"
-                            v-show="item.isMenu && item.id !== scope.row.id"
+                            v-show="item.isMenu && item.id !== scope.row.id && !item.parentMenuId"
                             :key="index"
                             :label="item.text"
                             :value="item.id"
@@ -137,6 +137,7 @@
                     >
                         <el-option
                             v-for="(item, index) in tableData"
+                            v-show="item.isMenu && !item.parentMenuId"
                             :key="index"
                             :label="item.text"
                             :value="item.id"
