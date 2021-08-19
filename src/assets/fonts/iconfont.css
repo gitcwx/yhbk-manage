@@ -1,8 +1,11 @@
 @font-face {
-  font-family: "yhbk-icon"; /* Project id 2631112 */
-  src: url('iconfont.woff2?t=1624540284588') format('woff2'),
-       url('iconfont.woff?t=1624540284588') format('woff'),
-       url('iconfont.ttf?t=1624540284588') format('truetype');
+  font-family: "yhbk-icon"; /* Project id 2755087 */
+  src: url('iconfont.eot?t=1629343778887'); /* IE9 */
+  src: url('iconfont.eot?t=1629343778887#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1629343778887') format('woff2'),
+       url('iconfont.woff?t=1629343778887') format('woff'),
+       url('iconfont.ttf?t=1629343778887') format('truetype'),
+       url('iconfont.svg?t=1629343778887#yhbk-icon') format('svg');
 }
 
 .yhbk-icon {
@@ -13,99 +16,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-github:before {
-  content: "\e7ab";
+.icon-lang-zh:before {
+  content: "\e6a3";
 }
 
-.icon-email:before {
-  content: "\e668";
-}
-
-.icon-qq:before {
-  content: "\e66a";
-}
-
-.icon-weibo:before {
-  content: "\e66b";
-}
-
-.icon-wechat:before {
-  content: "\e66c";
-}
-
-.icon-alarm:before {
-  content: "\e60c";
-}
-
-.icon-area-chart:before {
-  content: "\e607";
-}
-
-.icon-plane:before {
-  content: "\e729";
-}
-
-.icon-arrow-top:before {
-  content: "\e919";
-}
-
-.icon-arrow-down:before {
-  content: "\e61a";
-}
-
-.icon-arrow-left:before {
-  content: "\e917";
-}
-
-.icon-arrow-right:before {
-  content: "\e918";
-}
-
-.icon-home:before {
-  content: "\e6f1";
-}
-
-.icon-link:before {
-  content: "\e600";
-}
-
-.icon-search:before {
-  content: "\e63f";
-}
-
-.icon-user:before {
-  content: "\e63c";
-}
-
-.icon-rocket:before {
-  content: "\e61c";
-}
-
-.icon-pin:before {
-  content: "\e916";
-}
-
-.icon-category:before {
-  content: "\e601";
-}
-
-.icon-drawer:before {
-  content: "\e62d";
-}
-
-.icon-setting:before {
-  content: "\e602";
-}
-
-.icon-tag:before {
-  content: "\e62f";
-}
-
-.icon-msg:before {
-  content: "\e60e";
-}
-
-.icon-calendar:before {
-  content: "\e736";
+.icon-lang-en:before {
+  content: "\e696";
 }
 

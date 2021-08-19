@@ -64,7 +64,7 @@
                 immediate: true,
                 handler (newVal) {
                     if (newVal && newVal.length) {
-                        this.menuList = this.treeByPid(JSON.parse(JSON.stringify(newVal)), null)
+                        this.menuList = this.treeByPid(JSON.parse(JSON.stringify(newVal)), '')
                     }
                 }
             }

@@ -11,6 +11,9 @@ const getters = {
     userMsgCount: (state) => {
         return state.user.msgCount
     },
+    language: (state) => {
+        return state.common.language === 'en' ? 'en' : 'zh'
+    },
     isCollapse: (state) => {
         return state.common.collapse
     },

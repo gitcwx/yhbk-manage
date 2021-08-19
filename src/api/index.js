@@ -6,7 +6,9 @@ export const api = {
     },
     permission: {
         list: '/api/permission/list',
-        edit: '/api/permission/edit'
+        add: '/api/permission/add',
+        edit: '/api/permission/edit',
+        del: '/api/permission/del'
     },
     article: {
         list: '/api/article/list',

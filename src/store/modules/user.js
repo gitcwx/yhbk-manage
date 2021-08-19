@@ -25,7 +25,14 @@ const user = {
     actions: {
         getPermission ({ commit }, params) {
             return new Promise((resolve, reject) => {
-                axios.post(api.permission.list).then(res => {
+                axios({
+                    url: api.permission.list,
+                    method: 'post',
+                    data: {
+                        isMenu: true,
+                        by: 'userId'
+                    }
+                }).then(res => {
                     if (res.data && res.data.code === '00') {
                         commit('SET_PERMISSION', res.data.data)
                         resolve(res)

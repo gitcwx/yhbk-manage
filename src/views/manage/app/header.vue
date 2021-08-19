@@ -8,6 +8,17 @@
         <div class="logo">后台管理系统</div>
         <div class="app-header-right">
             <div class="app-header-user">
+                <!-- 中英文切换 -->
+                <div class="btn-language" @click="changeLanguage">
+                    <el-tooltip
+                        effect="dark"
+                        :content="language === 'en' ? '中文' : 'English'"
+                        placement="bottom"
+                    >
+                        <i v-if="language === 'en'" class="yhbk-icon icon-lang-zh"></i>
+                        <i v-else class="yhbk-icon icon-lang-en"></i>
+                    </el-tooltip>
+                </div>
                 <!-- 全屏显示 -->
                 <div class="btn-fullscreen" @click="handleFullScreen">
                     <el-tooltip
@@ -62,6 +73,9 @@
             }
         },
         computed: {
+            language () {
+                return this.$store.getters.language
+            },
             collapse () {
                 return this.$store.getters.isCollapse
             },
@@ -124,6 +138,9 @@
                     }
                 }
                 this.fullscreen = !this.fullscreen
+            },
+            changeLanguage () {
+                this.$store.commit('SET_LANGUAGE', this.language === 'en' ? 'zh' : 'en')
             }
         }
     }
@@ -170,6 +187,7 @@
                 font-size: 24px;
             }
             .btn-bell,
+            .btn-language,
             .btn-fullscreen {
                 position: relative;
                 width: 30px;

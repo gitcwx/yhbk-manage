@@ -5,6 +5,7 @@ const common = {
         loadingSpinner: '',
         loadingBackground: '',
 
+        language: '',
         collapse: false,
         aliveTags: []
     },
@@ -15,6 +16,10 @@ const common = {
             state.loadingText = loadingText || '加载中...'
             state.loadingSpinner = loadingSpinner || 'el-icon-loading'
             state.loadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.45)'
+        },
+        SET_LANGUAGE: (state, language) => {
+            state.language = language
+            localStorage.setItem('language', language)
         },
         SET_COLLAPSE: (state, collapse) => {
             state.collapse = collapse

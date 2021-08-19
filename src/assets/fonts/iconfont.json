@@ -1,177 +1,23 @@
 {
-  "id": "2631112",
-  "name": "yhbk-front",
+  "id": "2755087",
+  "name": "yhbk-manage",
   "font_family": "yhbk-icon",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
     {
-      "icon_id": "128976",
-      "name": "github",
-      "font_class": "github",
-      "unicode": "e7ab",
-      "unicode_decimal": 59307
+      "icon_id": "11638524",
+      "name": "中文",
+      "font_class": "lang-zh",
+      "unicode": "e6a3",
+      "unicode_decimal": 59043
     },
     {
-      "icon_id": "599902",
-      "name": "邮件",
-      "font_class": "email",
-      "unicode": "e668",
-      "unicode_decimal": 58984
-    },
-    {
-      "icon_id": "599914",
-      "name": "QQ",
-      "font_class": "qq",
-      "unicode": "e66a",
-      "unicode_decimal": 58986
-    },
-    {
-      "icon_id": "599927",
-      "name": "微博",
-      "font_class": "weibo",
-      "unicode": "e66b",
-      "unicode_decimal": 58987
-    },
-    {
-      "icon_id": "599933",
-      "name": "微信",
-      "font_class": "wechat",
-      "unicode": "e66c",
-      "unicode_decimal": 58988
-    },
-    {
-      "icon_id": "8299584",
-      "name": "alarm",
-      "font_class": "alarm",
-      "unicode": "e60c",
-      "unicode_decimal": 58892
-    },
-    {
-      "icon_id": "18414647",
-      "name": "area chart",
-      "font_class": "area-chart",
-      "unicode": "e607",
-      "unicode_decimal": 58887
-    },
-    {
-      "icon_id": "11540763",
-      "name": "纸飞机",
-      "font_class": "plane",
-      "unicode": "e729",
-      "unicode_decimal": 59177
-    },
-    {
-      "icon_id": "22457587",
-      "name": "arrow down",
-      "font_class": "arrow-top",
-      "unicode": "e919",
-      "unicode_decimal": 59673
-    },
-    {
-      "icon_id": "902005",
-      "name": "arrow down",
-      "font_class": "arrow-down",
-      "unicode": "e61a",
-      "unicode_decimal": 58906
-    },
-    {
-      "icon_id": "22457461",
-      "name": "arrow down",
-      "font_class": "arrow-left",
-      "unicode": "e917",
-      "unicode_decimal": 59671
-    },
-    {
-      "icon_id": "22457582",
-      "name": "arrow down",
-      "font_class": "arrow-right",
-      "unicode": "e918",
-      "unicode_decimal": 59672
-    },
-    {
-      "icon_id": "7454283",
-      "name": "home",
-      "font_class": "home",
-      "unicode": "e6f1",
-      "unicode_decimal": 59121
-    },
-    {
-      "icon_id": "32814",
-      "name": "链接",
-      "font_class": "link",
-      "unicode": "e600",
-      "unicode_decimal": 58880
-    },
-    {
-      "icon_id": "695192",
-      "name": "搜索",
-      "font_class": "search",
-      "unicode": "e63f",
-      "unicode_decimal": 58943
-    },
-    {
-      "icon_id": "809937",
-      "name": "user",
-      "font_class": "user",
-      "unicode": "e63c",
-      "unicode_decimal": 58940
-    },
-    {
-      "icon_id": "2258165",
-      "name": "返回顶部 ",
-      "font_class": "rocket",
-      "unicode": "e61c",
-      "unicode_decimal": 58908
-    },
-    {
-      "icon_id": "10726148",
-      "name": "图钉",
-      "font_class": "pin",
-      "unicode": "e916",
-      "unicode_decimal": 59670
-    },
-    {
-      "icon_id": "13063051",
-      "name": "分类-选中",
-      "font_class": "category",
-      "unicode": "e601",
-      "unicode_decimal": 58881
-    },
-    {
-      "icon_id": "13069309",
-      "name": "抽屉",
-      "font_class": "drawer",
-      "unicode": "e62d",
-      "unicode_decimal": 58925
-    },
-    {
-      "icon_id": "18442205",
-      "name": "设 置",
-      "font_class": "setting",
-      "unicode": "e602",
-      "unicode_decimal": 58882
-    },
-    {
-      "icon_id": "18465341",
-      "name": "icon_biaoqian",
-      "font_class": "tag",
-      "unicode": "e62f",
-      "unicode_decimal": 58927
-    },
-    {
-      "icon_id": "18773141",
-      "name": "留言",
-      "font_class": "msg",
-      "unicode": "e60e",
-      "unicode_decimal": 58894
-    },
-    {
-      "icon_id": "21718414",
-      "name": "日 历",
-      "font_class": "calendar",
-      "unicode": "e736",
-      "unicode_decimal": 59190
+      "icon_id": "17326018",
+      "name": "英文",
+      "font_class": "lang-en",
+      "unicode": "e696",
+      "unicode_decimal": 59030
     }
   ]
 }

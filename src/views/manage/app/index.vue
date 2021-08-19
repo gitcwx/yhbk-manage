@@ -1,34 +1,40 @@
 <template>
-    <app-header />
-    <app-menu />
-    <div class="app-body" :class="{ 'app-collapse': collapse }">
-        <app-tags />
-        <div
-            class="container"
-            v-loading="isLoading"
-            :element-loading-text="loadingText"
-            :element-loading-spinner="loadingSpinner"
-            :element-loading-background="loadingBackground"
-        >
-            <router-view v-slot="{ Component }">
-                <transition name="move" mode="out-in">
-                    <keep-alive :include="tagsList">
-                        <component :is="Component" />
-                    </keep-alive>
-                </transition>
-            </router-view>
-            <el-backtop target=".container" />
+    <el-config-provider :locale="locale">
+        <app-header />
+        <app-menu />
+        <div class="app-body" :class="{ 'app-collapse': collapse }">
+            <app-tags />
+            <div
+                class="container"
+                v-loading="isLoading"
+                :element-loading-text="loadingText"
+                :element-loading-spinner="loadingSpinner"
+                :element-loading-background="loadingBackground"
+            >
+                <router-view v-slot="{ Component }">
+                    <transition name="move" mode="out-in">
+                        <keep-alive :include="tagsList">
+                            <component :is="Component" />
+                        </keep-alive>
+                    </transition>
+                </router-view>
+                <el-backtop target=".container" />
+            </div>
         </div>
-    </div>
+    </el-config-provider>
 </template>
 <script>
+    import { ElConfigProvider } from 'element-plus'
+    import { localeSetting } from '@/util/localeSetting'
     import { mapState } from 'vuex'
     import appHeader from './header.vue'
     import appMenu from './menu.vue'
     import appTags from './tags.vue'
+
     export default {
         name: 'app',
         components: {
+            ElConfigProvider,
             appHeader,
             appMenu,
             appTags
@@ -37,6 +43,10 @@
             return {}
         },
         computed: {
+            locale () {
+                const language = this.$store.getters.language
+                return localeSetting[language]
+            },
             ...mapState({
                 collapse: state => state.common.collapse,
                 tagsList (state) {
@@ -54,7 +64,9 @@
                 loadingBackground: state => state.common.loadingBackground
             })
         },
-        created () {},
+        created () {
+            this.$store.commit('SET_LANGUAGE', localStorage.getItem('language'))
+        },
         methods: {}
     }
 </script>
