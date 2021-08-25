@@ -145,7 +145,7 @@
         }
     }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 .app-header {
     position: relative;
     box-sizing: border-box;

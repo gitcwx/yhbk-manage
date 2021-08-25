@@ -71,7 +71,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-body {
     position: absolute;
     left: 250px;
@@ -97,6 +97,16 @@
             background: #fff;
             min-height: 100%;
             padding: 20px;
+
+            .table-search {
+                .el-form-item__label {
+                    min-width: 80px;
+                }
+                .el-input,
+                .el-select {
+                    width: 200px;
+                }
+            }
         }
     }
 }

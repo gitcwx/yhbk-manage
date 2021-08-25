@@ -28,6 +28,12 @@ const routes = [
         meta: { title: '系统消息' }
     },
     {
+        path: '/manage/userList',
+        name: 'userList',
+        component: () => import('@/views/manage/user/list.vue'),
+        meta: { title: '用户管理' }
+    },
+    {
         path: '/manage/userInfo',
         name: 'userInfo',
         component: () => import('@/views/manage/user/info.vue'),

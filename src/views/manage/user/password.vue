@@ -95,7 +95,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .manage-user-password {
     .el-form {
         width: 600px;

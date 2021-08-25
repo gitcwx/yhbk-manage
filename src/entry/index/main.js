@@ -12,7 +12,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 // 私有对象
-import { api } from '@/api'
+import { api } from '@/config/api'
 
 const app = createApp(App)
 

@@ -3,12 +3,12 @@
         <div class="table-search">
             <el-form :inline="true" :model="searchData">
                 <el-form-item label="页面名称 :">
-                    <el-input v-model="searchData.text" placeholder="请输入页面名称" />
+                    <el-input v-model="searchData.text" placeholder="请输入" />
                 </el-form-item>
                 <el-form-item label="权限级别 :">
                     <el-select v-model="searchData.permissionLevel" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in roles"
+                            v-for="(item, index) in dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -22,8 +22,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="reloadTableData" >查询</el-button>
-                    <el-button type="success" @click="dialogVisible = true">新增页面</el-button>
+                    <el-button type="primary" @click="getTableData">查询</el-button>
+                    <el-button type="success" @click="addItem">新增页面</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -42,7 +42,7 @@
                         @change="selectPermission($event, scope.row)"
                     >
                         <el-option
-                            v-for="(item, index) in roles"
+                            v-for="(item, index) in dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -78,21 +78,13 @@
             </el-table-column>
             <el-table-column prop="createdAt" label="创建时间" min-width="180"/>
             <el-table-column prop="updatedAt" label="修改时间" min-width="180"/>
-            <el-table-column label="操作" width="100" align="center" fixed="right">
+            <el-table-column label="操作" width="150" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="danger" @click="deleteItem(scope.row)">删除</el-button>
+                    <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>
+                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination
-            background
-            layout="total, sizes, pager, jumper"
-            v-model:currentPage="searchData.page"
-            v-model:page-size="searchData.limit"
-            v-model:total="paginationData.total"
-            @size-change="sizeChange"
-            @current-change="getTableData"
-        />
         <!-- 新增页面弹框 -->
         <el-dialog
             title="新增页面"
@@ -101,7 +93,7 @@
             destroy-on-close
             center
         >
-            <el-form ref="add-form" :model="formData" :rules="rules" label-width="90px">
+            <el-form ref="page-info-form" :model="formData" :rules="rules" label-width="90px">
                 <el-form-item label="菜单图标" prop="icon">
                     <el-input v-model="formData.icon" placeholder="请输入图标class" :prefix-icon="formData.icon"/>
                 </el-form-item>
@@ -118,7 +110,7 @@
                         style="width: 100%"
                     >
                         <el-option
-                            v-for="(item, index) in roles"
+                            v-for="(item, index) in dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -147,7 +139,7 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="dialogCancel">取 消</el-button>
+                    <el-button @click="dialogVisible = false">取 消</el-button>
                     <el-button type="primary" @click="dialogSubmit">确 定</el-button>
                 </span>
             </template>
@@ -159,21 +151,10 @@
         name: 'manage manage-permission',
         data () {
             return {
-                // 角色下拉选
-                roles: [
-                    { label: '超级管理员', value: 0 },
-                    { label: '管理员', value: 1 },
-                    { label: '普通用户', value: 2 },
-                    { label: '游客', value: 9 }
-                ],
-                // 分页数据
-                paginationData: {
-                    total: 0
-                },
                 // 表格渲染条件
                 searchData: {
                     page: 1,
-                    limit: 10,
+                    limit: 999,
                     text: '',
                     permissionLevel: '',
                     isMenu: ''
@@ -182,11 +163,19 @@
                 tableData: [],
                 // 新增页面弹框可见性
                 dialogVisible: false,
+                // 表单类型 add 新增 edit 修改
+                formType: '',
                 // 新增页面表单参数
                 formData: {
+                    icon: '',
                     text: '',
-                    name: ''
+                    name: '',
+                    permissionLevel: 0,
+                    isMenu: true,
+                    parentMenuId: ''
                 },
+                // 新增页面表单参数默认值缓存
+                defaultFormData: {},
                 // 新增页面表单校验规则
                 rules: {
                     text: { required: true, message: '请输入页面名称' },
@@ -195,16 +184,12 @@
             }
         },
         created () {
+            // 缓存表单默认值
+            this.defaultFormData = this.deepClone(this.formData)
+            // 获取表格数据
             this.getTableData()
         },
         methods: {
-            sizeChange () {
-                if (this.searchData.page === 1) {
-                    this.getTableData()
-                }
-                // else
-                // sizeChange 会联动 currentChange
-            },
             // 设置是否在菜单栏中显示
             switchIsMenu (row) {
                 return () => {
@@ -228,27 +213,28 @@
                     parentMenuId: value
                 })
             },
-            // 新增弹框关闭
-            dialogCancel () {
-                this.$refs['add-form'].resetFields()
-                this.dialogVisible = false
-            },
-            // 新增弹框确认按钮
+            // 弹框确认按钮
             dialogSubmit () {
-                this.$refs['add-form'].validate(valid => {
+                this.$refs['page-info-form'].validate(valid => {
                     if (valid) {
+                        let url
+                        if (this.formType === 'add') {
+                            url = this.api.permission.add
+                        } else if (this.formType === 'edit') {
+                            url = this.api.permission.edit
+                        }
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.permission.add,
+                            url,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             if (res.data.code === '00') {
                                 this.$message.success(res.data.msg)
-                                this.$refs['add-form'].resetFields()
+                                // this.$refs['page-info-form'].resetFields()
                                 this.dialogVisible = false
-                                this.reloadTableData()
+                                this.getTableData()
                             } else {
                                 this.$message.warning(res.data.msg)
                             }
@@ -260,6 +246,18 @@
                         return false
                     }
                 })
+            },
+            // 新增页面
+            addItem () {
+                this.formData = this.deepClone(this.defaultFormData)
+                this.dialogVisible = true
+                this.formType = 'add'
+            },
+            // 编辑页面
+            editItem (item) {
+                this.formData = this.deepClone(item)
+                this.dialogVisible = true
+                this.formType = 'edit'
             },
             // 删除页面
             deleteItem (item) {
@@ -285,10 +283,6 @@
                     })
                 })
             },
-            reloadTableData () {
-                this.searchData.page = 1
-                this.getTableData()
-            },
             // 获取页面列表
             getTableData () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
@@ -300,7 +294,6 @@
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
                     if (res.data.code === '00') {
                         this.tableData = res.data.data
-                        this.paginationData.total = res.data.total
                     } else {
                         this.$message.warning(res.data.msg)
                     }
@@ -335,4 +328,4 @@
         }
     }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

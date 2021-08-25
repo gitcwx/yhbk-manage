@@ -93,7 +93,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app-tags {
     position: relative;
     height: 30px;

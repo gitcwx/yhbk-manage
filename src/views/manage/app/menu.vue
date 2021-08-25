@@ -95,7 +95,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .app-menu {
     display: block;
     position: absolute;

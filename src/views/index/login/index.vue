@@ -77,7 +77,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .page-login {
     position: relative;
     width: 100%;

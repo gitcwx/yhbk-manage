@@ -12,18 +12,24 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 // 私有对象
-import { api } from '@/api'
+import { api } from '@/config/api'
+import { dictionary } from '@/config/dictionary'
 import { getToken, setToken } from '@/util/cookies.js'
+import { deepClone } from '@/util/globalExtend.js'
 
 const app = createApp(App)
 
 /* 变量挂载 */
 app.config.globalProperties.api = api
+app.config.globalProperties.dictionary = dictionary
 
 /* 方法挂载 */
-app.config.globalProperties.moment = moment
-app.config.globalProperties.$axios = axios
 axios.defaults.timeout = 60000
+app.config.globalProperties.$axios = axios
+app.config.globalProperties.moment = moment
+
+/* 自定义方法挂载 */
+app.config.globalProperties.deepClone = deepClone
 
 /* 插件install */
 app.use(ElementPlus, { size: 'small' })

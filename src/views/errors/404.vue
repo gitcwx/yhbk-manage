@@ -24,4 +24,4 @@
     }
 </script>
 
-<style scoped lang="scss" src="./assets/css/index.scss"></style>
+<style lang="scss" src="./assets/css/index.scss"></style>

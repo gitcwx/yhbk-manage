@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { api } from '@/api'
+import { api } from '@/config/api'
 
 const user = {
     state: {
@@ -29,7 +29,6 @@ const user = {
                     url: api.permission.list,
                     method: 'post',
                     data: {
-                        isMenu: true,
                         by: 'userId'
                     }
                 }).then(res => {
