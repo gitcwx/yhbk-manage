@@ -76,7 +76,7 @@
                             }
                         }).then(res => {
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                            if (res.data.code === '00') {
+                            if (res.data.code === 's00') {
                                 this.$message.success(res.data.msg)
                                 this.$refs['password-form'].resetFields()
                             } else {

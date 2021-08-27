@@ -87,7 +87,7 @@
         </el-table>
         <!-- 新增页面弹框 -->
         <el-dialog
-            title="新增页面"
+            :title="formType === 'add' ? '新增页面' : '编辑页面'"
             v-model="dialogVisible"
             width="400px"
             destroy-on-close
@@ -98,10 +98,13 @@
                     <el-input v-model="formData.icon" placeholder="请输入图标class" :prefix-icon="formData.icon"/>
                 </el-form-item>
                 <el-form-item label="页面名称" prop="text">
-                    <el-input v-model="formData.text" placeholder="请输入页面名称" />
+                    <el-input v-model="formData.text" placeholder="请输入" />
+                </el-form-item>
+                <el-form-item label="英文名称" prop="textEn">
+                    <el-input v-model="formData.textEn" placeholder="请输入" />
                 </el-form-item>
                 <el-form-item label="页面路由" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入页面路由" />
+                    <el-input v-model="formData.name" placeholder="请输入" />
                 </el-form-item>
                 <el-form-item label="页面权限" prop="permissionLevel">
                     <el-select
@@ -169,6 +172,7 @@
                 formData: {
                     icon: '',
                     text: '',
+                    textEn: '',
                     name: '',
                     permissionLevel: 0,
                     isMenu: true,
@@ -179,6 +183,7 @@
                 // 新增页面表单校验规则
                 rules: {
                     text: { required: true, message: '请输入页面名称' },
+                    textEn: { required: true, message: '请输入页面英文名称' },
                     permissionLevel: { required: true, message: '请选择页面权限' }
                 }
             }
@@ -230,7 +235,7 @@
                             data: this.formData
                         }).then(res => {
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                            if (res.data.code === '00') {
+                            if (res.data.code === 's00') {
                                 this.$message.success(res.data.msg)
                                 // this.$refs['page-info-form'].resetFields()
                                 this.dialogVisible = false
@@ -271,7 +276,7 @@
                         }
                     }).then(res => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        if (res.data.code === '00') {
+                        if (res.data.code === 's00') {
                             this.$message.success(res.data.msg)
                             this.getTableData()
                         } else {
@@ -292,7 +297,7 @@
                     data: this.searchData
                 }).then(res => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    if (res.data.code === '00') {
+                    if (res.data.code === 's00') {
                         this.tableData = res.data.data
                     } else {
                         this.$message.warning(res.data.msg)
@@ -312,7 +317,7 @@
                         data: params
                     }).then(res => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        if (res.data.code === '00') {
+                        if (res.data.code === 's00') {
                             return resolve(true)
                         } else {
                             this.$message.warning(res.data.msg)

@@ -32,7 +32,7 @@ const user = {
                         by: 'userId'
                     }
                 }).then(res => {
-                    if (res.data && res.data.code === '00') {
+                    if (res.data && res.data.code === 's00') {
                         commit('SET_PERMISSION', res.data.data)
                         resolve(res)
                     } else {
@@ -46,7 +46,7 @@ const user = {
         getUserInfo ({ commit }, params) {
             return new Promise((resolve, reject) => {
                 axios.post(api.user.info).then(res => {
-                    if (res.data && res.data.code === '00') {
+                    if (res.data && res.data.code === 's00') {
                         commit('SET_USER_INFO', res.data.data)
                         resolve(res)
                     } else {
@@ -60,7 +60,7 @@ const user = {
         getMsgCount ({ commit }, params) {
             return new Promise((resolve, reject) => {
                 axios.post(api.message.count).then(res => {
-                    if (res.data && res.data.code === '00') {
+                    if (res.data && res.data.code === 's00') {
                         commit('SET_MSGCOUNT', res.data.data)
                         resolve(res)
                     } else {

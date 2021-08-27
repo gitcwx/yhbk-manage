@@ -125,7 +125,7 @@
                         }
                     }).then(res => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        if (res.data.code === '00') {
+                        if (res.data.code === 's00') {
                             this.$message.success(res.data.msg)
                             this.getTableData()
                         } else {
@@ -146,7 +146,7 @@
                     data: this.searchData
                 }).then(res => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    if (res.data.code === '00') {
+                    if (res.data.code === 's00') {
                         this.tableData = res.data.data
                         this.paginationData.total = res.data.total
                     } else {

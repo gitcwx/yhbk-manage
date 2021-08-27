@@ -59,7 +59,7 @@
                             method: 'post',
                             data: this.formData
                         }).then(res => {
-                            if (res.data.code === '00') {
+                            if (res.data.code === 's00') {
                                 setToken(res.data.token)
                                 window.location.href = '/manage'
                             } else {
