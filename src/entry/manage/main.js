@@ -51,6 +51,7 @@ axios.interceptors.request.use(config => {
     if (typeof token !== 'undefined') {
         config.headers.Authorization = 'Bearer ' + token
     }
+    config.headers.language = localStorage.getItem('language') || store.getters.language
     return config
 }, error => {
     return Promise.reject(error)
@@ -64,7 +65,7 @@ axios.interceptors.response.use(response => {
     }
     return response
 }, error => {
-    if (typeof error.response !== 'undefined' && error.response.status === 401) {
+    if (error.response && error.response.status === 405) {
         window.location.href = '/login'
         return new Promise(() => {
         })

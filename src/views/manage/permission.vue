@@ -66,7 +66,7 @@
                     >
                         <!-- 只显示除自己以外的菜单项 -->
                         <el-option
-                            v-for="(item, index) in tableData"
+                            v-for="(item, index) in tableDataAll"
                             v-show="item.isMenu && item.id !== scope.row.id && !item.parentMenuId"
                             :key="index"
                             :label="item.text"
@@ -131,7 +131,7 @@
                         style="width: 100%"
                     >
                         <el-option
-                            v-for="(item, index) in tableData"
+                            v-for="(item, index) in tableDataAll"
                             v-show="item.isMenu && !item.parentMenuId"
                             :key="index"
                             :label="item.text"
@@ -164,6 +164,8 @@
                 },
                 // 表格数据
                 tableData: [],
+                // 所有表格数据
+                tableDataAll: [],
                 // 新增页面弹框可见性
                 dialogVisible: false,
                 // 表单类型 add 新增 edit 修改
@@ -192,7 +194,10 @@
             // 缓存表单默认值
             this.defaultFormData = this.deepClone(this.formData)
             // 获取表格数据
-            this.getTableData()
+            this.getTableData((data) => {
+                // 缓存所有全部表格数据供下拉选
+                this.tableDataAll = this.deepClone(data)
+            })
         },
         methods: {
             // 设置是否在菜单栏中显示
@@ -289,7 +294,7 @@
                 })
             },
             // 获取页面列表
-            getTableData () {
+            getTableData (callback) {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
                     url: this.api.permission.list,
@@ -299,6 +304,7 @@
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
                     if (res.data.code === 's00') {
                         this.tableData = res.data.data
+                        !!callback && typeof callback === 'function' && callback(res.data.data)
                     } else {
                         this.$message.warning(res.data.msg)
                     }

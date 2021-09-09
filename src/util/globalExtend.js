@@ -1,4 +1,4 @@
-const deepClone = (obj) => {
+const deepClone = function (obj) {
     const that = this
     const objClone = Array.isArray(obj) ? [] : {}
     if (obj && typeof obj === 'object') {

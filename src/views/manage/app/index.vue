@@ -65,7 +65,10 @@
             })
         },
         created () {
-            this.$store.commit('SET_LANGUAGE', localStorage.getItem('language'))
+            const language = localStorage.getItem('language')
+            if (language) {
+                this.$store.commit('SET_LANGUAGE', language)
+            }
         },
         methods: {}
     }
