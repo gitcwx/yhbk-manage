@@ -11,12 +11,12 @@
         <div class="tags-close-box">
             <el-dropdown @command="handleTags">
                 <el-button size="mini" type="primary">
-                    标签选项<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
                 <template #dropdown>
                     <el-dropdown-menu size="medium">
-                        <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-                        <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+                        <el-dropdown-item command="other">{{$t('layout.tagControl.closeOthers')}}</el-dropdown-item>
+                        <el-dropdown-item command="all">{{$t('layout.tagControl.closeAll')}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>

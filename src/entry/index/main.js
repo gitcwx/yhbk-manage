@@ -25,7 +25,7 @@ app.config.globalProperties.$axios = axios
 axios.defaults.timeout = 60000
 
 /* 插件install */
-app.use(ElementPlus)
+app.use(ElementPlus, { size: 'small' })
 
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('../../../mock')

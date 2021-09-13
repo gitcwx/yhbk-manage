@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">{{ $t('layout.title') }}</div>
         <div class="app-header-right">
             <div class="app-header-user">
                 <!-- 中英文切换 -->
@@ -23,7 +23,7 @@
                 <div class="btn-fullscreen" @click="handleFullScreen">
                     <el-tooltip
                         effect="dark"
-                        :content="fullscreen ? `取消全屏` : `全屏`"
+                        :content="fullscreen ? $t('layout.fullscreen.close') : $t('layout.fullscreen.open')"
                         placement="bottom"
                     >
                         <i class="el-icon-rank"></i>
@@ -32,7 +32,7 @@
                 <!-- 消息中心 -->
                 <div class="btn-bell">
                     <el-tooltip effect="dark" placement="bottom"
-                        :content="message ? `有${message}条未读消息` : `消息中心`">
+                        :content="message ? `${message}` + $t('layout.message.unread') : $t('layout.message.name')">
                         <router-link :to="{ name: 'message' }">
                             <i class="el-icon-bell"></i>
                         </router-link>
@@ -52,9 +52,9 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="userInfo">个人信息</el-dropdown-item>
-                            <el-dropdown-item command="password">修改密码</el-dropdown-item>
-                            <el-dropdown-item command="loginout">退出登录</el-dropdown-item>
+                            <el-dropdown-item command="userInfo">{{$t('layout.dropdown.userCenter')}}</el-dropdown-item>
+                            <el-dropdown-item command="password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
+                            <el-dropdown-item command="loginout">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -91,7 +91,7 @@
             this.$store.dispatch('getUserInfo')
 
             // 获取未读消息数量
-            this.$store.dispatch('getMsgCount')
+            // this.$store.dispatch('getMsgCount')
         },
         mounted () {
             if (document.body.clientWidth < 1500) {
@@ -141,6 +141,7 @@
             },
             changeLanguage () {
                 this.$store.commit('SET_LANGUAGE', this.language === 'en' ? 'zh' : 'en')
+                this.$i18n.locale = this.language
             }
         }
     }

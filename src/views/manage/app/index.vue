@@ -25,7 +25,8 @@
 </template>
 <script>
     import { ElConfigProvider } from 'element-plus'
-    import { localeSetting } from '@/util/localeSetting'
+    import zh from 'element-plus/es/locale/lang/zh-cn'
+    import en from 'element-plus/es/locale/lang/en'
     import { mapState } from 'vuex'
     import appHeader from './header.vue'
     import appMenu from './menu.vue'
@@ -45,7 +46,7 @@
         computed: {
             locale () {
                 const language = this.$store.getters.language
-                return localeSetting[language]
+                return language === 'en' ? en : zh
             },
             ...mapState({
                 collapse: state => state.common.collapse,

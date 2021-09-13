@@ -11,6 +11,9 @@ import moment from 'moment'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
+// i18n国际化翻译
+import i18n from '../../lang'
+
 // 私有对象
 import { api } from '@/config/api'
 import { dictionary } from '@/config/dictionary'
@@ -117,4 +120,5 @@ router.afterEach(() => {
 app
   .use(store)
   .use(router)
+  .use(i18n)
   .mount('#app')
