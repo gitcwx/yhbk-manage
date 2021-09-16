@@ -1,4 +1,5 @@
 export default {
+    router: {},
     layout: {
         title: 'Manage System',
         collapse: {

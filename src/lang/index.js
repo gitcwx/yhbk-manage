@@ -4,6 +4,15 @@ import store from '@/store'
 import zh from './zh'
 import en from './en'
 
+import router from '@/entry/manage/router'
+
+router.getRoutes().forEach(item => {
+    if (item.name) {
+        zh.router[item.name] = item.meta.title
+        en.router[item.name] = item.meta.titleEn
+    }
+})
+
 const i18n = createI18n({
     fallbackLocale: 'zh',
     globalInjection: true,

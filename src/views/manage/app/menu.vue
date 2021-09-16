@@ -14,18 +14,18 @@
                     <el-submenu :index="firstLevel.name" :key="firstLevel.id">
                         <template #title>
                             <i :class="firstLevel.icon"></i>
-                            <span>{{ firstLevel.text }}</span>
+                            <span>{{ $t('router.' + firstLevel.name) }}</span>
                         </template>
                         <template v-for="secondLevel in firstLevel.children">
                             <el-submenu v-if="secondLevel.children" :index="secondLevel.name" :key="secondLevel.id">
                                 <template #title>
                                     <i :class="secondLevel.icon"></i>
-                                    {{ secondLevel.text }}
+                                    {{ $t('router.' + secondLevel.name) }}
                                 </template>
                             </el-submenu>
                             <el-menu-item v-else-if="secondLevel.isMenu" :index="secondLevel.name" :key="secondLevel.id">
                                 <i :class="secondLevel.icon"></i>
-                                {{ secondLevel.text }}
+                                {{ $t('router.' + secondLevel.name) }}
                             </el-menu-item>
                         </template>
                     </el-submenu>
@@ -33,7 +33,7 @@
                 <template v-else-if="firstLevel.isMenu">
                     <el-menu-item :index="firstLevel.name" :key="firstLevel.id">
                         <i :class="firstLevel.icon"></i>
-                        <span>{{ firstLevel.text }}</span>
+                        <span>{{ $t('router.' + firstLevel.name) }}</span>
                     </el-menu-item>
                 </template>
             </template>

@@ -2,21 +2,27 @@
     <div class="app-tags" v-if="tagsList.length">
         <ul class="tags-list">
             <li class="tags-item" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
-                <router-link :to="item.path" class="tags-item-title">
-                    {{item.title}}
-                </router-link>
+                <!-- <el-tooltip
+                    effect="dark"
+                    :content="$t('router.'+item.title)"
+                    placement="bottom"
+                > -->
+                    <router-link :to="item.path" class="tags-item-title">
+                        {{ $t('router.' + item.title )}}
+                    </router-link>
+                <!-- </el-tooltip> -->
                 <span class="tags-item-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
             </li>
         </ul>
         <div class="tags-close-box">
-            <el-dropdown @command="handleTags">
+            <el-dropdown @command="handleTags" placement="bottom-end">
                 <el-button size="mini" type="primary">
                     {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
                 <template #dropdown>
-                    <el-dropdown-menu size="medium">
+                    <el-dropdown-menu>
                         <el-dropdown-item command="other">{{$t('layout.tagControl.closeOthers')}}</el-dropdown-item>
-                        <el-dropdown-item command="all">{{$t('layout.tagControl.closeAll')}}</el-dropdown-item>
+                        <el-dropdown-item :divided="true" command="all">{{$t('layout.tagControl.closeAll')}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -78,8 +84,9 @@
                         this.tagsList.shift()
                     }
                     this.tagsList.push({
-                        title: route.meta.title,
+                        title: route.name,
                         path: route.fullPath,
+                        // name 必要 keep-alive include
                         name: route.matched[0].components.default.name
                     })
                 }

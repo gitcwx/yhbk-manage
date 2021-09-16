@@ -1,4 +1,5 @@
 export default {
+    router: {},
     layout: {
         title: '后台管理系统',
         collapse: {
