@@ -2,10 +2,10 @@
     <div class="manage manage-permission">
         <div class="table-search">
             <el-form :inline="true" :model="searchData">
-                <el-form-item label="页面名称 :">
+                <el-form-item label="页面名称">
                     <el-input v-model="searchData.text" placeholder="请输入" />
                 </el-form-item>
-                <el-form-item label="权限级别 :">
+                <el-form-item label="权限级别">
                     <el-select v-model="searchData.permissionLevel" placeholder="请选择" clearable>
                         <el-option
                             v-for="(item, index) in dictionary.roles"
@@ -15,15 +15,15 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="是否为菜单 :">
+                <el-form-item label="是否为菜单">
                     <el-select v-model="searchData.isMenu" placeholder="请选择" clearable>
                         <el-option label="是" :value="true"></el-option>
                         <el-option label="否" :value="false"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="getTableData">查询</el-button>
-                    <el-button type="success" @click="addItem">新增页面</el-button>
+                    <el-button type="primary" @click="getTableData">{{$t('button.search')}}</el-button>
+                    <el-button type="success" @click="addItem">{{$t('button.add')}}</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -78,10 +78,10 @@
             </el-table-column>
             <el-table-column prop="createdAt" label="创建时间" min-width="180"/>
             <el-table-column prop="updatedAt" label="修改时间" min-width="180"/>
-            <el-table-column label="操作" width="150" align="center" fixed="right">
+            <el-table-column label="操作" width="180" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>
-                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+                    <el-button type="primary" size="mini" @click="editItem(scope.row)">{{$t('button.edit')}}</el-button>
+                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">{{$t('button.delete')}}</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -142,8 +142,8 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogSubmit">确 定</el-button>
+                    <el-button @click="dialogVisible = false">{{$t('button.cancel')}}</el-button>
+                    <el-button type="primary" @click="dialogSubmit">{{$t('button.ok')}}</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -250,7 +250,7 @@
                             }
                         }).catch(() => {
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                            this.$message.error('未知错误，请稍后重试')
+                            this.$message.error(this.$t('ErrMsg'))
                         })
                     } else {
                         return false
@@ -271,27 +271,28 @@
             },
             // 删除页面
             deleteItem (item) {
-                this.$confirm('确认删除？').then(() => {
-                    this.$store.commit('SET_IS_LOADING', { isLoading: true })
-                    this.$axios({
-                        url: this.api.permission.del,
-                        method: 'post',
-                        data: {
-                            id: item.id
-                        }
-                    }).then(res => {
-                        this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        if (res.data.code === 's00') {
-                            this.$message.success(res.data.msg)
-                            this.getTableData()
-                        } else {
-                            this.$message.warning(res.data.msg)
-                        }
-                    }).catch(() => {
-                        this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        this.$message.error('未知错误，请稍后重试')
-                    })
-                })
+                this.$confirm(this.$t('confirm.delete'))
+                    .then(() => {
+                        this.$store.commit('SET_IS_LOADING', { isLoading: true })
+                        this.$axios({
+                            url: this.api.permission.del,
+                            method: 'post',
+                            data: {
+                                id: item.id
+                            }
+                        }).then(res => {
+                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                            if (res.data.code === 's00') {
+                                this.$message.success(res.data.msg)
+                                this.getTableData()
+                            } else {
+                                this.$message.warning(res.data.msg)
+                            }
+                        }).catch(() => {
+                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                            this.$message.error(this.$t('ErrMsg'))
+                        })
+                    }).catch(() => {})
             },
             // 获取页面列表
             getTableData (callback) {
@@ -310,7 +311,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             // 设置
@@ -331,7 +332,7 @@
                         }
                     }).catch(() => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        this.$message.error('未知错误，请稍后重试')
+                        this.$message.error(this.$t('ErrMsg'))
                         return reject(new Error('error'))
                     })
                 })

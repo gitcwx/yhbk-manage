@@ -16,7 +16,7 @@ export default {
         },
         dropdown: {
             userCenter: 'Profile',
-            modifyPassword: 'Modify Password',
+            modifyPassword: 'Password',
             signOut: 'Sign Out'
         },
         tagControl: {
@@ -24,5 +24,22 @@ export default {
             closeOthers: 'Close Others',
             closeAll: 'Close All'
         }
-    }
+    },
+    button: {
+        yes: 'Yes',
+        no: 'No',
+        ok: 'OK',
+        cancel: 'Cancel',
+        add: 'Add',
+        edit: 'Edit',
+        view: 'View',
+        search: 'Search',
+        submit: 'Submit',
+        reset: 'Reset',
+        delete: 'Delete'
+    },
+    confirm: {
+        delete: 'Are You Sure About Delete This?'
+    },
+    ErrMsg: 'Unexpected Error, Try It Again Later!'
 }

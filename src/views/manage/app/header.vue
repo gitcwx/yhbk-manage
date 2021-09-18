@@ -45,7 +45,7 @@
                     <img v-else :src="require('@/assets/images/default-avatar.png')">
                 </div>
                 <!-- 用户名下拉菜单 -->
-                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                <el-dropdown class="user-name" trigger="hover" @command="handleCommand" size="medium">
                     <span class="el-dropdown-link">
                         {{ user.nickname }}
                         <i class="el-icon-caret-bottom"></i>
@@ -53,8 +53,8 @@
                     <template #dropdown>
                         <el-dropdown-menu>
                             <el-dropdown-item command="userInfo">{{$t('layout.dropdown.userCenter')}}</el-dropdown-item>
-                            <el-dropdown-item command="password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
-                            <el-dropdown-item command="loginout">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
+                            <el-dropdown-item :divided="true" command="password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
+                            <el-dropdown-item :divided="true" command="loginout">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -139,6 +139,7 @@
                 }
                 this.fullscreen = !this.fullscreen
             },
+            // 语言切换
             changeLanguage () {
                 this.$store.commit('SET_LANGUAGE', this.language === 'en' ? 'zh' : 'en')
                 this.$i18n.locale = this.language
@@ -226,6 +227,7 @@
         .el-dropdown-link {
             color: #fff;
             cursor: pointer;
+            padding: 10px;
         }
         .el-dropdown-menu__item {
             text-align: center;
