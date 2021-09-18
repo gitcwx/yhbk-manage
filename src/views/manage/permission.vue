@@ -166,11 +166,11 @@
                 tableData: [],
                 // 所有表格数据
                 tableDataAll: [],
-                // 新增页面弹框可见性
+                // 弹框可见性
                 dialogVisible: false,
                 // 表单类型 add 新增 edit 修改
                 formType: '',
-                // 新增页面表单参数
+                // 弹框表单参数
                 formData: {
                     icon: '',
                     text: '',
@@ -180,9 +180,9 @@
                     isMenu: true,
                     parentMenuId: ''
                 },
-                // 新增页面表单参数默认值缓存
+                // 弹框参数默认值缓存
                 defaultFormData: {},
-                // 新增页面表单校验规则
+                // 弹框表单校验规则
                 rules: {
                     text: { required: true, message: '请输入页面名称' },
                     textEn: { required: true, message: '请输入页面英文名称' },

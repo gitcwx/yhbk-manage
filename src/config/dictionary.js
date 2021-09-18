@@ -11,11 +11,10 @@ export const dictionary = {
         { label: '女', labelEn: 'Female', value: 2 }
     ],
     userStatus: [
-        { label: '正常', labelEn: 'Normal', value: 0 },
-        { label: '禁言', labelEn: 'Banned', value: 1 },
-        { label: '冻结', labelEn: 'Freeze', value: 2 }
+        { label: '正常', labelEn: 'Normal', value: 1 },
+        { label: '冻结', labelEn: 'Freeze', value: 0 }
     ],
-    loginFrom: [
+    from: [
         { label: '本站注册', labelEn: 'Web', value: 0 },
         { label: 'QQ授权', labelEn: 'QQ', value: 1 },
         { label: '其他', labelEn: 'Other', value: 2 }

@@ -48,6 +48,23 @@ require('nprogress/nprogress.css')
 /* 页面 css */
 require('@/assets/css/index.scss')
 
+// 注册全局指令
+app.directive('dictionary', {
+    mounted: (el, params) => {
+        const dicName = params.value.dicName
+        if (!dicName) {
+            console.error('请输入字典名称')
+            return
+        }
+        if (!dictionary[dicName]) {
+            console.error('不存在的字典名称')
+            return
+        }
+        const item = dictionary[dicName].find(v => v.value === params.value.value)
+        el.innerHTML = item ? item.label : '-'
+    }
+})
+
 // 将cookie的令牌添加到请求头
 axios.interceptors.request.use(config => {
     const token = getToken()

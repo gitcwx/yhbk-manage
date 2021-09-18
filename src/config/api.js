@@ -5,6 +5,7 @@ export const api = {
         add: '/api/user/add',
         register: '/api/user/register',
         login: '/api/user/login',
+        edit: '/api/user/edit',
         password: '/api/user/password',
         del: '/api/user/del'
     },

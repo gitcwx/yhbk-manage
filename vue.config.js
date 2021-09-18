@@ -33,7 +33,7 @@ module.exports = {
         index: {
             entry: 'src/entry/index/main.js',
             template: 'public/index.html',
-            title: '悠荷步客后台管理系统'
+            title: '悠荷步客'
         },
         manage: {
             entry: 'src/entry/manage/main.js',
