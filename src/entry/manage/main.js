@@ -28,6 +28,7 @@ app.config.globalProperties.dictionary = dictionary
 
 /* 方法挂载 */
 axios.defaults.timeout = 60000
+axios.defaults.baseURL = process.env.VUE_APP_axiosDefaultsBaseURL
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.moment = moment
 

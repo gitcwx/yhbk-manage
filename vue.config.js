@@ -6,7 +6,7 @@ const webpack = require('webpack')
 
 module.exports = {
     // 根据环境配置项目名
-    publicPath: process.env.NODE_ENV === 'production' ? '/manage' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
     outputDir: 'dist',
     // 保存时是否eslint检查
     lintOnSave: true,

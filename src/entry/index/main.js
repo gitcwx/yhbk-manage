@@ -21,8 +21,9 @@ app.config.globalProperties.api = api
 
 /* 方法挂载 */
 app.config.globalProperties.moment = moment
-app.config.globalProperties.$axios = axios
 axios.defaults.timeout = 60000
+axios.defaults.baseURL = process.env.VUE_APP_axiosDefaultsBaseURL
+app.config.globalProperties.$axios = axios
 
 /* 插件install */
 app.use(ElementPlus, { size: 'small' })
