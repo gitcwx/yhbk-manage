@@ -16,6 +16,11 @@ const routes = [
         component: () => import('@/views/index/login/index.vue')
     },
     {
+        path: '/qrcode',
+        name: 'qrcode',
+        component: () => import('@/views/index/qrcode/index.vue')
+    },
+    {
         path: '/403',
         name: '403',
         component: () => import('@/views/errors/403.vue')

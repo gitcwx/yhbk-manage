@@ -11,6 +11,9 @@ import moment from 'moment'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
+// 自定义公共组件/模块
+import globalModules from './globalModules'
+
 // i18n国际化翻译
 import i18n from '../../lang'
 
@@ -139,4 +142,5 @@ app
   .use(store)
   .use(router)
   .use(i18n)
+  .use(globalModules)
   .mount('#app')

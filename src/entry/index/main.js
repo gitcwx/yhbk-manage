@@ -11,6 +11,9 @@ import moment from 'moment'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
+// 自定义公共组件/模块
+import globalModules from './globalModules'
+
 // 私有对象
 import { api } from '@/config/api'
 
@@ -59,4 +62,5 @@ router.afterEach(() => {
 app
   .use(store)
   .use(router)
+  .use(globalModules)
   .mount('#app')
