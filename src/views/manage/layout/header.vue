@@ -1,13 +1,13 @@
 <template>
-    <div class="app-header">
+    <div class="manage-header">
         <!-- 折叠按钮 -->
         <div class="collapse-btn" @click="changeCollapse">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
         <div class="logo">{{ $t('layout.title') }}</div>
-        <div class="app-header-right">
-            <div class="app-header-user">
+        <div class="manage-header-right">
+            <div class="manage-header-user">
                 <!-- 中英文切换 -->
                 <div class="btn-language" @click="changeLanguage">
                     <el-tooltip
@@ -66,7 +66,7 @@
 <script>
     import { removeToken } from '@/util/cookies.js'
     export default {
-        name: 'app-header',
+        name: 'manage-header',
         data () {
             return {
                 fullscreen: false
@@ -148,7 +148,7 @@
     }
 </script>
 <style lang="scss">
-.app-header {
+.manage-header {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -174,11 +174,11 @@
         line-height: 70px;
     }
 
-    .app-header-right {
+    .manage-header-right {
         float: right;
         padding-right: 30px;
 
-        .app-header-user {
+        .manage-header-user {
             display: flex;
             height: 70px;
             align-items: center;

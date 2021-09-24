@@ -1,5 +1,5 @@
 <template>
-    <div class="app-menu">
+    <div class="manage-menu">
         <el-menu
             :default-active="onRoutes"
             :collapse="collapse"
@@ -43,7 +43,7 @@
 <script>
     import { mapState } from 'vuex'
     export default {
-        name: 'app-menu',
+        name: 'manage-menu',
         data () {
             return {
                 menuList: []
@@ -96,7 +96,7 @@
 </script>
 
 <style lang="scss">
-.app-menu {
+.manage-menu {
     display: block;
     position: absolute;
     left: 0;
@@ -112,7 +112,7 @@
         }
     }
 }
-.app-menu::-webkit-scrollbar {
+.manage-menu::-webkit-scrollbar {
     width: 0;
 }
 </style>

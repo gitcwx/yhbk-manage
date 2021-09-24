@@ -1,9 +1,9 @@
 <template>
     <el-config-provider :locale="locale">
-        <app-header />
-        <app-menu />
-        <div class="app-body" :class="{ 'app-collapse': collapse }">
-            <app-tags />
+        <manage-header />
+        <manage-menu />
+        <div class="manage-body" :class="{ 'manage-collapse': collapse }">
+            <manage-tags />
             <div
                 class="container"
                 v-loading="isLoading"
@@ -28,17 +28,17 @@
     import zh from 'element-plus/es/locale/lang/zh-cn'
     import en from 'element-plus/es/locale/lang/en'
     import { mapState } from 'vuex'
-    import appHeader from './header.vue'
-    import appMenu from './menu.vue'
-    import appTags from './tags.vue'
+    import manageHeader from './header.vue'
+    import manageMenu from './menu.vue'
+    import manageTags from './tags.vue'
 
     export default {
-        name: 'app',
+        name: 'manage-layout',
         components: {
             ElConfigProvider,
-            appHeader,
-            appMenu,
-            appTags
+            manageHeader,
+            manageMenu,
+            manageTags
         },
         data () {
             return {}
@@ -76,7 +76,7 @@
 </script>
 
 <style lang="scss">
-.app-body {
+.manage-body {
     position: absolute;
     left: 250px;
     right: 0;
@@ -86,7 +86,7 @@
     transition: left 0.3s ease-in-out;
     background: #f0f0f0;
 
-    &.app-collapse {
+    &.manage-collapse {
         left: 65px;
     }
 

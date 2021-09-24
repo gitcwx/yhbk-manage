@@ -1,5 +1,5 @@
 <template>
-    <div class="app-tags" v-if="tagsList.length">
+    <div class="manage-tags" v-if="tagsList.length">
         <ul class="tags-list">
             <li class="tags-item" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
                 <!-- <el-tooltip
@@ -32,7 +32,7 @@
 
 <script>
     export default {
-        name: 'app-tags',
+        name: 'manage-tags',
         data () {
             return {
                 tagsList: []
@@ -101,7 +101,7 @@
 </script>
 
 <style lang="scss">
-.app-tags {
+.manage-tags {
     position: relative;
     height: 30px;
     overflow: hidden;

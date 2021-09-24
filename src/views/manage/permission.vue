@@ -151,7 +151,7 @@
 </template>
 <script>
     export default {
-        name: 'manage manage-permission',
+        name: 'manage-permission',
         data () {
             return {
                 // 表格渲染条件

@@ -13,7 +13,7 @@ module.exports = {
     productionSourceMap: true,
     devServer: {
         // host: '127.0.0.1',
-        port: 9999,
+        port: 9090,
         // https: false, // https:{type:Boolean}
         open: true,
         disableHostCheck: true,

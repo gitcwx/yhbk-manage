@@ -201,7 +201,7 @@
 </template>
 <script>
     export default {
-        name: 'manage manage-user-list',
+        name: 'manage-user-list',
         data () {
             return {
                 // 分页数据
