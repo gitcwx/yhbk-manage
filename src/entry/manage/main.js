@@ -9,7 +9,7 @@ import axios from 'axios'
 import NProgress from 'nprogress'
 import moment from 'moment'
 import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
+import 'element-plus/dist/index.css'
 
 // 自定义公共组件/模块
 import globalModules from './globalModules'
