@@ -24,7 +24,6 @@
     </el-config-provider>
 </template>
 <script>
-    import { ElConfigProvider } from 'element-plus'
     import zh from 'element-plus/es/locale/lang/zh-cn'
     import en from 'element-plus/es/locale/lang/en'
     import { mapState } from 'vuex'
@@ -35,7 +34,6 @@
     export default {
         name: 'manage-layout',
         components: {
-            ElConfigProvider,
             manageHeader,
             manageMenu,
             manageTags

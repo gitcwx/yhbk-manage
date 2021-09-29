@@ -8,8 +8,7 @@ import axios from 'axios'
 // 第三方组件
 import NProgress from 'nprogress'
 import moment from 'moment'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import { ElementPlus } from './ElementPlus'
 
 // 自定义公共组件/模块
 import globalModules from './globalModules'
@@ -37,9 +36,6 @@ app.config.globalProperties.moment = moment
 
 /* 自定义方法挂载 */
 app.config.globalProperties.deepClone = deepClone
-
-/* 插件install */
-app.use(ElementPlus, { size: 'small' })
 
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('../../../mock')
@@ -142,5 +138,6 @@ app
   .use(store)
   .use(router)
   .use(i18n)
+  .use(ElementPlus)
   .use(globalModules)
   .mount('#app')

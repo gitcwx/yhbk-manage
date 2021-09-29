@@ -11,24 +11,24 @@
         >
             <template v-for="firstLevel in menuList">
                 <template v-if="firstLevel.children">
-                    <el-submenu :index="firstLevel.name" :key="firstLevel.id">
+                    <el-sub-menu :index="firstLevel.name" :key="firstLevel.id">
                         <template #title>
                             <i :class="firstLevel.icon"></i>
                             <span>{{ $t('router.' + firstLevel.name) }}</span>
                         </template>
                         <template v-for="secondLevel in firstLevel.children">
-                            <el-submenu v-if="secondLevel.children" :index="secondLevel.name" :key="secondLevel.id">
+                            <el-sub-menu v-if="secondLevel.children" :index="secondLevel.name" :key="secondLevel.id">
                                 <template #title>
                                     <i :class="secondLevel.icon"></i>
                                     {{ $t('router.' + secondLevel.name) }}
                                 </template>
-                            </el-submenu>
+                            </el-sub-menu>
                             <el-menu-item v-else-if="secondLevel.isMenu" :index="secondLevel.name" :key="secondLevel.id">
                                 <i :class="secondLevel.icon"></i>
                                 {{ $t('router.' + secondLevel.name) }}
                             </el-menu-item>
                         </template>
-                    </el-submenu>
+                    </el-sub-menu>
                 </template>
                 <template v-else-if="firstLevel.isMenu">
                     <el-menu-item :index="firstLevel.name" :key="firstLevel.id">

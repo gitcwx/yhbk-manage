@@ -45,7 +45,9 @@ module.exports = {
         loaderOptions: {
             sass: {
                 // 全局SCSS变量
-                prependData: '@import "~@/assets/css/common.scss";'
+                prependData: `
+                    @use "~@/assets/css/common.scss" as *;
+                `
             }
         }
     },
@@ -73,6 +75,10 @@ module.exports = {
                     }
                 })()
             })
+        )
+        // element-plus 按需加载
+        plugins.push(
+            require('unplugin-vue-components/webpack')
         )
 
         config.plugins = [...config.plugins, ...plugins]
