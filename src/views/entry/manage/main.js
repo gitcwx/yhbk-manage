@@ -4,39 +4,22 @@ import '@/registerServiceWorker'
 import router from './router'
 import store from '@/store'
 import axios from 'axios'
+import global from '@/global'
 
-// 第三方组件
 import NProgress from 'nprogress'
 import moment from 'moment'
-import { ElementPlus } from '@/util/ElementPlus'
-
-// 自定义公共组件/模块
-import globalModules from '@/modules'
-import globalComponents from '@/components'
-
-// i18n国际化翻译
-import i18n from '@/lang'
-
-// 私有对象
-import { api } from '@/config/api'
-import { dictionary } from '@/config/dictionary'
+import { api } from '@/api'
 import { getToken, setToken } from '@/util/cookies.js'
-import { deepClone } from '@/util/globalExtend.js'
+import i18n from '@/lang'
 
 const app = createApp(App)
 
-/* 变量挂载 */
-app.config.globalProperties.api = api
-app.config.globalProperties.dictionary = dictionary
-
-/* 方法挂载 */
+/* 属性挂载 */
 axios.defaults.timeout = 60000
 axios.defaults.baseURL = process.env.VUE_APP_axiosDefaultsBaseURL
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.moment = moment
-
-/* 自定义方法挂载 */
-app.config.globalProperties.deepClone = deepClone
+app.config.globalProperties.api = api
 
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('@/mock')
@@ -48,23 +31,6 @@ require('@/assets/fonts/iconfont.css')
 require('nprogress/nprogress.css')
 /* 页面 css */
 require('@/assets/css/index.scss')
-
-// 注册全局指令
-app.directive('dictionary', {
-    mounted: (el, params) => {
-        const dicName = params.value.dicName
-        if (!dicName) {
-            console.error('请输入字典名称')
-            return
-        }
-        if (!dictionary[dicName]) {
-            console.error('不存在的字典名称')
-            return
-        }
-        const item = dictionary[dicName].find(v => v.value === params.value.value)
-        el.innerHTML = item ? item.label : '-'
-    }
-})
 
 // 将cookie的令牌添加到请求头
 axios.interceptors.request.use(config => {
@@ -139,7 +105,5 @@ app
   .use(store)
   .use(router)
   .use(i18n)
-  .use(ElementPlus)
-  .use(globalModules)
-  .use(globalComponents)
+  .use(global)
   .mount('#app')

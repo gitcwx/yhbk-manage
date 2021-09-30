@@ -41,7 +41,7 @@ import {
 // import 'element-plus/packages/theme-chalk/src/base.scss'
 import 'element-plus/dist/index.css'
 
-const components = [
+export const components = [
     ElConfigProvider,
     ElAvatar,
     ElBacktop,
@@ -77,24 +77,9 @@ const components = [
     ElUpload
 ]
 
-const plugins = [
+export const plugins = [
     ElInfiniteScroll,
     ElLoading,
     ElMessage,
     ElMessageBox
 ]
-
-export const ElementPlus = {
-    install: (app) => {
-        components.forEach((component) => {
-            app.component(component.name, component)
-        })
-
-        plugins.forEach((plugin) => {
-            app.use(plugin)
-        })
-
-        // 全局配置
-        app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
-    }
-}

@@ -1,4 +1,4 @@
-export const dictionary = {
+export default {
     roles: [
         { label: '超级管理员', labelEn: 'Super', value: 0 },
         { label: '管理员', labelEn: 'Master', value: 1 },
