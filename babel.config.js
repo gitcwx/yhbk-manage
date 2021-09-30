@@ -1,3 +1,13 @@
+const prodPlugins = []
+if (process.env.NODE_ENV === 'production') {
+  prodPlugins.push([
+    'transform-remove-console',
+    {
+      // 保留 console.error 与 console.warn
+      exclude: ['error', 'warn']
+    }
+  ])
+}
 console.log(1)
 module.exports = {
   presets: [
@@ -13,6 +23,7 @@ module.exports = {
           return `element-plus/packages/theme-chalk/src/${name}.scss`
         }
       }
-    ]
+    ],
+    ...prodPlugins
   ]
 }
