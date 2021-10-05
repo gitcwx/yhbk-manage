@@ -1,22 +1,22 @@
 export const api = {
     user: {
-        list: '/api/user/list',
-        info: '/api/user/info',
-        add: '/api/user/add',
-        register: '/api/user/register',
-        login: '/api/user/login',
-        edit: '/api/user/edit',
-        password: '/api/user/password',
-        del: '/api/user/del'
+        list: '/user/list',
+        info: '/user/info',
+        add: '/user/add',
+        register: '/user/register',
+        login: '/user/login',
+        edit: '/user/edit',
+        password: '/user/password',
+        del: '/user/del'
     },
     permission: {
-        list: '/api/permission/list',
-        add: '/api/permission/add',
-        edit: '/api/permission/edit',
-        del: '/api/permission/del'
+        list: '/permission/list',
+        add: '/permission/add',
+        edit: '/permission/edit',
+        del: '/permission/del'
     },
     article: {
-        list: '/api/article/list',
-        detail: '/api/article/detail'
+        list: '/article/list',
+        detail: '/article/detail'
     }
 }

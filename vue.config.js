@@ -2,7 +2,7 @@ const webpack = require('webpack')
 // gzip压缩插件
 // const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
-// const projectTitle = '悠荷步客后台管理系统'
+// const projectTitle = ''
 
 module.exports = {
     // 根据环境配置项目名
@@ -22,9 +22,9 @@ module.exports = {
                 target: 'http://api.youhebuke.com',
                 ws: true,
                 changeOrigin: true,
-                // logLevel: 'debug',
+                logLevel: 'debug',
                 pathRewrite: {
-                    '/api': 'http://api.youhebuke.com/api'
+                    '/api': ''
                 }
             }
         }
@@ -33,12 +33,12 @@ module.exports = {
         index: {
             entry: 'src/views/entry/index/main.js',
             template: 'public/index.html',
-            title: '悠荷步客'
+            title: ''
         },
         manage: {
             entry: 'src/views/entry/manage/main.js',
             template: 'public/index.html',
-            title: '悠荷步客后台管理系统'
+            title: '后台管理系统'
         }
     },
     css: {
