@@ -2,6 +2,8 @@ const webpack = require('webpack')
 // gzip压缩插件
 const CompressionPlugin = require('compression-webpack-plugin')
 
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+
 // element-plus 按需加载
 const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
@@ -62,6 +64,19 @@ module.exports = {
         if (process.env.NODE_ENV === 'production') {
             // 生成单独的souce-map文件，便于调试
             config.devtool = 'source-map'
+
+            plugins.push(
+                new webpack.DllReferencePlugin({
+                    context: __dirname,
+                    manifest: require('./public/vendor/vendor.manifest.json')
+                })
+            )
+            plugins.push(
+                new HtmlWebpackIncludeAssetsPlugin({
+                    assets: ['./vendor/vendor.dll.js'],
+                    append: false
+                })
+            )
         }
 
         // GZIP压缩
