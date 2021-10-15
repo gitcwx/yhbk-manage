@@ -1,6 +1,10 @@
 const webpack = require('webpack')
 // gzip压缩插件
-// const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+
+// element-plus 按需加载
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 // const projectTitle = ''
 
@@ -55,8 +59,20 @@ module.exports = {
     transpileDependencies: [],
     configureWebpack: config => {
         const plugins = []
-        config.devtool = 'source-map'
-        config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = false
+        if (process.env.NODE_ENV === 'production') {
+            // 生成单独的souce-map文件，便于调试
+            config.devtool = 'source-map'
+        }
+
+        plugins.push(
+            new CompressionPlugin({
+                filename: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
+                threshold: 8192,
+                minRatio: 0.8
+            })
+        )
 
         // 配置打包文件git信息
         plugins.push(
@@ -76,9 +92,12 @@ module.exports = {
                 })()
             })
         )
+
         // element-plus 按需加载
         plugins.push(
-            require('unplugin-vue-components/webpack')
+            Components({
+                resolvers: [ElementPlusResolver()]
+            })
         )
 
         config.plugins = [...config.plugins, ...plugins]
