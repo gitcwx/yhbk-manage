@@ -8,12 +8,21 @@ if (process.env.NODE_ENV === 'production') {
     }
   ])
 }
-console.log(1)
 module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset'
   ],
   plugins: [
-    ...prodPlugins
+    ...prodPlugins,
+    [
+      'import',
+      {
+        libraryName: 'element-plus',
+        customStyleName: (name) => {
+          name = name.slice(3)
+          return `element-plus/packages/theme-chalk/src/${name}.scss`
+        }
+      }
+    ]
   ]
 }

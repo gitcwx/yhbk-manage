@@ -64,6 +64,7 @@ module.exports = {
             config.devtool = 'source-map'
         }
 
+        // GZIP压缩
         plugins.push(
             new CompressionPlugin({
                 filename: '[path].gz[query]',
