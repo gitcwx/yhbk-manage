@@ -4,7 +4,7 @@ import store from '@/store'
 import zh from './zh'
 import en from './en'
 
-import router from '@/views/entry/manage/router'
+import router from '@/router/manage'
 
 router.getRoutes().forEach(item => {
     if (item.name) {

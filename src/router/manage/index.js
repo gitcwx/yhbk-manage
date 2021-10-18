@@ -48,13 +48,13 @@ const routes = [
     {
         path: '/manage/403',
         name: '403',
-        component: () => import('@/views/errors/403.vue'),
+        component: () => import('@/views/common/errors/403.vue'),
         meta: { title: '403', titleEn: '403', allow: true }
     },
     {
         path: '/manage/404',
         name: '404',
-        component: () => import('@/views/errors/404.vue'),
+        component: () => import('@/views/common/errors/404.vue'),
         meta: { title: '404', titleEn: '404', allow: true }
     },
     {

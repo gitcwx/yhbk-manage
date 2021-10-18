@@ -37,12 +37,12 @@ module.exports = {
     },
     pages: {
         index: {
-            entry: 'src/views/entry/index/main.js',
+            entry: 'src/main.app.js',
             template: 'public/index.html',
             title: ''
         },
         manage: {
-            entry: 'src/views/entry/manage/main.js',
+            entry: 'src/main.manage.js',
             template: 'public/index.html',
             title: '后台管理系统'
         }
@@ -64,13 +64,14 @@ module.exports = {
         if (process.env.NODE_ENV === 'production') {
             // 生成单独的souce-map文件，便于调试
             config.devtool = 'source-map'
-
+            // 分离不常用第三方库，便于快速打包
             plugins.push(
                 new webpack.DllReferencePlugin({
                     context: __dirname,
                     manifest: require('./public/vendor/vendor.manifest.json')
                 })
             )
+            // 入口html文件引入
             plugins.push(
                 new HtmlWebpackIncludeAssetsPlugin({
                     assets: ['./vendor/vendor.dll.js'],

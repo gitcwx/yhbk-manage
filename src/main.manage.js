@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from '@/views/manage/layout'
 import '@/registerServiceWorker'
-import router from './router'
+import router from '@/router/manage'
 import store from '@/store'
 import axios from 'axios'
 import global from '@/global'

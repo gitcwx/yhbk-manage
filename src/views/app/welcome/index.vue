@@ -13,7 +13,7 @@
             }
         },
         created () {
-            console.log(1)
+
         },
         methods: {
 
