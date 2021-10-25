@@ -1,4 +1,4 @@
-import func from './func'
+import properties from './properties'
 import directives from './directives'
 import dictionary from './dictionary'
 import { components, plugins } from './element'
@@ -28,9 +28,9 @@ export default {
             app.directive(key, directives[key])
         })
 
-        // 全局方法挂载
-        Object.keys(func).forEach(key => {
-            app.config.globalProperties[key] = func[key]
+        // 全局变量方法挂载
+        Object.keys(properties).forEach(key => {
+            app.config.globalProperties[key] = properties[key]
         })
 
         // element 全局配置

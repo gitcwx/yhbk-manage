@@ -16,16 +16,6 @@ const routes = [
         component: () => import('@/views/app/login/index.vue')
     },
     {
-        path: '/qrcode',
-        name: 'qrcode',
-        component: () => import('@/views/app/qrcode/index.vue')
-    },
-    {
-        path: '/game/testSpeed',
-        name: 'testSpeed',
-        component: () => import('@/views/app/games/testSpeed/index.vue')
-    },
-    {
         path: '/403',
         name: '403',
         component: () => import('@/views/common/errors/403.vue')
