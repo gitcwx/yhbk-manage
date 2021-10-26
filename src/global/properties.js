@@ -1,3 +1,4 @@
+// 数据克隆
 const deepClone = function (obj) {
     const that = this
     const objClone = Array.isArray(obj) ? [] : {}
@@ -17,6 +18,24 @@ const deepClone = function (obj) {
     return objClone
 }
 
+// 跨域加载js文件
+const loadScript = function (srcUrl, callback, noCache) {
+    const sc = document.createElement('script')
+    function orc () {
+        if (/(complete)|(loaded)/.test(sc.readyState) && callback) { callback() };
+    }
+    if (sc.addEventListener) {
+        if (callback) {
+            sc.addEventListener('load', callback, false)
+        }
+    } else {
+        sc.attachEvent('onreadystatechange', orc)
+    }
+    (document.head || document.getElementsByTagName('head')[0]).appendChild(sc)
+    sc.src = noCache ? srcUrl + '?c=' + Math.random() : srcUrl
+}
+
 module.exports = {
-    deepClone
+    deepClone,
+    loadScript
 }
