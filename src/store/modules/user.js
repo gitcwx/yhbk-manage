@@ -30,9 +30,9 @@ const user = {
                     method: 'post',
                     data: {
                         by: 'userId',
-                        limit: 100,
+                        limit: 999,
                         orderName: 'createdAt',
-                        orderBy: 'asc'
+                        orderby: 'asc'
                     }
                 }).then(res => {
                     if (res.data && res.data.code === 's00') {

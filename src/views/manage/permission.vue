@@ -21,21 +21,35 @@
                         <el-option label="否" :value="false"></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="展现形式">
+                    <el-select v-model="showStyle" placeholder="请选择">
+                        <el-option label="表格" :value="0"></el-option>
+                        <el-option label="树形图" :value="1"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="getTableData">{{$t('button.search')}}</el-button>
                     <el-button type="success" @click="addItem">{{$t('button.add')}}</el-button>
                 </el-form-item>
             </el-form>
         </div>
-        <el-table :data="tableData" border stripe>
+        <el-table
+            :data="tableData"
+            border
+            :default-sort="{prop: 'createdAt', order: 'ascending'}"
+            :row-class-name="tableRowClassName"
+            :row-key="'id'"
+            :highlight-current-row="false"
+            @click.stop
+        >
             <el-table-column label="图标" width="80" align="center" fixed="left">
                 <template #default="scope">
                     <i :class="scope.row.icon" :style="{fontSize: '22px'}"></i>
                 </template>
             </el-table-column>
-            <el-table-column prop="text" label="页面名称" width="150" />
-            <el-table-column prop="name" label="页面路由" width="150" />
-            <el-table-column label="权限级别" width="180">
+            <el-table-column prop="text" label="页面名称" width="150" sortable :sort-method="sortZh"/>
+            <el-table-column prop="name" label="页面路由" width="150" sortable />
+            <el-table-column label="权限级别" width="180" sortable :sort-by="['permissionLevel']">
                 <template #default="scope">
                     <el-select
                         v-model="scope.row.permissionLevel"
@@ -50,12 +64,12 @@
                     </el-select>
                 </template>
             </el-table-column>
-            <el-table-column label="菜单栏显示" width="100" align="center">
+            <el-table-column label="菜单栏显示" width="120" align="center" sortable :sort-by="['isMenu']">
                 <template #default="scope">
                     <el-switch v-model="scope.row.isMenu" :beforeChange="switchIsMenu(scope.row)" />
                 </template>
             </el-table-column>
-            <el-table-column label="父级菜单" width="180">
+            <el-table-column label="父级菜单" width="180" sortable :sort-by="['parentMenuId', 'isMenu']">
                 <template #default="scope">
                     <el-select
                         v-model="scope.row.parentMenuId"
@@ -76,8 +90,8 @@
                     <span v-else>不展示在菜单栏</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="createdAt" label="创建时间" min-width="180"/>
-            <el-table-column prop="updatedAt" label="修改时间" min-width="180"/>
+            <el-table-column prop="createdAt" label="创建时间" min-width="180" sortable />
+            <el-table-column prop="updatedAt" label="修改时间" min-width="180" sortable />
             <el-table-column label="操作" width="180" align="center" fixed="right">
                 <template #default="scope">
                     <el-button type="primary" size="mini" @click="editItem(scope.row)">{{$t('button.edit')}}</el-button>
@@ -154,13 +168,17 @@
         name: 'manage-permission',
         data () {
             return {
+                // 数据展现形式
+                showStyle: 1,
                 // 表格渲染条件
                 searchData: {
                     page: 1,
                     limit: 999,
                     text: '',
                     permissionLevel: '',
-                    isMenu: ''
+                    isMenu: '',
+                    orderName: 'createdAt',
+                    orderby: 'asc'
                 },
                 // 表格数据
                 tableData: [],
@@ -314,7 +332,7 @@
                 }).then(res => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
                     if (res.data.code === 's00') {
-                        this.tableData = res.data.data
+                        this.tableData = this.showStyle ? this.treeByPid(res.data.data, '') : res.data.data
                         !!callback && typeof callback === 'function' && callback(res.data.data)
                     } else {
                         this.$message.warning(res.data.msg)
@@ -346,6 +364,34 @@
                         return reject(new Error('error'))
                     })
                 })
+            },
+            // 中文排序
+            sortZh (a, b) {
+                return a.text.localeCompare(b.text, 'zh')
+            },
+            // table 行颜色
+            tableRowClassName ({ row, rowIndex }) {
+                return row.parentMenuId ? 'row-info-bg' : ''
+            },
+            treeByPid (arr, parentMenuId) {
+                const result = []
+                const next = []
+                arr.forEach(item => {
+                    if (item.parentMenuId === parentMenuId) {
+                        result.push(item)
+                    } else {
+                        next.push(item)
+                    }
+                })
+                if (next.length) {
+                    result.forEach(item => {
+                        const children = this.treeByPid(next, item.id)
+                        if (children.length) {
+                            item.children = children
+                        }
+                    })
+                }
+                return result
             }
         }
     }

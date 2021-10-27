@@ -1,0 +1,17 @@
+.el-table {
+    .row-primary-bg {
+        --el-table-tr-background-color: var(--el-color-primary-light-9);
+    }
+    .row-success-bg {
+        --el-table-tr-background-color: var(--el-color-success-lighter);
+    }
+    .row-info-bg {
+        --el-table-tr-background-color: var(--el-color-info-lighter);
+    }
+    .row-warning-bg {
+        --el-table-tr-background-color: var(--el-color-warning-lighter);
+    }
+    .row-danger-bg {
+        --el-table-tr-background-color: var(--el-color-danger-lighter);
+    }
+}
