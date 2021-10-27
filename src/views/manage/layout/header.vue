@@ -33,7 +33,7 @@
                 <div class="btn-bell">
                     <el-tooltip effect="dark" placement="bottom"
                         :content="message ? `${message}` + $t('layout.message.unread') : $t('layout.message.name')">
-                        <router-link :to="{ name: 'message' }">
+                        <router-link :to="{ name: 'message.list' }">
                             <i class="el-icon-bell"></i>
                         </router-link>
                     </el-tooltip>

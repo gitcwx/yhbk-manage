@@ -38,8 +38,8 @@ import {
     ElUpload
 } from 'element-plus/lib/components'
 
-import 'element-plus/packages/theme-chalk/src/base.scss'
-// import 'element-plus/dist/index.css'
+// import 'element-plus/packages/theme-chalk/src/base.scss'
+import 'element-plus/dist/index.css'
 
 export const components = [
     ElConfigProvider,

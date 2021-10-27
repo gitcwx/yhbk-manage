@@ -29,7 +29,10 @@ const user = {
                     url: api.permission.list,
                     method: 'post',
                     data: {
-                        by: 'userId'
+                        by: 'userId',
+                        limit: 100,
+                        orderName: 'createdAt',
+                        orderBy: 'asc'
                     }
                 }).then(res => {
                     if (res.data && res.data.code === 's00') {

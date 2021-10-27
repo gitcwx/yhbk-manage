@@ -12,7 +12,7 @@
             }
         },
         created () {
-
+            this.$message.warning('test')
         },
         methods: {
 

@@ -103,7 +103,7 @@
                 <el-form-item label="英文名称" prop="textEn">
                     <el-input v-model="formData.textEn" placeholder="请输入" />
                 </el-form-item>
-                <el-form-item label="页面路由" prop="name">
+                <el-form-item label="页面标识" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入" />
                 </el-form-item>
                 <el-form-item label="页面权限" prop="permissionLevel">
@@ -184,8 +184,18 @@
                 defaultFormData: {},
                 // 弹框表单校验规则
                 rules: {
-                    text: { required: true, message: '请输入页面名称' },
-                    textEn: { required: true, message: '请输入页面英文名称' },
+                    text: [
+                        { required: true, message: '请输入页面名称' },
+                        { pattern: /^[\u4e00-\u9fa50-9]{1,10}$/, max: 10, message: '10位以内的汉字或数字' }
+                    ],
+                    textEn: [
+                        { required: true, message: '请输入页面英文名称' },
+                        { pattern: /^[a-zA-Z0-9\s]{1,20}$/, max: 20, message: '20位以内的字母或数字' }
+                    ],
+                    name: [
+                        { required: true, message: '请输入页面标识' },
+                        { pattern: /^[a-zA-z.]{1,30}$/, max: 20, message: '30位以内字母或小数点' }
+                    ],
                     permissionLevel: { required: true, message: '请选择页面权限' }
                 }
             }

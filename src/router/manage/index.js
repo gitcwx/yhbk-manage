@@ -21,30 +21,82 @@ const routes = [
         component: () => import('@/views/manage/permission.vue'),
         meta: { title: '权限控制', titleEn: 'Permission Control' }
     },
+
+    /* message start */
     {
         path: '/manage/message',
-        name: 'message',
-        component: () => import('@/views/manage/user/message.vue'),
-        meta: { title: '系统消息', titleEn: 'Message' }
+        name: 'message.folder',
+        redirect: { name: 'message.list' },
+        meta: { title: '消息管理', titleEn: 'Message' }
     },
     {
-        path: '/manage/userList',
-        name: 'userList',
+        path: '/manage/message/list',
+        name: 'message.list',
+        component: () => import('@/views/manage/message/list.vue'),
+        meta: { title: '我的消息', titleEn: 'Message List' }
+    },
+    {
+        path: '/manage/message/add',
+        name: 'message.add',
+        component: () => import('@/views/manage/message/add.vue'),
+        meta: { title: '新增消息', titleEn: 'Add Message' }
+    },
+    /* message end */
+
+    /* user start */
+    {
+        path: '/manage/user',
+        name: 'user.folder',
+        redirect: { name: 'user.list' },
+        meta: { title: '用户中心', titleEn: 'User' }
+    },
+    {
+        path: '/manage/user/list',
+        name: 'user.list',
         component: () => import('@/views/manage/user/list.vue'),
-        meta: { title: '用户管理', titleEn: 'User Manage' }
+        meta: { title: '用户列表', titleEn: 'User List' }
     },
     {
-        path: '/manage/userInfo',
-        name: 'userInfo',
+        path: '/manage/user/info',
+        name: 'user.info',
         component: () => import('@/views/manage/user/info.vue'),
         meta: { title: '用户资料', titleEn: 'User Info' }
     },
     {
-        path: '/manage/password',
-        name: 'password',
+        path: '/manage/user/password',
+        name: 'user.password',
         component: () => import('@/views/manage/user/password.vue'),
         meta: { title: '修改密码', titleEn: 'Modify Password' }
     },
+    /* user end */
+
+    /* article start */
+    {
+        path: '/manage/article',
+        name: 'article.folder',
+        redirect: { name: 'article.list' },
+        meta: { title: '文章管理', titleEn: 'Article' }
+    },
+    {
+        path: '/manage/article/list',
+        name: 'article.list',
+        component: () => import('@/views/manage/article/list.vue'),
+        meta: { title: '文章列表', titleEn: 'Article List' }
+    },
+    {
+        path: '/manage/article/add',
+        name: 'article.add',
+        component: () => import('@/views/manage/article/editor.vue'),
+        meta: { title: '新增文章', titleEn: 'Add Article' }
+    },
+    {
+        path: '/manage/article/edit',
+        name: 'article.edit',
+        component: () => import('@/views/manage/article/editor.vue'),
+        meta: { title: '修改文章', titleEn: 'Edit Article' }
+    },
+    /* article end */
+
     {
         path: '/manage/403',
         name: '403',

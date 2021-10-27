@@ -8,7 +8,7 @@
                 ref="login"
                 label-width="0px"
                 class="login-form"
-                @keyup.enter="submitForm()"
+                @keyup.enter="submitForm"
             >
                 <el-form-item prop="username">
                     <el-input
@@ -26,7 +26,7 @@
                     />
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()">登录</el-button>
+                    <el-button type="primary" @click="submitForm">登录</el-button>
                 </div>
                 <p class="login-tips">Tips : [账号: test, 密码: 123456]</p>
             </el-form>
@@ -54,11 +54,13 @@
             submitForm () {
                 this.$refs.login.validate(valid => {
                     if (valid) {
+                        this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
                             url: this.api.user.login,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
+                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             if (res.data.code === 's00') {
                                 setToken(res.data.token)
                                 window.location.href = '/manage'
@@ -66,6 +68,7 @@
                                 this.$message.warning(res.data.msg)
                             }
                         }).catch(() => {
+                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             this.$message.error('未知错误，请稍后重试')
                         })
                     } else {
@@ -81,7 +84,7 @@
 .page-login {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-image: url(./assets/images/login-bg.jpg);
     background-size: 100% 100%;
 

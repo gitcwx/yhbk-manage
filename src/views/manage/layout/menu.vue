@@ -11,19 +11,19 @@
         >
             <template v-for="firstLevel in menuList">
                 <template v-if="firstLevel.children">
-                    <el-sub-menu :index="firstLevel.name" :key="firstLevel.id">
+                    <el-sub-menu :index="nameToPath(firstLevel.name)" :key="firstLevel.id">
                         <template #title>
                             <i :class="firstLevel.icon"></i>
                             <span>{{ $t('router.' + firstLevel.name) }}</span>
                         </template>
                         <template v-for="secondLevel in firstLevel.children">
-                            <el-sub-menu v-if="secondLevel.children" :index="secondLevel.name" :key="secondLevel.id">
+                            <el-sub-menu v-if="secondLevel.children" :index="nameToPath(secondLevel.name)" :key="secondLevel.id">
                                 <template #title>
                                     <i :class="secondLevel.icon"></i>
                                     {{ $t('router.' + secondLevel.name) }}
                                 </template>
                             </el-sub-menu>
-                            <el-menu-item v-else-if="secondLevel.isMenu" :index="secondLevel.name" :key="secondLevel.id">
+                            <el-menu-item v-else-if="secondLevel.isMenu" :index="nameToPath(secondLevel.name)" :key="secondLevel.id">
                                 <i :class="secondLevel.icon"></i>
                                 {{ $t('router.' + secondLevel.name) }}
                             </el-menu-item>
@@ -31,7 +31,7 @@
                     </el-sub-menu>
                 </template>
                 <template v-else-if="firstLevel.isMenu">
-                    <el-menu-item :index="firstLevel.name" :key="firstLevel.id">
+                    <el-menu-item :index="nameToPath(firstLevel.name)" :key="firstLevel.id">
                         <i :class="firstLevel.icon"></i>
                         <span>{{ $t('router.' + firstLevel.name) }}</span>
                     </el-menu-item>
@@ -55,7 +55,7 @@
                 permission: state => state.user.permission
             }),
             onRoutes () {
-                return this.$route.path.replace('/manage/', '')
+                return this.$route.path
             }
         },
         watch: {
@@ -90,6 +90,9 @@
                     })
                 }
                 return result
+            },
+            nameToPath (name) {
+                return '/manage/' + name.replace(/\./g, '/')
             }
         }
     }

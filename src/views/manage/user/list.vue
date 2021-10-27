@@ -92,7 +92,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="location" label="地区" width="150" />
-            <el-table-column prop="lastLoginAt" label="上次登录事件" min-width="180"/>
+            <el-table-column prop="lastLoginAt" label="上次登录时间" min-width="180"/>
             <el-table-column label="操作" width="220" align="center" fixed="right">
                 <template #default="scope">
                     <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>

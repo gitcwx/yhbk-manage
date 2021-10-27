@@ -1,10 +1,10 @@
 <template>
-    <div class="manage manage-user-message">
+    <div class="manage manage-message-list">
         系统消息
     </div>
 </template>
 <script>
     export default {
-        name: 'manage-user-message'
+        name: 'manage-message-list'
     }
 </script>
