@@ -52,7 +52,7 @@ module.exports = {
             sass: {
                 // 全局SCSS变量
                 prependData: `
-                    @use "~@/assets/css/common.scss" as *;
+                    @use "~@/assets/css/variables.scss" as *;
                 `
             }
         }

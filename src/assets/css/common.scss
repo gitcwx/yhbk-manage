@@ -1,2 +1,10 @@
-// 全局变量
-$text-color: #333;
+// 自定义class
+.text-primary { color: #409EFF; }
+.text-success { color: #67C23A; }
+.text-warning { color: #E6A23C; }
+.text-danger { color: #F56C6C; }
+
+.bg-primary { background-color: #409EFF; }
+.bg-success { background-color: #67C23A; }
+.bg-warning { background-color: #E6A23C; }
+.bg-danger { background-color: #F56C6C; }

@@ -24,6 +24,9 @@ app.config.globalProperties.api = api
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('@/mock')
 
+app.use(i18n)
+app.use(global)
+
 /* 初始化 css */
 require('@/assets/css/reset.scss')
 require('@/assets/fonts/iconfont.css')
@@ -104,6 +107,4 @@ router.afterEach(() => {
 app
   .use(store)
   .use(router)
-  .use(i18n)
-  .use(global)
   .mount('#app')

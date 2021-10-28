@@ -18,5 +18,9 @@ export default {
         { label: '本站注册', labelEn: 'Web', value: 0 },
         { label: 'QQ授权', labelEn: 'QQ', value: 1 },
         { label: '其他', labelEn: 'Other', value: 2 }
+    ],
+    articleStatus: [
+        { label: '是', labelEn: 'Yes', value: 1 },
+        { label: '否', labelEn: 'No', value: 2 }
     ]
 }

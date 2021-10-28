@@ -52,8 +52,8 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="userInfo">{{$t('layout.dropdown.userCenter')}}</el-dropdown-item>
-                            <el-dropdown-item :divided="true" command="password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
+                            <el-dropdown-item command="user.info">{{$t('layout.dropdown.userCenter')}}</el-dropdown-item>
+                            <el-dropdown-item :divided="true" command="user.password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
                             <el-dropdown-item :divided="true" command="loginout">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
