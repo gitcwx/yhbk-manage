@@ -38,6 +38,10 @@ export default {
         reset: '重置',
         delete: '删除'
     },
+    upload: {
+        fileTypeError: '图片格式错误，仅可上传jpg/jpeg/png/jfif',
+        fileToolarge: '仅可上传200KB以下的图片'
+    },
     confirm: {
         delete: '是否确认删除'
     },

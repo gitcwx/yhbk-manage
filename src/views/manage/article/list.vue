@@ -69,6 +69,7 @@
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex'
     export default {
         name: 'manage-article-list',
         data () {
@@ -89,12 +90,14 @@
                 // 表格数据
                 tableData: [],
                 // 选中项
-                multipleSelection: [],
-                // 文章分类下拉选
-                categoryList: [],
-                // 标签下拉选
-                tagList: []
+                multipleSelection: []
             }
+        },
+        computed: {
+            ...mapState({
+                tagList: state => state.article.tagList || [],
+                categoryList: state => state.article.categoryList || []
+            })
         },
         watch: {
             'searchData.tagIdsArr': {
@@ -108,10 +111,16 @@
             }
         },
         created () {
+            // 获取标签下拉选
+            if (this.tagList.length === 0) {
+                this.$store.dispatch('getTagList')
+            }
+            // 获取菜单下拉选
+            if (this.categoryList.length === 0) {
+                this.$store.dispatch('getCategoryList')
+            }
             // 获取表格数据
             this.getTableData()
-            this.getCategoryList()
-            this.getTagList()
         },
         methods: {
             getCategoryList () {

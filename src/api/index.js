@@ -30,5 +30,8 @@ export const api = {
         add: '/tag/add',
         edit: '/tag/edit',
         del: '/tag/del'
+    },
+    file: {
+        upload: '/file/upload'
     }
 }

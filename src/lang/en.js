@@ -38,6 +38,10 @@ export default {
         reset: 'Reset',
         delete: 'Delete'
     },
+    upload: {
+        fileTypeError: 'picture must be jpg/jpeg/png/jfif format!',
+        fileToolarge: 'picture size can not exceed 200KB!'
+    },
     confirm: {
         delete: 'Are You Sure About Delete This?'
     },

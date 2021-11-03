@@ -74,8 +74,10 @@ router.beforeEach((to, from, next) => {
         next(); return
     }
     // 设置页面title
-    if (to.meta.title) {
-        document.title = to.meta.title
+    if (store.getters.language === 'zh') {
+        to.meta.title && (document.title = to.meta.title)
+    } else if (store.getters.language === 'en') {
+        to.meta.titleEn && (document.title = to.meta.titleEn)
     }
     // 页面加载进度条
     NProgress.start()
