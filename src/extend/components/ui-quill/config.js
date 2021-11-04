@@ -3,7 +3,9 @@
 
 import { getToken } from '@/util/cookies.js'
 import { api } from '@/api'
+import store from '@/store'
 // import hljs from 'highlight.js'
+import { ElMessage } from 'element-plus/lib/components'
 
 export const toolbar = [
     [
@@ -40,60 +42,61 @@ const uploadConfig = {
     imgPrefix: process.env.VUE_APP_imgPrefix
 }
 
-export const quillHandle = {
+export const quillHandler = {
     image: function image () {
-        var self = this
+        const self = this
 
-        var fileInput = this.container.querySelector('input.ql-image[type=file]')
+        let fileInput = this.container.querySelector('input.ql-image[type=file]')
         if (fileInput === null) {
             fileInput = document.createElement('input')
             fileInput.setAttribute('type', 'file')
-            // 设置图片参数名
-            if (uploadConfig.name) {
-                fileInput.setAttribute('name', uploadConfig.name)
-            }
-            // 可设置上传图片的格式
+            fileInput.setAttribute('name', uploadConfig.name)
             fileInput.setAttribute('accept', uploadConfig.accept)
             fileInput.classList.add('ql-image')
-            // 监听选择文件
+
             fileInput.addEventListener('change', function () {
                 if (fileInput.files[0].size > uploadConfig.size) {
-                    alert('123')
+                    // todo $t('upload.fileToolarge')
+                    ElMessage.warning('仅可上传200KB以下的图片')
                     fileInput.value = ''
                     return
                 }
-                // 创建formData
-                var formData = new FormData()
+                store.commit('SET_IS_LOADING', { isLoading: true })
+
+                const formData = new FormData()
                 formData.append(uploadConfig.name, fileInput.files[0])
-                formData.append('object', 'product')
-                // 图片上传
-                var xhr = new XMLHttpRequest()
+
+                const xhr = new XMLHttpRequest()
                 xhr.open(uploadConfig.methods, uploadConfig.action, true)
                 xhr.setRequestHeader('Authorization', uploadConfig.Authorization)
-                // 上传数据成功，会触发
                 xhr.onload = function (e) {
                     if (xhr.status === 200) {
-                        var res = JSON.parse(xhr.responseText)
+                        const res = JSON.parse(xhr.responseText)
                         const length = self.quill.getSelection(true).index
                         if (res.code === 's00') {
                             self.quill.insertEmbed(length, 'image', uploadConfig.imgPrefix + res.data.file)
                             self.quill.setSelection(length + 1)
                         } else {
-                            alert(123)
+                            ElMessage.warning(res.msg)
                         }
                     }
                     fileInput.value = ''
                 }
-                // 开始上传数据
+
                 xhr.upload.onloadstart = function (e) {
                     fileInput.value = ''
                 }
-                // 当发生网络异常的时候会触发，如果上传数据的过程还未结束
+
                 xhr.upload.onerror = function (e) {
-                    alert(231)
+                    // todo $t('ErrMsg')
+                    ElMessage.error('未知错误，请稍后重试！')
+                    store.commit('SET_IS_LOADING', { isLoading: false })
                 }
-                // 上传数据完成（成功或者失败）时会触发
-                xhr.upload.onloadend = function (e) {}
+
+                xhr.upload.onloadend = function (e) {
+                    store.commit('SET_IS_LOADING', { isLoading: false })
+                }
+
                 xhr.send(formData)
             })
             this.container.appendChild(fileInput)

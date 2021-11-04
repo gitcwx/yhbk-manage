@@ -17,7 +17,10 @@ export const api = {
     },
     article: {
         list: '/article/list',
-        detail: '/article/detail'
+        add: '/article/add',
+        edit: '/article/edit',
+        detail: '/article/detail',
+        del: '/article/del'
     },
     category: {
         list: '/category/list',

@@ -4,7 +4,7 @@ import '@/registerServiceWorker'
 import router from '@/router/app'
 import store from '@/store'
 import axios from 'axios'
-import global from '@/global'
+import extend from '@/extend'
 
 import NProgress from 'nprogress'
 import moment from 'moment'
@@ -22,7 +22,7 @@ app.config.globalProperties.api = api
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('@/mock')
 
-app.use(global)
+app.use(extend)
 
 /* 初始化 css */
 require('@/assets/css/reset.scss')

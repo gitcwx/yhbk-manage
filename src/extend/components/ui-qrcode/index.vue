@@ -15,9 +15,7 @@
             }
         },
         data () {
-            return {
-
-            }
+            return {}
         },
         watch: {
             text: {
@@ -55,4 +53,6 @@
         }
     }
 </script>
-<style src="./assets/css/index.scss" lang="scss"></style>
+<style lang="scss">
+
+</style>

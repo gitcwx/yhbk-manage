@@ -50,8 +50,9 @@
             <el-table-column prop="likeCount" label="点赞量" width="80"/>
             <el-table-column prop="updatedAt" label="更新时间" width="180"/>
             <el-table-column prop="createdAt" label="创建时间" width="180"/>
-            <el-table-column label="操作" width="160" align="center" fixed="right">
+            <el-table-column label="操作" width="220" align="center" fixed="right">
                 <template #default="scope">
+                    <el-button type="success" size="mini" @click="viewItem(scope.row)">预览</el-button>
                     <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>
                     <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
                 </template>
@@ -163,9 +164,12 @@
             },
             // 编辑用户
             editItem (item) {
-                this.formData = this.deepClone(item)
-                this.infoDialogVisible = true
-                this.formType = 'edit'
+                this.$router.push({
+                    path: '/manage/article/edit',
+                    query: {
+                        id: item.id
+                    }
+                })
             },
             // 删除用户
             deleteItem (item) {
@@ -232,6 +236,9 @@
                     return
                 }
                 this.$alert(`接口开发中....当前已选${this.multipleSelection.length}项`)
+            },
+            viewItem (item) {
+                window.open('http://blog.youhebuke.com/article/detail?id=' + item.id)
             }
         }
     }

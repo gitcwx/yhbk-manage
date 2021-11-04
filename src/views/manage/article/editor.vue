@@ -82,13 +82,7 @@
                 </el-upload>
             </el-form-item>
             <el-form-item label="文章内容：" prop="content">
-                <QuillEditor
-                    theme="snow"
-                    v-model:content="formData.content"
-                    contentType="html"
-                    :toolbar="toolbar"
-                    ref="quill-editor"
-                />
+                <ui-quill v-model:content="formData.content" ref="ui-quill" />
             </el-form-item>
             <div class="btn-wrap">
                 <el-button type="default" @click="resetForm">重置</el-button>
@@ -100,17 +94,22 @@
 <script>
     import { getToken } from '@/util/cookies.js'
     import { mapState } from 'vuex'
-    import { QuillEditor } from '@vueup/vue-quill'
-    import '@vueup/vue-quill/dist/vue-quill.snow.css'
-    import { toolbar, quillHandle } from '@/util/quill/config'
 
     export default {
         name: 'manage-article-editor',
-        components: {
-            QuillEditor
-        },
         data () {
+            // 校验编辑器文字超出
+            const checkQuillContent = (rule, value, callback) => {
+                const content = this.$refs['ui-quill'].getQuillRef().getText()
+                if (content && content.length > 5000) {
+                    callback(new Error('文章内容不能超过5000字'))
+                } else {
+                    callback()
+                }
+            }
             return {
+                // 当前页面是新增还是修改
+                isModify: false,
                 formData: {
                     title: '',
                     abstract: '',
@@ -120,7 +119,7 @@
                     status: 1,
                     isTop: false,
                     cover: '',
-                    content: '',
+                    content: '内容回填',
                     authorId: ''
                 },
                 cloneFormData: {},
@@ -136,23 +135,19 @@
                     categoryId: { required: true, message: '请选择文章分类' },
                     content: [
                         { required: true, message: '请输入文章内容' },
-                        { max: 5000, message: '文章内容已经超出5000字' }
+                        { validator: checkQuillContent, trigger: 'blur' }
                     ]
                 },
                 axiosPrefix: process.env.VUE_APP_axiosDefaultsBaseURL,
                 imgPrefix: process.env.VUE_APP_imgPrefix,
-                getToken,
-                toolbar
+                getToken
             }
         },
         computed: {
             ...mapState({
                 tagList: state => state.article.tagList || [],
                 categoryList: state => state.article.categoryList || []
-            }),
-            language () {
-                return this.$store.getters.language
-            }
+            })
         },
         watch: {
             'formData.tagIdsArr': {
@@ -161,6 +156,19 @@
                 handler (newVal) {
                     if (newVal) {
                         this.formData.tagIds = newVal.join(',')
+                    }
+                }
+            },
+            $route: {
+                immediate: true,
+                handler (newVal) {
+                    if (newVal) {
+                        if (newVal.path === '/manage/article/edit') {
+                            this.isModify = true
+                            newVal.query.id && this.getArticleDetail(newVal.query.id)
+                        } else {
+                            this.isModify = false
+                        }
                     }
                 }
             }
@@ -174,15 +182,41 @@
             if (this.categoryList.length === 0) {
                 this.$store.dispatch('getCategoryList')
             }
-            // 存储用户id到表单
-            this.formData.authorId = this.$store.getters.userInfo.id
-            // 存储原始对象，用于重置
-            this.cloneFormData = this.deepClone(this.formData)
+            if (!this.isModify) {
+                // 存储用户id到表单
+                this.formData.authorId = this.$store.getters.userInfo.id
+                // 存储原始对象，用于重置
+                this.cloneFormData = this.deepClone(this.formData)
+            }
         },
-        mounted () {
-            this.$refs['quill-editor'].getQuill().getModule('toolbar').addHandler('image', quillHandle.image)
-        },
+        mounted () {},
         methods: {
+            // 如果是编辑页面, 获取页面数据填充
+            getArticleDetail (id) {
+                this.$store.commit('SET_IS_LOADING', { isLoading: true })
+                this.$axios({
+                    url: this.api.article.detail,
+                    method: 'post',
+                    data: {
+                        id
+                    }
+                }).then(res => {
+                    this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                    if (res.data.code === 's00') {
+                        this.formData = res.data.data
+                        this.formData.tagIdsArr = this.formData.tagIds.split(',')
+                        // 存储原始对象，用于重置
+                        this.cloneFormData = this.deepClone(this.formData)
+                        // 回填编辑器内容
+                        this.$refs['ui-quill'].getQuillRef().setHTML(this.formData.content)
+                    } else {
+                        this.$message.warning(res.data.msg)
+                    }
+                }).catch(() => {
+                    this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                    this.$message.error(this.$t('ErrMsg'))
+                })
+            },
             // 图片上传检测
             beforeUpload (file) {
                 if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -208,12 +242,11 @@
             },
             // 确认提交按钮
             submitForm () {
-                console.log(this.$refs['quill-editor'].getText())
                 this.$refs['editor-form'].validate(valid => {
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.article.add,
+                            url: this.isModify ? this.api.article.edit : this.api.article.add,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
@@ -268,15 +301,6 @@
 
         .btn-wrap {
             text-align: center;
-        }
-
-        .ql-container {
-            height: 300px;
-        }
-
-        .ql-snow .ql-picker-label::before,
-        .ql-snow .ql-picker-label svg {
-            vertical-align: top;
         }
     }
 }
