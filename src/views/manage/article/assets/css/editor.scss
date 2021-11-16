@@ -1,0 +1,33 @@
+.manage-article-add,
+.manage-article-edit {
+    .editor-form {
+        width: 900px;
+
+        .cover-content {
+            width: 200px;
+            height: 130px;
+            line-height: 130px;
+            text-align: center;
+            border: 1px dashed #c0ccda;
+            background-color: #fbfdff;
+
+            .el-icon-plus {
+                font-size: 40px;
+                vertical-align: middle;
+            }
+        }
+
+        .el-form-item__label {
+            text-align: right;
+            width: 120px;
+        }
+
+        .el-select {
+            width: 100%;
+        }
+
+        .btn-wrap {
+            text-align: center;
+        }
+    }
+}

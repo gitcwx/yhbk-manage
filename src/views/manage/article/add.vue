@@ -1,5 +1,5 @@
 <template>
-    <div class="manage manage-article-editor">
+    <div class="manage manage-article-add">
         <el-form
             :model="formData"
             :rules="rules"
@@ -96,7 +96,7 @@
     import { mapState } from 'vuex'
 
     export default {
-        name: 'manage-article-editor',
+        name: 'manage-article-add',
         data () {
             // 校验编辑器文字超出
             const checkQuillContent = (rule, value, callback) => {
@@ -108,8 +108,6 @@
                 }
             }
             return {
-                // 当前页面是新增还是修改
-                isModify: false,
                 formData: {
                     title: '',
                     abstract: '',
@@ -119,7 +117,7 @@
                     status: 1,
                     isTop: false,
                     cover: '',
-                    content: '内容回填',
+                    content: '',
                     authorId: ''
                 },
                 cloneFormData: {},
@@ -158,19 +156,6 @@
                         this.formData.tagIds = newVal.join(',')
                     }
                 }
-            },
-            $route: {
-                immediate: true,
-                handler (newVal) {
-                    if (newVal) {
-                        if (newVal.path === '/manage/article/edit') {
-                            this.isModify = true
-                            newVal.query.id && this.getArticleDetail(newVal.query.id)
-                        } else {
-                            this.isModify = false
-                        }
-                    }
-                }
             }
         },
         created () {
@@ -182,41 +167,13 @@
             if (this.categoryList.length === 0) {
                 this.$store.dispatch('getCategoryList')
             }
-            if (!this.isModify) {
-                // 存储用户id到表单
-                this.formData.authorId = this.$store.getters.userInfo.id
-                // 存储原始对象，用于重置
-                this.cloneFormData = this.deepClone(this.formData)
-            }
+            // 存储用户id到表单
+            this.formData.authorId = this.$store.getters.userInfo.id
+            // 存储原始对象，用于重置
+            this.cloneFormData = this.deepClone(this.formData)
         },
         mounted () {},
         methods: {
-            // 如果是编辑页面, 获取页面数据填充
-            getArticleDetail (id) {
-                this.$store.commit('SET_IS_LOADING', { isLoading: true })
-                this.$axios({
-                    url: this.api.article.detail,
-                    method: 'post',
-                    data: {
-                        id
-                    }
-                }).then(res => {
-                    this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    if (res.data.code === 's00') {
-                        this.formData = res.data.data
-                        this.formData.tagIdsArr = this.formData.tagIds.split(',')
-                        // 存储原始对象，用于重置
-                        this.cloneFormData = this.deepClone(this.formData)
-                        // 回填编辑器内容
-                        this.$refs['ui-quill'].getQuillRef().setHTML(this.formData.content)
-                    } else {
-                        this.$message.warning(res.data.msg)
-                    }
-                }).catch(() => {
-                    this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error(this.$t('ErrMsg'))
-                })
-            },
             // 图片上传检测
             beforeUpload (file) {
                 if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -246,7 +203,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.isModify ? this.api.article.edit : this.api.article.add,
+                            url: this.api.article.add,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
@@ -271,37 +228,4 @@
     }
 </script>
 
-<style lang="scss">
-.manage-article-editor {
-    .editor-form {
-        width: 900px;
-
-        .cover-content {
-            width: 200px;
-            height: 130px;
-            line-height: 130px;
-            text-align: center;
-            border: 1px dashed #c0ccda;
-            background-color: #fbfdff;
-
-            .el-icon-plus {
-                font-size: 40px;
-                vertical-align: middle;
-            }
-        }
-
-        .el-form-item__label {
-            text-align: right;
-            width: 120px;
-        }
-
-        .el-select {
-            width: 100%;
-        }
-
-        .btn-wrap {
-            text-align: center;
-        }
-    }
-}
-</style>
+<style lang="scss" src="./assets/css/editor.scss"></style>

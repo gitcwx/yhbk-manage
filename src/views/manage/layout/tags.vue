@@ -7,7 +7,7 @@
                     :content="$t('router.'+item.title)"
                     placement="bottom"
                 > -->
-                    <router-link :to="item.path" class="tags-item-title">
+                    <router-link :to="item.fullPath" class="tags-item-title">
                         {{ $t('router.' + item.title )}}
                     </router-link>
                 <!-- </el-tooltip> -->
@@ -45,39 +45,41 @@
         },
         methods: {
             isActive (path) {
-                return path === this.$route.fullPath
+                return path === this.$route.path
             },
             // 关闭单个标签
             closeTags (index) {
                 const currentItem = this.tagsList.splice(index, 1)[0]
-                const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1]
-                if (item) {
-                    if (currentItem.path === this.$route.fullPath) {
-                        this.$router.push(item.path)
+                // 关闭项为当前激活页面
+                if (currentItem.fullPath === this.$route.fullPath) {
+                    // 是否有相邻项
+                    const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1]
+                    if (item) {
+                        this.$router.push(item.fullPath)
                     } else {
-                        // 关闭非激活标签页时 移除对应页面的keep-alive
-                        this.$store.commit('SET_ALIVETAGS', this.tagsList)
+                        this.$router.push('/')
                     }
-                } else {
-                    this.$router.push('/')
                 }
+                // 移除对应页面的keep-alive
+                this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
             // 关闭全部标签
             closeAll () {
                 this.tagsList = []
                 this.$router.push('/')
+                this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
             // 关闭其他标签
             closeOther () {
                 this.tagsList = this.tagsList.filter(item => {
-                    return item.path === this.$route.fullPath
+                    return item.fullPath === this.$route.fullPath
                 })
                 this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
             // [新增标签 | 切换标签]
             setTags (route) {
                 const isExist = this.tagsList.some(item => {
-                    return item.path === route.fullPath
+                    return item.path === route.path
                 })
                 if (isExist) {
                     // 切换到已存在tag时 模拟生命周期 onShow
@@ -91,7 +93,8 @@
                     }
                     this.tagsList.push({
                         title: route.name,
-                        path: route.fullPath,
+                        path: route.path,
+                        fullPath: route.fullPath,
                         // name 必要 keep-alive include
                         name: route.matched[0].components.default.name
                     })

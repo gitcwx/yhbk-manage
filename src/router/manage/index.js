@@ -86,13 +86,13 @@ const routes = [
     {
         path: '/manage/article/add',
         name: 'article.add',
-        component: () => import('@/views/manage/article/editor.vue'),
+        component: () => import('@/views/manage/article/add.vue'),
         meta: { title: '新增文章', titleEn: 'Add Article' }
     },
     {
         path: '/manage/article/edit',
         name: 'article.edit',
-        component: () => import('@/views/manage/article/editor.vue'),
+        component: () => import('@/views/manage/article/edit.vue'),
         meta: { title: '修改文章', titleEn: 'Edit Article' }
     },
     /* article end */
