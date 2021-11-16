@@ -112,7 +112,7 @@
                     title: '',
                     abstract: '',
                     categoryId: '',
-                    tagIdsArr: '',
+                    tagIdsArr: [],
                     tagIds: '',
                     status: 1,
                     isTop: false,
@@ -186,7 +186,7 @@
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
                     if (res.data.code === 's00') {
                         this.formData = res.data.data
-                        this.formData.tagIdsArr = this.formData.tagIds.split(',')
+                        this.formData.tagIdsArr = this.formData.tagIds ? this.formData.tagIds.split(',') : []
                         // 存储原始对象，用于重置
                         this.cloneFormData = this.deepClone(this.formData)
                         // 回填编辑器内容
@@ -218,6 +218,7 @@
             // 重置按钮
             resetForm () {
                 this.formData = this.deepClone(this.cloneFormData)
+                this.$refs['ui-quill'].getQuillRef().setHTML(this.formData.content)
                 this.$nextTick(() => {
                     this.$refs['editor-form'].clearValidate()
                 })

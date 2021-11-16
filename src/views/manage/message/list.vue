@@ -1,6 +1,6 @@
 <template>
     <div class="manage manage-message-list">
-        系统消息
+        留言板
     </div>
 </template>
 <script>

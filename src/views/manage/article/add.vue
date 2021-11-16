@@ -193,6 +193,7 @@
             // 重置按钮
             resetForm () {
                 this.formData = this.deepClone(this.cloneFormData)
+                this.$refs['ui-quill'].getQuillRef().setHTML(this.formData.content)
                 this.$nextTick(() => {
                     this.$refs['editor-form'].clearValidate()
                 })

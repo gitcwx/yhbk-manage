@@ -12,36 +12,21 @@ const routes = [
     {
         path: '/manage/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/manage/dashboard.vue'),
+        component: () => import('@/views/manage/dashboard/index.vue'),
         meta: { title: '控制台', titleEn: 'Dashboard' }
     },
     {
         path: '/manage/permission',
         name: 'permission',
-        component: () => import('@/views/manage/permission.vue'),
+        component: () => import('@/views/manage/permission/list.vue'),
         meta: { title: '权限控制', titleEn: 'Permission Control' }
-    },
-
-    /* message start */
-    {
-        path: '/manage/message',
-        name: 'message.folder',
-        redirect: { name: 'message.list' },
-        meta: { title: '消息管理', titleEn: 'Message' }
     },
     {
         path: '/manage/message/list',
         name: 'message.list',
         component: () => import('@/views/manage/message/list.vue'),
-        meta: { title: '我的消息', titleEn: 'Message List' }
+        meta: { title: '留言板', titleEn: 'Message List' }
     },
-    {
-        path: '/manage/message/add',
-        name: 'message.add',
-        component: () => import('@/views/manage/message/add.vue'),
-        meta: { title: '新增消息', titleEn: 'Add Message' }
-    },
-    /* message end */
 
     /* user start */
     {
@@ -94,6 +79,18 @@ const routes = [
         name: 'article.edit',
         component: () => import('@/views/manage/article/edit.vue'),
         meta: { title: '修改文章', titleEn: 'Edit Article' }
+    },
+    {
+        path: '/manage/article/category',
+        name: 'article.category',
+        component: () => import('@/views/manage/article/category.vue'),
+        meta: { title: '文章分类', titleEn: 'Article Category' }
+    },
+    {
+        path: '/manage/article/tags',
+        name: 'article.tags',
+        component: () => import('@/views/manage/article/tags.vue'),
+        meta: { title: '文章分类', titleEn: 'Article Tags' }
     },
     /* article end */
 
