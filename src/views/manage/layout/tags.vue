@@ -74,12 +74,18 @@
                 })
                 this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
-            // 新增标签
+            // [新增标签 | 切换标签]
             setTags (route) {
                 const isExist = this.tagsList.some(item => {
                     return item.path === route.fullPath
                 })
-                if (!isExist) {
+                if (isExist) {
+                    // 切换到已存在tag时 模拟生命周期 onShow
+                    const currentPage = route.matched[0].components.default
+                    if (currentPage.onShow) {
+                        currentPage.onShow.call(route.matched[0].instances.default)
+                    }
+                } else {
                     if (this.tagsList.length >= 8) {
                         this.tagsList.shift()
                     }
@@ -89,8 +95,8 @@
                         // name 必要 keep-alive include
                         name: route.matched[0].components.default.name
                     })
+                    this.$store.commit('SET_ALIVETAGS', this.tagsList)
                 }
-                this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
             handleTags (command) {
                 command === 'other' ? this.closeOther() : this.closeAll()

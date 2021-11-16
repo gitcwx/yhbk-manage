@@ -111,6 +111,10 @@
                 }
             }
         },
+        onShow () {
+            // 获取表格数据
+            this.getTableData()
+        },
         created () {
             // 获取标签下拉选
             if (this.tagList.length === 0) {
@@ -120,8 +124,8 @@
             if (this.categoryList.length === 0) {
                 this.$store.dispatch('getCategoryList')
             }
-            // 获取表格数据
-            this.getTableData()
+            // 触发 onShow
+            this.$options.onShow.call(this)
         },
         methods: {
             getCategoryList () {
