@@ -84,13 +84,13 @@ const routes = [
         path: '/manage/article/category',
         name: 'article.category',
         component: () => import('@/views/manage/article/category.vue'),
-        meta: { title: '文章分类', titleEn: 'Article Category' }
+        meta: { title: '分类管理', titleEn: 'Article Category' }
     },
     {
         path: '/manage/article/tags',
         name: 'article.tags',
         component: () => import('@/views/manage/article/tags.vue'),
-        meta: { title: '文章分类', titleEn: 'Article Tags' }
+        meta: { title: '标签管理', titleEn: 'Article Tags' }
     },
     /* article end */
 

@@ -128,38 +128,6 @@
             this.$options.onShow.call(this)
         },
         methods: {
-            getCategoryList () {
-                this.$axios({
-                    url: this.api.category.list,
-                    method: 'post',
-                    data: {
-                    }
-                }).then(res => {
-                    if (res.data.code === 's00') {
-                        this.categoryList = res.data.data
-                    } else {
-                        this.$message.warning(res.data.msg)
-                    }
-                }).catch(() => {
-                    this.$message.error('未知错误，请稍后重试')
-                })
-            },
-            getTagList () {
-                this.$axios({
-                    url: this.api.tag.list,
-                    method: 'post',
-                    data: {
-                    }
-                }).then(res => {
-                    if (res.data.code === 's00') {
-                        this.tagList = res.data.data
-                    } else {
-                        this.$message.warning(res.data.msg)
-                    }
-                }).catch(() => {
-                    this.$message.error('未知错误，请稍后重试')
-                })
-            },
             // 新增文章
             addItem () {
                 this.$router.push({
