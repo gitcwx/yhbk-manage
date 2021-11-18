@@ -131,13 +131,13 @@
             // 新增文章
             addItem () {
                 this.$router.push({
-                    path: '/manage/article/add'
+                    name: 'article.add'
                 })
             },
             // 编辑用户
             editItem (item) {
                 this.$router.push({
-                    path: '/manage/article/edit',
+                    name: 'article.edit',
                     query: {
                         id: item.id
                     }

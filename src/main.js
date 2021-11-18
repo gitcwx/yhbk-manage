@@ -64,7 +64,7 @@ axios.interceptors.response.use(response => {
 })
 
 router.beforeEach((to, from, next) => {
-    // 公开页面 /manage/login
+    // 公开页面 /login
     if (to.meta.open) {
         next(); return
     }
@@ -72,6 +72,7 @@ router.beforeEach((to, from, next) => {
     const token = getToken()
     if (!token) {
         router.push({ name: 'login' })
+        return
     }
     // 设置页面title
     if (store.getters.language === 'zh') {
@@ -87,7 +88,7 @@ router.beforeEach((to, from, next) => {
         if (store.getters.userPermission.length === 0) {
             await store.dispatch('getPermission')
         }
-        // 需要登录 不需要权限页面 /manage/404
+        // 需要登录 不需要权限页面 /404
         if (to.meta.allow) {
             next(); return
         }

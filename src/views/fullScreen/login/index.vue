@@ -41,8 +41,8 @@
         data: function () {
             return {
                 formData: {
-                    username: 'admin',
-                    password: '123456'
+                    username: '',
+                    password: ''
                 },
                 rules: {
                     username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],

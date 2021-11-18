@@ -238,7 +238,7 @@
                                 this.$message.success(res.data.msg)
                                 this.resetForm()
                                 this.$router.push({
-                                    path: '/manage/article/list'
+                                    name: 'article.list'
                                 })
                             } else {
                                 this.$message.warning(res.data.msg)
