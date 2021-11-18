@@ -1,38 +1,34 @@
 <template>
-    <el-config-provider :locale="locale">
-        <manage-header />
-        <manage-menu />
-        <div class="manage-body" :class="{ 'manage-collapse': collapse }">
-            <manage-tags />
-            <div
-                class="container"
-                v-loading="isLoading"
-                :element-loading-text="loadingText"
-                :element-loading-spinner="loadingSpinner"
-                :element-loading-background="loadingBackground"
-            >
-                <router-view v-slot="{ Component }">
-                    <transition name="move" mode="out-in">
-                        <keep-alive :include="tagsList">
-                            <component :is="Component" />
-                        </keep-alive>
-                    </transition>
-                </router-view>
-                <el-backtop target=".container" />
-            </div>
+    <manage-header />
+    <manage-menu />
+    <div class="manage-body" :class="{ 'manage-collapse': collapse }">
+        <manage-tags />
+        <div
+            class="container"
+            v-loading="isLoading"
+            :element-loading-text="loadingText"
+            :element-loading-spinner="loadingSpinner"
+            :element-loading-background="loadingBackground"
+        >
+            <router-view v-slot="{ Component }">
+                <transition name="move" mode="out-in">
+                    <keep-alive :include="tagsList">
+                        <component :is="Component" />
+                    </keep-alive>
+                </transition>
+            </router-view>
+            <el-backtop target=".container" />
         </div>
-    </el-config-provider>
+    </div>
 </template>
 <script>
-    import zh from 'element-plus/es/locale/lang/zh-cn'
-    import en from 'element-plus/es/locale/lang/en'
     import { mapState } from 'vuex'
     import manageHeader from './header.vue'
     import manageMenu from './menu.vue'
     import manageTags from './tags.vue'
 
     export default {
-        name: 'manage-layout',
+        name: 'manage',
         components: {
             manageHeader,
             manageMenu,
@@ -42,10 +38,6 @@
             return {}
         },
         computed: {
-            locale () {
-                const language = this.$store.getters.language
-                return language === 'en' ? en : zh
-            },
             ...mapState({
                 collapse: state => state.common.collapse,
                 tagsList (state) {
@@ -63,12 +55,7 @@
                 loadingBackground: state => state.common.loadingBackground
             })
         },
-        created () {
-            const language = localStorage.getItem('language')
-            if (language) {
-                this.$store.commit('SET_LANGUAGE', language)
-            }
-        },
+        created () {},
         methods: {}
     }
 </script>

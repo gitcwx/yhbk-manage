@@ -37,14 +37,9 @@ module.exports = {
     },
     pages: {
         index: {
-            entry: 'src/main.app.js',
+            entry: 'src/main.js',
             template: 'public/index.html',
             title: ''
-        },
-        manage: {
-            entry: 'src/main.manage.js',
-            template: 'public/index.html',
-            title: '后台管理系统'
         }
     },
     css: {

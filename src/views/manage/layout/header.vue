@@ -103,7 +103,7 @@
             handleCommand (command) {
                 if (command === 'loginout') {
                     removeToken()
-                    window.location.href = '/'
+                    this.$router.push({ name: 'login' })
                 } else {
                     this.$router.push({ name: command })
                 }

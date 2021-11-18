@@ -107,7 +107,7 @@
             destroy-on-close
             center
         >
-            <el-form ref="page-info-form" :model="formData" :rules="rules" label-width="90px">
+            <el-form ref="dialog-form" :model="formData" :rules="rules" label-width="90px">
                 <el-form-item label="菜单图标" prop="icon">
                     <el-input v-model="formData.icon" placeholder="请输入图标class" :prefix-icon="formData.icon"/>
                 </el-form-item>
@@ -253,7 +253,7 @@
             },
             // 弹框确认按钮
             dialogSubmit () {
-                this.$refs['page-info-form'].validate(valid => {
+                this.$refs['dialog-form'].validate(valid => {
                     if (valid) {
                         let url
                         if (this.formType === 'add') {
@@ -270,7 +270,7 @@
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             if (res.data.code === 's00') {
                                 this.$message.success(res.data.msg)
-                                // this.$refs['page-info-form'].resetFields()
+                                // this.$refs['dialog-form'].resetFields()
                                 this.dialogVisible = false
                                 this.getTableData()
                             } else {

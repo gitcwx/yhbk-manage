@@ -4,7 +4,7 @@ import store from '@/store'
 import zh from './zh'
 import en from './en'
 
-import router from '@/router/manage'
+import router from '@/router'
 
 router.getRoutes().forEach(item => {
     if (item.name) {
@@ -13,7 +13,7 @@ router.getRoutes().forEach(item => {
             zh.router[item.name] = item.meta.title
             en.router[item.name] = item.meta.titleEn
         } else {
-            // ['a', 'b', 'c']  =>  {a: {b: c: 'xxx'}}
+            // ['manage', 'article', 'list']  =>  {manage: {article: list: 'xxx'}}
             let tempZh = {}
             let tempEn = {}
             for (let i = list.length; i--; i >= 0) {

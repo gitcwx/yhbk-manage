@@ -5,7 +5,7 @@
             <el-form
                 :model="formData"
                 :rules="rules"
-                ref="login"
+                ref="login-form"
                 label-width="0px"
                 class="login-form"
                 @keyup.enter="submitForm"
@@ -52,23 +52,23 @@
         },
         methods: {
             submitForm () {
-                this.$refs.login.validate(valid => {
+                this.$refs['login-form'].validate(valid => {
                     if (valid) {
-                        this.$store.commit('SET_IS_LOADING', { isLoading: true })
+                        this.$store.commit('SET_FULL_LOADING', { isLoading: true })
                         this.$axios({
                             url: this.api.user.login,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
-                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                            this.$store.commit('SET_FULL_LOADING', { isLoading: false })
                             if (res.data.code === 's00') {
                                 setToken(res.data.token)
-                                window.location.href = '/manage'
+                                this.$router.push({ name: 'dashboard' })
                             } else {
                                 this.$message.warning(res.data.msg)
                             }
                         }).catch(() => {
-                            this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                            this.$store.commit('SET_FULL_LOADING', { isLoading: false })
                             this.$message.error('未知错误，请稍后重试')
                         })
                     } else {

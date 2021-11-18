@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
-import App from '@/views/manage/layout'
+import App from '@/views/App'
 import '@/registerServiceWorker'
-import router from '@/router/manage'
+import router from '@/router'
 import store from '@/store'
 import axios from 'axios'
 import extend from '@/extend'
@@ -56,7 +56,7 @@ axios.interceptors.response.use(response => {
     return response
 }, error => {
     if (error.response && error.response.status === 405) {
-        window.location.href = '/login'
+        router.push({ name: 'login' })
         return new Promise(() => {
         })
     }
@@ -64,14 +64,14 @@ axios.interceptors.response.use(response => {
 })
 
 router.beforeEach((to, from, next) => {
+    // 公开页面 /manage/login
+    if (to.meta.open) {
+        next(); return
+    }
     // 检查token
     const token = getToken()
     if (!token) {
-        window.location.href = '/login'
-    }
-    // 不需要权限页面
-    if (to.meta.allow) {
-        next(); return
+        router.push({ name: 'login' })
     }
     // 设置页面title
     if (store.getters.language === 'zh') {
@@ -81,15 +81,17 @@ router.beforeEach((to, from, next) => {
     }
     // 页面加载进度条
     NProgress.start()
-
     // 需要权限的页面
     ;(async () => {
         // 获取权限集
         if (store.getters.userPermission.length === 0) {
             await store.dispatch('getPermission')
         }
+        // 需要登录 不需要权限页面 /manage/404
+        if (to.meta.allow) {
+            next(); return
+        }
         const permission = store.getters.userPermission
-
         if (permission.some(v => v.name === to.name)) {
             next(); return
         }

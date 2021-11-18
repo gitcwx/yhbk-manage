@@ -47,7 +47,7 @@
             destroy-on-close
             center
         >
-            <el-form ref="tag-info-form" :model="formData" :rules="rules" label-width="90px">
+            <el-form ref="dialog-form" :model="formData" :rules="rules" label-width="90px">
                 <el-form-item label="中文名称" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入" />
                 </el-form-item>
@@ -148,7 +148,7 @@
             },
             // 弹框确认按钮
             dialogSubmit () {
-                this.$refs['tag-info-form'].validate(valid => {
+                this.$refs['dialog-form'].validate(valid => {
                     if (valid) {
                         let url
                         if (this.formType === 'add') {
