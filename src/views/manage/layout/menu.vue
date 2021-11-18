@@ -92,7 +92,7 @@
                 return result
             },
             nameToPath (name) {
-                return '/manage/' + name.replace(/\./g, '/')
+                return '/' + name.replace(/\./g, '/')
             }
         }
     }

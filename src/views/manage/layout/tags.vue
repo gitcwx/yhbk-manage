@@ -39,8 +39,11 @@
             }
         },
         watch: {
-            $route (newValue, oldValue) {
-                this.setTags(newValue)
+            $route: {
+                immediate: true,
+                handler (newValue, oldValue) {
+                    this.setTags(newValue)
+                }
             }
         },
         methods: {
