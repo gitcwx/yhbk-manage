@@ -14,31 +14,52 @@
             </el-form>
         </div>
 
-        <div class="tags-wrap">
-            <ui-tips text="标签列表" type="primary" />
-            <transition-group name="tags-list" tag="div" :class="{'tags-list': true, isOperating: isOperating}">
-                <div
-                    class="tags-item"
-                    :class="{active: selectedList[item.id]}"
-                    v-for="(item, index) in tagList"
-                    :key="index"
-                    @click="setActive(item)"
-                >
-                    <span class="text" :title="item.nameEn">{{item.name}}</span>
-                    <span class="btn-edit" @click="editItem(item)"><i class="el-icon-edit"></i></span>
-                    <el-popconfirm
-                        title="确认删除?"
-                        @confirm="handleDelete(item, index)"
-                        icon="el-icon-info"
-                        icon-color="red"
-                    >
-                        <template #reference>
-                            <span class="btn-delete"><i class="el-icon-delete"></i></span>
-                        </template>
-                    </el-popconfirm>
+        <el-row :gutter="30">
+            <el-col :md="12" :sm="24">
+                <div class="tags-wrap">
+                    <ui-tips text="标签列表" type="primary" />
+                    <transition-group name="tags-list" tag="div" :class="{'tags-list': true, isOperating: isOperating}">
+                        <div
+                            class="tags-item"
+                            :class="{
+                                active: selectedList[item.id] && selectedList[item.id].active,
+                                loading: selectedList[item.id] && selectedList[item.id].loading
+                            }"
+                            v-for="(item, index) in tagList"
+                            :key="index"
+                            @click="setActive(item)"
+                        >
+                            <span class="text" :title="item.nameEn">
+                                {{item.name}}
+                                <span class="text-primary" v-if="selectedList[item.id] && selectedList[item.id].count >= 0">
+                                    ({{selectedList[item.id].count}})
+                                </span>
+                            </span>
+                            <span class="btn-edit" @click="editItem(item)"><i class="el-icon-edit"></i></span>
+                            <el-popconfirm
+                                title="确认删除?"
+                                @confirm="handleDelete(item, index)"
+                                icon="el-icon-info"
+                                icon-color="red"
+                            >
+                                <template #reference>
+                                    <span class="btn-delete"><i class="el-icon-delete"></i></span>
+                                </template>
+                            </el-popconfirm>
+                            <span class="tag-loading" v-if="selectedList[item.id] && selectedList[item.id].loading">
+                                <i class="el-icon-loading"></i>
+                            </span>
+                        </div>
+                    </transition-group>
                 </div>
-            </transition-group>
-        </div>
+            </el-col>
+            <el-col :md="12" :sm="24">
+                <div class="echarts-wrap">
+                    <ui-tips text="占比图例" type="primary" />
+                    <div class="echarts-box" ref="echarts-box"></div>
+                </div>
+            </el-col>
+        </el-row>
 
         <el-dialog
             :title="formType === 'add' ? '新增页面' : '编辑页面'"
@@ -66,17 +87,19 @@
 </template>
 
 <script>
+    import * as echarts from 'echarts'
     export default {
         name: 'manage-article-tags',
         data () {
             return {
                 searchData: {
-                    keyword: ''
+                    keyword: '',
+                    limit: 999
                 },
                 tagList: [],
                 // 是否为操作状态
                 isOperating: false,
-                // 当前选中的ids
+                // 当前选中的标签状态
                 selectedList: {},
                 // 弹框可见性
                 dialogVisible: false,
@@ -98,13 +121,67 @@
                         { required: true, message: '请输入标签英文名称' },
                         { max: 20, message: '10位以内的字符' }
                     ]
-                }
+                },
+                // echarts 实例化对象
+                echartsObj: null,
+                echartsOption: {
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        type: 'scroll',
+                        orient: 'vertical',
+                        right: '5%',
+                        top: 'center'
+                    },
+                    series: [
+                        {
+                            name: '文章数量',
+                            type: 'pie',
+                            radius: ['40%', '70%'],
+                            center: ['40%', '50%'],
+                            avoidLabelOverlap: false,
+                            itemStyle: {
+                                borderRadius: 10,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            },
+                            label: {
+                                show: false,
+                                position: 'center'
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '30',
+                                    fontWeight: 'bold',
+                                    color: '#409EFF'
+                                },
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            },
+                            data: []
+                        }
+                    ]
+                },
+                allArticleCount: 0
             }
         },
         created () {
             // 缓存表单默认值
             this.defaultFormData = this.deepClone(this.formData)
             this.handleSearch()
+        },
+        mounted () {
+            this.getAllArticleCount(() => {
+                this.initEcharts()
+            })
         },
         methods: {
             handleSearch () {
@@ -126,13 +203,48 @@
                 })
             },
             setActive (item) {
-                if (!this.isOperating) {
-                    if (this.selectedList[item.id]) {
-                        delete this.selectedList[item.id]
-                    } else {
-                        this.selectedList[item.id] = true
-                    }
+                const current = this.selectedList[item.id]
+                // 操作状态下禁选
+                if (this.isOperating) { return }
+                // loading状态下禁选
+                if (current && current.loading) { return }
+                // 激活状态下取消激活
+                if (current && current.active) {
+                    this.selectedList[item.id].active = false
+                    this.reloadEchart()
+                    return
                 }
+                // 激活过了，请求过数量接口
+                if (current && current.count >= 0) {
+                    this.selectedList[item.id].active = true
+                    this.reloadEchart()
+                    return
+                }
+                this.selectedList[item.id] = { loading: true }
+                this.getArticleCount(item.id, (data) => {
+                    this.selectedList[item.id] = { active: true, loading: false, count: data.count, name: item.name }
+                    this.reloadEchart()
+                }, () => {
+                    this.selectedList[item.id] = { active: false, loading: false }
+                })
+            },
+            // 获取当前标签下文章数量
+            getArticleCount (id, success, failed) {
+                this.$axios({
+                    url: this.api.tag.count,
+                    method: 'post',
+                    data: { id }
+                }).then(res => {
+                    if (res.data.code === 's00') {
+                        success(res.data.data)
+                    } else {
+                        failed()
+                        this.$message.warning(res.data.msg)
+                    }
+                }).catch(() => {
+                    failed()
+                    this.$message.error('未知错误，请稍后重试')
+                })
             },
             // 新增标签
             addItem () {
@@ -200,6 +312,44 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
+                    this.$message.error('未知错误，请稍后重试')
+                })
+            },
+            initEcharts () {
+                // 初始赋值
+                this.echartsOption.series[0].data = [{ name: '总数', value: this.allArticleCount }]
+
+                this.echartsObj = echarts.init(this.$refs['echarts-box'])
+                this.echartsObj.setOption(this.echartsOption)
+            },
+            reloadEchart () {
+                const echartsList = []
+                Object.values(this.selectedList).forEach(item => {
+                    if (item.active) {
+                        echartsList.push({
+                            name: item.name,
+                            value: item.count
+                        })
+                    }
+                })
+                if (echartsList.length === 0) {
+                    echartsList.push({ name: '总数', value: this.allArticleCount })
+                }
+                this.echartsOption.series[0].data = echartsList
+                this.echartsObj.setOption(this.echartsOption, true)
+            },
+            getAllArticleCount (callback) {
+                this.$axios({
+                    url: this.api.article.count,
+                    method: 'post'
+                }).then(res => {
+                    if (res.data.code === 's00') {
+                        this.allArticleCount = res.data.data.count || 0
+                        !!callback && typeof callback === 'function' && callback()
+                    } else {
+                        this.$message.warning(res.data.msg)
+                    }
+                }).catch(() => {
                     this.$message.error('未知错误，请稍后重试')
                 })
             }

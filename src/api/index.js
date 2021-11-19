@@ -17,6 +17,7 @@ export const api = {
     },
     article: {
         list: '/article/list',
+        count: '/article/count',
         add: '/article/add',
         edit: '/article/edit',
         detail: '/article/detail',
@@ -24,12 +25,14 @@ export const api = {
     },
     category: {
         list: '/category/list',
+        count: '/category/count',
         add: '/category/add',
         edit: '/category/edit',
         del: '/category/del'
     },
     tag: {
         list: '/tag/list',
+        count: '/tag/count',
         add: '/tag/add',
         edit: '/tag/edit',
         del: '/tag/del'

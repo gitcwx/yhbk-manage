@@ -8,9 +8,6 @@ const getters = {
     userInfo: (state) => {
         return state.user.info
     },
-    userMsgCount: (state) => {
-        return state.user.msgCount
-    },
     language: (state) => {
         return state.common.language === 'en' ? 'en' : 'zh'
     },

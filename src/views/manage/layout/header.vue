@@ -76,14 +76,12 @@
         created () {
             // 获取用户信息
             this.$store.dispatch('getUserInfo')
-
-            // 获取未读消息数量
-            // this.$store.dispatch('getMsgCount')
-        },
-        mounted () {
+            // 菜单栏是否折叠
             if (document.body.clientWidth < 1500) {
                 this.$store.commit('SET_COLLAPSE', true)
             }
+        },
+        mounted () {
         },
         methods: {
             // 用户名下拉菜单选择事件
