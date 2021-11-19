@@ -64,6 +64,12 @@ axios.interceptors.response.use(response => {
 })
 
 router.beforeEach((to, from, next) => {
+    // 设置页面title
+    if (store.getters.language === 'zh') {
+        to.meta.title && (document.title = to.meta.title)
+    } else if (store.getters.language === 'en') {
+        to.meta.titleEn && (document.title = to.meta.titleEn)
+    }
     // 公开页面 /login
     if (to.meta.open) {
         next(); return
@@ -73,12 +79,6 @@ router.beforeEach((to, from, next) => {
     if (!token) {
         router.push({ name: 'login' })
         return
-    }
-    // 设置页面title
-    if (store.getters.language === 'zh') {
-        to.meta.title && (document.title = to.meta.title)
-    } else if (store.getters.language === 'en') {
-        to.meta.titleEn && (document.title = to.meta.titleEn)
     }
     // 页面加载进度条
     NProgress.start()
@@ -106,7 +106,7 @@ router.afterEach(() => {
         // behavior: ['smooth', 'instant'] 平滑滚动 瞬间滚动
         behavior: 'instant'
     })
-  NProgress.done()
+    NProgress.done()
 })
 
 app

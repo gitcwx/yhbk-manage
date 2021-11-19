@@ -17,7 +17,9 @@
                     </keep-alive>
                 </transition>
             </router-view>
-            <el-backtop target=".container" />
+            <el-backtop target=".container">
+                <div class="el-backtop-inner">UP</div>
+            </el-backtop>
         </div>
     </div>
 </template>
@@ -78,7 +80,7 @@
     .container {
         width: auto;
         height: 100%;
-        padding: 10px;
+        padding: 10px 0 10px 10px;
         overflow-y: scroll;
         box-sizing: border-box;
 
@@ -96,6 +98,16 @@
                     width: 200px;
                 }
             }
+        }
+
+        .el-backtop-inner {
+            height: 100%;
+            width: 100%;
+            background-color: #f2f5f6;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            line-height: 40px;
+            color: #1989fa;
         }
     }
 }
