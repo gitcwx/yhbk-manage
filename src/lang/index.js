@@ -27,7 +27,7 @@ router.getRoutes().forEach(item => {
                     // 临时保存temp值
                     const strZh = JSON.stringify(tempZh)
                     const strEn = JSON.stringify(tempEn)
-                    // 情况temp值
+                    // 清空temp值
                     tempZh = {}
                     tempEn = {}
                     // 将temp值重新赋值

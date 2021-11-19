@@ -10,10 +10,6 @@ export default {
             open: '全屏',
             close: '取消全屏'
         },
-        message: {
-            name: '消息中心',
-            unread: '条未读消息'
-        },
         dropdown: {
             userCenter: '个人中心',
             modifyPassword: '修改密码',

@@ -10,10 +10,6 @@ export default {
             open: 'Fullscreen',
             close: 'Exist Fullscreen'
         },
-        message: {
-            name: 'Message Center',
-            unread: 'Unread Messages'
-        },
         dropdown: {
             userCenter: 'Profile',
             modifyPassword: 'Password',

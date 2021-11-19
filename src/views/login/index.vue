@@ -13,14 +13,14 @@
                 <el-form-item prop="username">
                     <el-input
                         v-model="formData.username"
-                        placeholder="username"
+                        placeholder="账号"
                         prefix-icon="el-icon-user"
                     />
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         type="password"
-                        placeholder="password"
+                        placeholder="密码"
                         v-model="formData.password"
                         prefix-icon="el-icon-lock"
                     />
@@ -45,8 +45,8 @@
                     password: ''
                 },
                 rules: {
-                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+                    username: [{ required: true, message: '请输入用户名', trigger: 'change' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'change' }]
                 }
             }
         },

@@ -29,16 +29,6 @@
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
-                <!-- 消息中心 -->
-                <div class="btn-bell">
-                    <el-tooltip effect="dark" placement="bottom"
-                        :content="message ? `${message}` + $t('layout.message.unread') : $t('layout.message.name')">
-                        <router-link :to="{ name: 'message.list' }">
-                            <i class="el-icon-bell"></i>
-                        </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
-                </div>
                 <!-- 用户头像 -->
                 <div class="user-avatar">
                     <img v-if="user.avatar" :src="user.avatar" />
@@ -78,9 +68,6 @@
             },
             collapse () {
                 return this.$store.getters.isCollapse
-            },
-            message () {
-                return this.$store.getters.userMsgCount.unread
             },
             user () {
                 return this.$store.getters.userInfo

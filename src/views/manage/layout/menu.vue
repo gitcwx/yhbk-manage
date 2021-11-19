@@ -106,13 +106,10 @@
     top: 70px;
     bottom: 0;
     overflow-y: scroll;
+    width: 250px;
 
     & > .el-menu {
         height: 100%;
-
-        &:not(.el-menu--collapse) {
-            width: 250px;
-        }
     }
 }
 .manage-menu::-webkit-scrollbar {

@@ -5,8 +5,7 @@ const user = {
     state: {
         token: '',
         permission: [],
-        info: {},
-        msgCount: 0
+        info: {}
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -17,9 +16,6 @@ const user = {
         },
         SET_USER_INFO: (state, info) => {
             state.info = info
-        },
-        SET_MSGCOUNT: (state, count) => {
-            state.msgCount = count
         }
     },
     actions: {
@@ -51,20 +47,6 @@ const user = {
                 axios.post(api.user.info).then(res => {
                     if (res.data && res.data.code === 's00') {
                         commit('SET_USER_INFO', res.data.data)
-                        resolve(res)
-                    } else {
-                        reject(res)
-                    }
-                }).catch(error => {
-                    reject(error)
-                })
-            })
-        },
-        getMsgCount ({ commit }, params) {
-            return new Promise((resolve, reject) => {
-                axios.post(api.message.count).then(res => {
-                    if (res.data && res.data.code === 's00') {
-                        commit('SET_MSGCOUNT', res.data.data)
                         resolve(res)
                     } else {
                         reject(res)
