@@ -3,26 +3,49 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
         path: '/',
+        name: 'home',
         redirect: { name: 'dashboard' },
         component: () => import('@/views/manage/layout/index.vue'),
+        meta: { title: '首页', titleEn: 'Home' },
         children: [
             {
                 path: 'dashboard',
                 name: 'dashboard',
                 component: () => import('@/views/manage/dashboard/index.vue'),
-                meta: { title: '控制台', titleEn: 'Dashboard' }
+                meta: {
+                    title: '控制台',
+                    titleEn: 'Dashboard',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'dashboard' }
+                    ]
+                }
             },
             {
                 path: 'permission',
                 name: 'permission',
                 component: () => import('@/views/manage/permission/list.vue'),
-                meta: { title: '权限控制', titleEn: 'Permission Control' }
+                meta: {
+                    title: '权限控制',
+                    titleEn: 'Permission Control',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'permission' }
+                    ]
+                }
             },
             {
                 path: 'message/list',
                 name: 'message.list',
                 component: () => import('@/views/manage/message/list.vue'),
-                meta: { title: '留言板', titleEn: 'Message List' }
+                meta: {
+                    title: '留言板',
+                    titleEn: 'Message List',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'message.list' }
+                    ]
+                }
             },
 
             /* user start */
@@ -36,19 +59,27 @@ const routes = [
                 path: 'user/list',
                 name: 'user.list',
                 component: () => import('@/views/manage/user/list.vue'),
-                meta: { title: '用户列表', titleEn: 'User List' }
-            },
-            {
-                path: 'user/info',
-                name: 'user.info',
-                component: () => import('@/views/manage/user/info.vue'),
-                meta: { title: '用户资料', titleEn: 'User Info' }
+                meta: {
+                    title: '用户列表',
+                    titleEn: 'User List',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'user.list' }
+                    ]
+                }
             },
             {
                 path: 'user/password',
                 name: 'user.password',
                 component: () => import('@/views/manage/user/password.vue'),
-                meta: { title: '修改密码', titleEn: 'Modify Password' }
+                meta: {
+                    title: '修改密码',
+                    titleEn: 'Modify Password',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'user.password' }
+                    ]
+                }
             },
             /* user end */
 
@@ -63,31 +94,70 @@ const routes = [
                 path: 'article/list',
                 name: 'article.list',
                 component: () => import('@/views/manage/article/list.vue'),
-                meta: { title: '文章列表', titleEn: 'Article List' }
+                meta: {
+                    title: '文章列表',
+                    titleEn: 'Article List',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list' }
+                    ]
+                }
             },
             {
                 path: 'article/add',
                 name: 'article.add',
                 component: () => import('@/views/manage/article/add.vue'),
-                meta: { title: '新增文章', titleEn: 'Add Article' }
+                meta: {
+                    title: '新增文章',
+                    titleEn: 'Add Article',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list', path: '/article/list' },
+                        { name: 'article.add' }
+                    ]
+                }
             },
             {
                 path: 'article/edit',
                 name: 'article.edit',
                 component: () => import('@/views/manage/article/edit.vue'),
-                meta: { title: '修改文章', titleEn: 'Edit Article' }
+                meta: {
+                    title: '修改文章',
+                    titleEn: 'Edit Article',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list', path: '/article/list' },
+                        { name: 'article.edit' }
+                    ]
+                }
             },
             {
                 path: 'article/category',
                 name: 'article.category',
                 component: () => import('@/views/manage/article/category.vue'),
-                meta: { title: '分类管理', titleEn: 'Article Category' }
+                meta: {
+                    title: '分类管理',
+                    titleEn: 'Article Category',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list', path: '/article/list' },
+                        { name: 'article.category' }
+                    ]
+                }
             },
             {
                 path: 'article/tags',
                 name: 'article.tags',
                 component: () => import('@/views/manage/article/tags.vue'),
-                meta: { title: '标签管理', titleEn: 'Article Tags' }
+                meta: {
+                    title: '标签管理',
+                    titleEn: 'Article Tags',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list', path: '/article/list' },
+                        { name: 'article.tags' }
+                    ]
+                }
             },
             /* article end */
 
@@ -95,13 +165,29 @@ const routes = [
                 path: '403',
                 name: '403',
                 component: () => import('@/views/manage/errors/403.vue'),
-                meta: { title: '访问受限', titleEn: '403 Forbidden', allow: true }
+                meta: {
+                    title: '访问受限',
+                    titleEn: '403 Forbidden',
+                    allow: true,
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: '403' }
+                    ]
+                }
             },
             {
                 path: '404',
                 name: '404',
                 component: () => import('@/views/manage/errors/404.vue'),
-                meta: { title: '页面不存在', titleEn: '404 Not Found', allow: true }
+                meta: {
+                    title: '页面不存在',
+                    titleEn: '404 Not Found',
+                    allow: true,
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: '404' }
+                    ]
+                }
             }
         ]
     },

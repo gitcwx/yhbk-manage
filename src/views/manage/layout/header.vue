@@ -64,7 +64,7 @@
         },
         computed: {
             language () {
-                return this.$store.getters.language
+                return this.getLanguage()
             },
             collapse () {
                 return this.$store.getters.isCollapse
@@ -76,10 +76,6 @@
         created () {
             // 获取用户信息
             this.$store.dispatch('getUserInfo')
-            // 菜单栏是否折叠
-            if (document.body.clientWidth < 1500) {
-                this.$store.commit('SET_COLLAPSE', true)
-            }
         },
         mounted () {
         },
@@ -126,7 +122,7 @@
             },
             // 语言切换
             changeLanguage () {
-                this.$store.commit('SET_LANGUAGE', this.language === 'en' ? 'zh' : 'en')
+                this.$store.commit('SET_SETTING', { language: this.language === 'en' ? 'zh' : 'en' })
                 this.$i18n.locale = this.language
             }
         }

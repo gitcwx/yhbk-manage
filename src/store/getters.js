@@ -8,9 +8,6 @@ const getters = {
     userInfo: (state) => {
         return state.user.info
     },
-    language: (state) => {
-        return state.common.language === 'en' ? 'en' : 'zh'
-    },
     isCollapse: (state) => {
         return state.common.collapse
     },

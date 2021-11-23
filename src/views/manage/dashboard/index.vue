@@ -12,7 +12,7 @@
             }
         },
         created () {
-            this.$message.warning('test')
+
         },
         methods: {
 
@@ -21,6 +21,6 @@
 </script>
 <style lang="scss">
 .manage-dashboard {
-
+    height: 2000px;
 }
 </style>

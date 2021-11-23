@@ -1,3 +1,5 @@
+import store from '@/store'
+
 // 数据克隆
 const deepClone = function (obj) {
     const that = this
@@ -35,7 +37,27 @@ const loadScript = function (srcUrl, callback, noCache) {
     sc.src = noCache ? srcUrl + '?c=' + Math.random() : srcUrl
 }
 
-module.exports = {
+// 获取当前语言
+const getLanguage = function () {
+    // vuex缓存读取
+    const language = store.state.common.setting.language
+    if (language) {
+        return language
+    }
+    // localStorage缓存读取
+    let setting = localStorage.getItem('setting')
+    if (!setting) {
+        return 'zh'
+    }
+    try {
+        setting = JSON.parse(setting)
+        return setting.language || 'zh'
+    } catch (err) {
+        return 'zh'
+    }
+}
+export {
     deepClone,
-    loadScript
+    loadScript,
+    getLanguage
 }

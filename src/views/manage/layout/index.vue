@@ -1,40 +1,54 @@
 <template>
+    <!-- 顶部 -->
     <manage-header />
+    <!-- 菜单 -->
     <manage-menu />
-    <div class="manage-body" :class="{ 'manage-collapse': collapse }">
-        <manage-tags />
+    <!-- 主体 -->
+    <div class="manage-body" :class="{ 'is-menu-collapse': collapse }">
+        <!-- 面包屑 -->
+        <manage-crumbs v-if="setting.showCrumbs" />
+        <!-- 标签栏 -->
+        <manage-tags v-if="setting.showTags"/>
+        <!-- 视图 -->
         <div
-            class="container"
+            class="manage-view"
             v-loading="isLoading"
             :element-loading-text="loadingText"
             :element-loading-spinner="loadingSpinner"
             :element-loading-background="loadingBackground"
         >
             <router-view v-slot="{ Component }">
-                <transition name="move" mode="out-in">
+                <transition name="body-move">
                     <keep-alive :include="tagsList">
                         <component :is="Component" />
                     </keep-alive>
                 </transition>
             </router-view>
-            <el-backtop target=".container">
-                <div class="el-backtop-inner">UP</div>
-            </el-backtop>
         </div>
+        <!-- 返回顶部 -->
+        <el-backtop target=".manage-view">
+            <div class="el-backtop-inner">UP</div>
+        </el-backtop>
+        <!-- 右侧设置弹窗 -->
+        <manage-drawer />
     </div>
 </template>
 <script>
     import { mapState } from 'vuex'
     import manageHeader from './header.vue'
+    import manageCrumbs from './crumbs.vue'
     import manageMenu from './menu.vue'
     import manageTags from './tags.vue'
+    import manageDrawer from './drawer.vue'
 
     export default {
         name: 'manage',
         components: {
             manageHeader,
+            manageCrumbs,
             manageMenu,
-            manageTags
+            manageTags,
+            manageDrawer
         },
         data () {
             return {}
@@ -42,6 +56,7 @@
         computed: {
             ...mapState({
                 collapse: state => state.common.collapse,
+                setting: state => state.common.setting,
                 tagsList (state) {
                     const aliveTags = state.common.aliveTags
                     const tagsNameArray = []
@@ -57,7 +72,14 @@
                 loadingBackground: state => state.common.loadingBackground
             })
         },
-        created () {},
+        created () {
+            // 菜单栏是否折叠
+            if (this.setting.collapse === 'auto') {
+                this.$store.commit('SET_COLLAPSE', document.body.clientWidth < 1500)
+            } else {
+                this.$store.commit('SET_COLLAPSE', this.setting.collapse)
+            }
+        },
         methods: {}
     }
 </script>
@@ -69,20 +91,21 @@
     right: 0;
     top: 70px;
     bottom: 0;
-    padding-bottom: 30px;
     transition: left 0.3s ease-in-out;
     background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 
-    &.manage-collapse {
+    &.is-menu-collapse {
         left: 65px;
     }
 
-    .container {
+    .manage-view {
         width: auto;
-        height: 100%;
+        flex: 1;
         padding: 10px 0 10px 10px;
         overflow-y: scroll;
-        box-sizing: border-box;
 
         .manage {
             background: #fff;
@@ -100,15 +123,31 @@
             }
         }
 
-        .el-backtop-inner {
-            height: 100%;
-            width: 100%;
-            background-color: #f2f5f6;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
-            text-align: center;
-            line-height: 40px;
-            color: #1989fa;
+        .body-move-enter-to,
+        .body-move-leave-from {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.5s ease-in-out;
         }
+
+        .body-move-enter-from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        .body-move-leave-to {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+    }
+
+    .el-backtop-inner {
+        height: 100%;
+        width: 100%;
+        background-color: #f2f5f6;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        line-height: 40px;
+        color: $color-primary;
     }
 }
 </style>

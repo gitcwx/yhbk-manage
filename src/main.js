@@ -41,7 +41,8 @@ axios.interceptors.request.use(config => {
     if (typeof token !== 'undefined') {
         config.headers.Authorization = 'Bearer ' + token
     }
-    config.headers.language = localStorage.getItem('language') || store.getters.language
+
+    config.headers.language = app.config.globalProperties.getLanguage()
     return config
 }, error => {
     return Promise.reject(error)

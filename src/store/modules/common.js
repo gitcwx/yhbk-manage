@@ -11,9 +11,19 @@ const common = {
         fullLoadingSpinner: '',
         fullLoadingBackground: '',
 
-        language: '',
+        // 当前菜单是否收起
         collapse: false,
-        aliveTags: []
+        aliveTags: [],
+        setting: {
+            // 默认是否显示面包屑导航
+            showCrumbs: undefined,
+            // 默认是否显示标签栏
+            showTags: undefined,
+            // 默认显示语言
+            language: undefined,
+            // 菜单栏默认是否收起
+            collapse: undefined
+        }
     },
 
     mutations: {
@@ -29,15 +39,19 @@ const common = {
             state.fullLoadingSpinner = loadingSpinner || 'el-icon-loading'
             state.fullLoadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.45)'
         },
-        SET_LANGUAGE: (state, language) => {
-            state.language = language
-            localStorage.setItem('language', language)
-        },
         SET_COLLAPSE: (state, collapse) => {
             state.collapse = collapse
         },
         SET_ALIVETAGS: (state, aliveTags) => {
             state.aliveTags = aliveTags
+        },
+        SET_SETTING: (state, setting) => {
+            for (const key in state.setting) {
+                if (setting[key] !== undefined) {
+                    state.setting[key] = setting[key]
+                }
+            }
+            localStorage.setItem('setting', JSON.stringify(state.setting))
         }
     },
 

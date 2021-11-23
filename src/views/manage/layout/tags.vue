@@ -2,23 +2,17 @@
     <div class="manage-tags" v-if="tagsList.length">
         <ul class="tags-list">
             <li class="tags-item" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
-                <!-- <el-tooltip
-                    effect="dark"
-                    :content="$t('router.'+item.title)"
-                    placement="bottom"
-                > -->
-                    <router-link :to="item.fullPath" class="tags-item-title">
-                        {{ $t('router.' + item.title )}}
-                    </router-link>
-                <!-- </el-tooltip> -->
+                <router-link :to="item.fullPath" class="tags-item-title" :title="$t('router.'+item.title)">
+                    {{ $t('router.' + item.title )}}
+                </router-link>
                 <span class="tags-item-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
             </li>
         </ul>
         <div class="tags-close-box">
             <el-dropdown @command="handleTags" placement="bottom-end">
-                <el-button size="mini" type="primary">
-                    {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
+                <div class="tags-close-button">
+                    {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down"></i>
+                </div>
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="other">{{$t('layout.tagControl.closeOthers')}}</el-dropdown-item>
@@ -41,8 +35,10 @@
         watch: {
             $route: {
                 immediate: true,
-                handler (newValue, oldValue) {
-                    this.setTags(newValue)
+                handler (newValue) {
+                    if (newValue.matched[0] && newValue.matched[0].path === '/') {
+                        this.setTags(newValue)
+                    }
                 }
             }
         },
@@ -115,39 +111,31 @@
 <style lang="scss">
 .manage-tags {
     position: relative;
-    height: 30px;
-    overflow: hidden;
     background: #fff;
     padding-right: 120px;
     box-shadow: 0 5px 10px #ddd;
+    z-index: 99;
 
     .tags-list {
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 4px;
 
         .tags-item {
-            float: left;
-            margin: 3px 5px 2px 3px;
+            margin-right: 5px;
             border-radius: 3px;
             font-size: 12px;
-            overflow: hidden;
             cursor: pointer;
-            height: 23px;
-            line-height: 23px;
             border: 1px solid #e9eaec;
             background: #fff;
-            padding: 0 5px 0 12px;
-            vertical-align: middle;
+            padding: 2px 5px 2px 12px;
             color: #666;
-            -webkit-transition: all .3s ease-in;
-            -moz-transition: all .3s ease-in;
-            transition: all .3s ease-in;
+            white-space: nowrap;
 
             &.active {
                 color: #fff;
-                border: 1px solid #409EFF;
-                background-color: #409EFF;
+                border-color: $color-primary;
+                background-color: $color-primary;
 
                 .tags-item-title {
                     color: #fff;
@@ -159,29 +147,43 @@
             }
 
             .tags-item-title {
-                float: left;
+                display: inline-block;
                 max-width: 80px;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 margin-right: 5px;
                 color: #666;
+                vertical-align: bottom;
             }
         }
     }
 
     .tags-close-box {
         position: absolute;
-        right: 0;
         top: 0;
+        right: 0;
+        bottom: 0;
         box-sizing: border-box;
-        padding-top: 1px;
         text-align: center;
         width: 110px;
-        height: 30px;
         background: #fff;
         box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
         z-index: 10;
+
+        .tags-close-button {
+            padding: 5px 6px 5px 12px;
+            cursor: pointer;
+            background-color: $color-primary;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 2px;
+            margin-top: 3px;
+
+            .el-icon-arrow-down {
+                margin-left: 6px;
+            }
+        }
     }
 }
 </style>

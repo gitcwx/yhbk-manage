@@ -51,7 +51,7 @@
 
                 .btn-edit:hover {
                     color: #fff;
-                    background-color: #409eff;
+                    background-color: $color-primary;
                 }
 
                 .btn-delete:hover {
@@ -74,7 +74,7 @@
                 &.active {
                     border-color: #d9ecff;
                     background-color: #ecf5ff;
-                    color: #409eff;
+                    color: $color-primary;
 
                     .btn-delete {
                         color: #f56c6c;

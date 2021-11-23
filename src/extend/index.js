@@ -1,7 +1,7 @@
-import properties from './properties'
 import directives from './directives'
 import dictionary from './dictionary'
 import { components, plugins } from './element'
+const properties = require('./properties')
 
 // 公共组件/模块
 const uiFiles = require.context('./components', true, /\/ui-[^/]+\/index.vue$/)
