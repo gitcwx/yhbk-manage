@@ -66,7 +66,6 @@
             </el-row>
             <el-form-item label="封面：">
                 <el-upload
-                    class="avatar-uploader"
                     :show-file-list="false"
                     :action="axiosPrefix + api.file.upload"
                     :on-success="handleUploadSuccess"

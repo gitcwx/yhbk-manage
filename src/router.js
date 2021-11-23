@@ -81,6 +81,20 @@ const routes = [
                     ]
                 }
             },
+            {
+                path: 'user/edit',
+                name: 'user.edit',
+                component: () => import('@/views/manage/user/edit.vue'),
+                meta: {
+                    title: '修改资料',
+                    titleEn: 'User Edit',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'user.list', path: '/user.list' },
+                        { name: 'user.edit' }
+                    ]
+                }
+            },
             /* user end */
 
             /* article start */

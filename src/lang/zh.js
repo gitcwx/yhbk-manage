@@ -3,8 +3,9 @@ export default {
     layout: {
         title: '后台管理系统',
         collapse: {
+            auto: '自动',
             open: '展开',
-            close: '收起'
+            close: '折叠'
         },
         fullscreen: {
             open: '全屏',
@@ -19,6 +20,14 @@ export default {
             name: '标签选项',
             closeOthers: '关闭其它',
             closeAll: '关闭所有'
+        },
+        drawer: {
+            title: '系统参数配置',
+            themeColor: '主题色',
+            breadCrumb: '面包屑导航',
+            tags: '多页签栏',
+            language: '语言',
+            defaultMenuStatus: '默认菜单状态'
         }
     },
     button: {

@@ -31,7 +31,7 @@
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avatar">
-                    <img v-if="user.avatar" :src="user.avatar" />
+                    <img v-if="user.avatar" :src="imgPrefix + user.avatar" />
                     <img v-else :src="require('@/assets/images/default-avatar.png')">
                 </div>
                 <!-- 用户名下拉菜单 -->
@@ -42,8 +42,7 @@
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="user.info">{{$t('layout.dropdown.userCenter')}}</el-dropdown-item>
-                            <el-dropdown-item :divided="true" command="user.password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
+                            <el-dropdown-item command="user.password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
                             <el-dropdown-item :divided="true" command="loginout">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -59,7 +58,8 @@
         name: 'manage-header',
         data () {
             return {
-                fullscreen: false
+                fullscreen: false,
+                imgPrefix: process.env.VUE_APP_imgPrefix
             }
         },
         computed: {

@@ -61,7 +61,7 @@
                     showTags: true,
                     // 默认显示语言
                     language: 'zh',
-                    // 菜单栏默认是否收起
+                    // 菜单栏默认是否折叠
                     collapse: 'auto'
                 }
             }

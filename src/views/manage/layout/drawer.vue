@@ -9,35 +9,35 @@
         <el-drawer
             v-model="settingDrawer"
             :with-header="false"
-            :size="340"
+            :size="380"
         >
             <div class="setting-wrap">
-                <div class="setting-title">系统参数配置</div>
+                <div class="setting-title">{{$t('layout.drawer.title')}}</div>
                 <!-- <div class="setting-item">
-                    <label>主题色</label>
+                    <label>{{$t('layout.drawer.themeColor')}}</label>
                     <el-color-picker v-model="setting.themeColor" />
                 </div> -->
                 <div class="setting-item">
-                    <label>面包屑导航</label>
+                    <label>{{$t('layout.drawer.breadCrumb')}}</label>
                     <el-switch v-model="setting.showCrumbs" />
                 </div>
                 <div class="setting-item">
-                    <label>多页签</label>
+                    <label>{{$t('layout.drawer.tags')}}</label>
                     <el-switch v-model="setting.showTags" />
                 </div>
                 <div class="setting-item">
-                    <label>语言</label>
+                    <label>{{$t('layout.drawer.language')}}</label>
                     <el-radio-group v-model="setting.language" size="mini">
                         <el-radio-button label="zh">中文</el-radio-button>
                         <el-radio-button label="en">English</el-radio-button>
                     </el-radio-group>
                 </div>
                 <div class="setting-item">
-                    <label>菜单默认状态</label>
+                    <label>{{$t('layout.drawer.defaultMenuStatus')}}</label>
                     <el-radio-group v-model="setting.collapse" size="mini">
-                        <el-radio-button label="auto">自动</el-radio-button>
-                        <el-radio-button :label="false">展开</el-radio-button>
-                        <el-radio-button :label="true">折叠</el-radio-button>
+                        <el-radio-button label="auto">{{$t('layout.collapse.auto')}}</el-radio-button>
+                        <el-radio-button :label="false">{{$t('layout.collapse.open')}}</el-radio-button>
+                        <el-radio-button :label="true">{{$t('layout.collapse.close')}}</el-radio-button>
                     </el-radio-group>
                 </div>
             </div>
@@ -98,7 +98,7 @@
         }
 
         &.setting-switch-open {
-            transform: translateX(-300px);
+            transform: translateX(-340px);
         }
     }
 

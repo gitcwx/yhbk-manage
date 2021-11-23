@@ -11,6 +11,10 @@
             border: 1px dashed #c0ccda;
             background-color: #fbfdff;
 
+            &:hover {
+                background-color: #f1f8ff;
+            }
+            
             .el-icon-plus {
                 font-size: 40px;
                 vertical-align: middle;

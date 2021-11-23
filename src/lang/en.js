@@ -3,6 +3,7 @@ export default {
     layout: {
         title: 'Manage System',
         collapse: {
+            auto: 'Auto',
             open: 'Extend',
             close: 'Collapse'
         },
@@ -19,6 +20,14 @@ export default {
             name: 'Tags',
             closeOthers: 'Close Others',
             closeAll: 'Close All'
+        },
+        drawer: {
+            title: 'System Config Setting',
+            themeColor: 'Theme Color',
+            breadCrumb: 'Breadcrumb',
+            tags: 'Tags Tab',
+            language: 'Language',
+            defaultMenuStatus: 'Menu Status'
         }
     },
     button: {

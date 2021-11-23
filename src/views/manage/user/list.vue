@@ -112,7 +112,7 @@
         />
         <!-- 用户信息弹框 -->
         <el-dialog
-            :title="formType === 'add' ? '新增用户' : '编辑用户'"
+            title="新增用户"
             v-model="infoDialogVisible"
             width="400px"
             destroy-on-close
@@ -122,7 +122,6 @@
                 <el-form-item
                     label="登录名"
                     prop="username"
-                    v-if="formType === 'add'"
                     :rules="{ required: true, pattern: /^[\u4e00-\u9fa5a-zA-Z0-9_]{2,16}$/, message: '2-16位中英文数字下划线' }"
                 >
                     <el-input v-model="formData.username" placeholder="请输入登录账号名"/>
@@ -148,7 +147,6 @@
                     label="账户密码"
                     prop="password"
                     :rules="{ required: true, pattern: /^[a-zA-Z0-9~!@#$%^&*()+=|{}\-_]{6,16}$/, message: '6-16位字母数字部分特殊符号' }"
-                    v-if="formType === 'add'"
                 >
                     <el-input v-model="formData.password" placeholder="请输入账户密码" />
                 </el-form-item>
@@ -221,8 +219,6 @@
                 },
                 // 表格数据
                 tableData: [],
-                // 用户信息弹框类型
-                formType: '',
                 // 用户信息弹框可见性
                 infoDialogVisible: false,
                 // 用户信息弹框参数默认值缓存
@@ -260,13 +256,15 @@
             addItem () {
                 this.formData = this.deepClone(this.defaultFormData)
                 this.infoDialogVisible = true
-                this.formType = 'add'
             },
             // 编辑用户
             editItem (item) {
-                this.formData = this.deepClone(item)
-                this.infoDialogVisible = true
-                this.formType = 'edit'
+                this.$router.push({
+                    name: 'user.edit',
+                    query: {
+                        id: item.id
+                    }
+                })
             },
             // 修改密码
             editPassword (item) {
@@ -333,15 +331,9 @@
             submitUserInfo () {
                 this.$refs['user-info-form'].validate(valid => {
                     if (valid) {
-                        let url
-                        if (this.formType === 'add') {
-                            url = this.api.user.add
-                        } else if (this.formType === 'edit') {
-                            url = this.api.user.edit
-                        }
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url,
+                            url: this.api.user.add,
                             method: 'post',
                             data: this.formData
                         }).then(res => {

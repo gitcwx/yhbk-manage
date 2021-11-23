@@ -109,7 +109,7 @@
     width: 250px;
 
     & > .el-menu {
-        height: 100%;
+        min-height: 100%;
     }
 }
 .manage-menu::-webkit-scrollbar {

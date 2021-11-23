@@ -11,7 +11,7 @@ const common = {
         fullLoadingSpinner: '',
         fullLoadingBackground: '',
 
-        // 当前菜单是否收起
+        // 当前菜单是否折叠
         collapse: false,
         aliveTags: [],
         setting: {
@@ -21,7 +21,7 @@ const common = {
             showTags: undefined,
             // 默认显示语言
             language: undefined,
-            // 菜单栏默认是否收起
+            // 菜单栏默认是否折叠
             collapse: undefined
         }
     },
