@@ -73,21 +73,22 @@
 <script>
     export default {
         name: 'page-error-404',
+        inject: ['closeCurrentPage'],
         data () {
             return {
                 currentChildren: {},
-                childrenList: [],
-                tencent404Url: 'http://qzonestyle.gtimg.cn/qzone/v6/portal/gy/404/data.js'
+                childrenList: []
+                // tencent404Url: 'http://qzonestyle.gtimg.cn/qzone/v6/portal/gy/404/data.js'
             }
         },
         created () {
-            this.loadScript(this.tencent404Url, () => {
-                // jsondata script中定义的全局变量
-                this.childrenList = window.jsondata.data.filter(v => !v.expire)
-                    .sort(() => { return Math.random() - 0.5 })
-                    .slice(0, 6)
-                this.selectChildren(0)
-            }, true)
+            // this.loadScript(this.tencent404Url, () => {
+            //     // jsondata script中定义的全局变量
+            //     this.childrenList = window.jsondata.data.filter(v => !v.expire)
+            //         .sort(() => { return Math.random() - 0.5 })
+            //         .slice(0, 6)
+            //     this.selectChildren(0)
+            // }, true)
         },
         mounted () {
 
@@ -97,10 +98,10 @@
                 this.currentChildren = this.childrenList[index]
             },
             goHome () {
-                this.$router.push('/')
+                this.closeCurrentPage('/')
             },
             goBack () {
-                this.$router.go(-1)
+                this.closeCurrentPage(-1)
             }
         }
     }

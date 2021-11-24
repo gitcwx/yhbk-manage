@@ -19,7 +19,7 @@
         >
             <router-view v-slot="{ Component }">
                 <transition name="body-move">
-                    <keep-alive :include="tagsList">
+                    <keep-alive :include="aliveTags">
                         <component :is="Component" />
                     </keep-alive>
                 </transition>
@@ -50,6 +50,11 @@
             manageTags,
             manageDrawer
         },
+        provide () {
+            return {
+                closeCurrentPage: this.closeCurrentPage
+            }
+        },
         data () {
             return {}
         },
@@ -57,11 +62,11 @@
             ...mapState({
                 collapse: state => state.common.collapse,
                 setting: state => state.common.setting,
-                tagsList (state) {
-                    const aliveTags = state.common.aliveTags
+                aliveTags (state) {
+                    const tagsList = state.common.tagsList
                     const tagsNameArray = []
-                    for (let i = 0, len = aliveTags.length; i < len; i++) {
-                        aliveTags[i].name && tagsNameArray.push(aliveTags[i].name)
+                    for (let i = 0, len = tagsList.length; i < len; i++) {
+                        tagsList[i].name && tagsNameArray.push(tagsList[i].name)
                     }
                     return tagsNameArray
                 },
@@ -79,8 +84,36 @@
             } else {
                 this.$store.commit('SET_COLLAPSE', this.setting.collapse)
             }
+            // 获取用户信息
+            this.$store.dispatch('getUserInfo')
         },
-        methods: {}
+        methods: {
+            closeCurrentPage (nextPath) {
+                const tagsList = this.$store.state.common.tagsList
+                // 移除当前项
+                const currentIndex = tagsList.findIndex(v => v.path === this.$route.path)
+                tagsList.splice(currentIndex, 1)
+                this.$store.commit('SET_TAGSLIST', tagsList)
+
+                // 指定跳转
+                if (nextPath) {
+                    if (typeof nextPath === 'number') {
+                        this.$router.go(nextPath)
+                    } else {
+                        this.$router.push(nextPath)
+                    }
+                    return
+                }
+
+                // 跳转相邻项
+                const nextTag = tagsList[currentIndex] ? tagsList[currentIndex] : tagsList[currentIndex - 1]
+                if (nextTag) {
+                    this.$router.push(nextTag.fullPath)
+                } else {
+                    this.$router.push('/')
+                }
+            }
+        }
     }
 </script>
 

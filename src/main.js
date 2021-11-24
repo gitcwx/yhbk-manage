@@ -65,10 +65,11 @@ axios.interceptors.response.use(response => {
 })
 
 router.beforeEach((to, from, next) => {
+    const language = app.config.globalProperties.getLanguage()
     // 设置页面title
-    if (store.getters.language === 'zh') {
+    if (language === 'zh') {
         to.meta.title && (document.title = to.meta.title)
-    } else if (store.getters.language === 'en') {
+    } else if (language === 'en') {
         to.meta.titleEn && (document.title = to.meta.titleEn)
     }
     // 公开页面 /login
@@ -86,14 +87,14 @@ router.beforeEach((to, from, next) => {
     // 需要权限的页面
     ;(async () => {
         // 获取权限集
-        if (store.getters.userPermission.length === 0) {
+        if (store.state.user.permission.length === 0) {
             await store.dispatch('getPermission')
         }
         // 需要登录 不需要权限页面 /404
         if (to.meta.allow) {
             next(); return
         }
-        const permission = store.getters.userPermission
+        const permission = store.state.user.permission
         if (permission.some(v => v.name === to.name)) {
             next(); return
         }

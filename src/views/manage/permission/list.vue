@@ -212,7 +212,7 @@
                     ],
                     name: [
                         { required: true, message: '请输入页面标识' },
-                        { pattern: /^[a-zA-z.]{1,30}$/, max: 20, message: '30位以内字母或小数点' }
+                        { pattern: /^[a-zA-z0-9.]{1,30}$/, max: 20, message: '30位以内字母数字或小数点' }
                     ],
                     permissionLevel: { required: true, message: '请选择页面权限' }
                 }

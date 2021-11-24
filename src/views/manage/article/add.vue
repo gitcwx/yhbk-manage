@@ -96,6 +96,7 @@
 
     export default {
         name: 'manage-article-add',
+        inject: ['closeCurrentPage'],
         data () {
             // 校验编辑器文字超出
             const checkQuillContent = (rule, value, callback) => {
@@ -142,6 +143,7 @@
         },
         computed: {
             ...mapState({
+                user: state => state.user.info,
                 tagList: state => state.article.tagList || [],
                 categoryList: state => state.article.categoryList || []
             })
@@ -167,7 +169,7 @@
                 this.$store.dispatch('getCategoryList')
             }
             // 存储用户id到表单
-            this.formData.authorId = this.$store.getters.userInfo.id
+            this.formData.authorId = this.user.id
             // 存储原始对象，用于重置
             this.cloneFormData = this.deepClone(this.formData)
         },
@@ -210,10 +212,7 @@
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             if (res.data.code === 's00') {
                                 this.$message.success(res.data.msg)
-                                this.resetForm()
-                                this.$router.push({
-                                    name: 'article.list'
-                                })
+                                this.closeCurrentPage({ name: 'article.list' })
                             } else {
                                 this.$message.warning(res.data.msg)
                             }

@@ -13,7 +13,7 @@ const common = {
 
         // 当前菜单是否折叠
         collapse: false,
-        aliveTags: [],
+        tagsList: [],
         setting: {
             // 默认是否显示面包屑导航
             showCrumbs: undefined,
@@ -42,8 +42,8 @@ const common = {
         SET_COLLAPSE: (state, collapse) => {
             state.collapse = collapse
         },
-        SET_ALIVETAGS: (state, aliveTags) => {
-            state.aliveTags = aliveTags
+        SET_TAGSLIST: (state, tagsList) => {
+            state.tagsList = tagsList
         },
         SET_SETTING: (state, setting) => {
             for (const key in state.setting) {

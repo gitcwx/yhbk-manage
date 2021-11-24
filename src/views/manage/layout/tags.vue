@@ -49,8 +49,10 @@
             // 关闭单个标签
             closeTags (index) {
                 const currentItem = this.tagsList.splice(index, 1)[0]
+                // 移除对应页面的keep-alive
+                this.$store.commit('SET_TAGSLIST', this.tagsList)
                 // 关闭项为当前激活页面
-                if (currentItem.fullPath === this.$route.fullPath) {
+                if (currentItem.path === this.$route.path) {
                     // 是否有相邻项
                     const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1]
                     if (item) {
@@ -59,21 +61,19 @@
                         this.$router.push('/')
                     }
                 }
-                // 移除对应页面的keep-alive
-                this.$store.commit('SET_ALIVETAGS', this.tagsList)
             },
             // 关闭全部标签
             closeAll () {
                 this.tagsList = []
                 this.$router.push('/')
-                this.$store.commit('SET_ALIVETAGS', this.tagsList)
+                this.$store.commit('SET_TAGSLIST', this.tagsList)
             },
             // 关闭其他标签
             closeOther () {
                 this.tagsList = this.tagsList.filter(item => {
-                    return item.fullPath === this.$route.fullPath
+                    return item.path === this.$route.path
                 })
-                this.$store.commit('SET_ALIVETAGS', this.tagsList)
+                this.$store.commit('SET_TAGSLIST', this.tagsList)
             },
             // [新增标签 | 切换标签]
             setTags (route) {
@@ -97,7 +97,7 @@
                         // name 必要 keep-alive include
                         name: route.matched[1].components.default.name
                     })
-                    this.$store.commit('SET_ALIVETAGS', this.tagsList)
+                    this.$store.commit('SET_TAGSLIST', this.tagsList)
                 }
             },
             handleTags (command) {

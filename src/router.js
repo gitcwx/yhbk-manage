@@ -35,11 +35,17 @@ const routes = [
                 }
             },
             {
+                path: 'message',
+                name: 'message.folder',
+                redirect: { name: 'message.list' },
+                meta: { title: '留言', titleEn: 'Message' }
+            },
+            {
                 path: 'message/list',
                 name: 'message.list',
                 component: () => import('@/views/manage/message/list.vue'),
                 meta: {
-                    title: '留言板',
+                    title: '留言管理',
                     titleEn: 'Message List',
                     crumbs: [
                         { name: 'home', path: '/' },

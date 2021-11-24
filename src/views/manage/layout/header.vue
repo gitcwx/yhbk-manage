@@ -53,6 +53,7 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
     import { removeToken } from '@/util/cookies.js'
     export default {
         name: 'manage-header',
@@ -63,22 +64,15 @@
             }
         },
         computed: {
+            ...mapState({
+                collapse: state => state.common.collapse,
+                user: state => state.user.info
+            }),
             language () {
                 return this.getLanguage()
-            },
-            collapse () {
-                return this.$store.getters.isCollapse
-            },
-            user () {
-                return this.$store.getters.userInfo
             }
         },
-        created () {
-            // 获取用户信息
-            this.$store.dispatch('getUserInfo')
-        },
-        mounted () {
-        },
+        created () {},
         methods: {
             // 用户名下拉菜单选择事件
             handleCommand (command) {

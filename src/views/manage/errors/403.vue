@@ -16,12 +16,13 @@
 <script>
     export default {
         name: 'page-error-403',
+        inject: ['closeCurrentPage'],
         methods: {
             goHome () {
-                this.$router.push('/')
+                this.closeCurrentPage('/')
             },
             goBack () {
-                this.$router.go(-1)
+                this.closeCurrentPage(-1)
             }
         }
     }

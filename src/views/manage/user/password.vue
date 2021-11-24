@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+    import { mapState } from 'vuex'
     export default {
         name: 'manage-user-password',
         data () {
@@ -57,9 +58,9 @@
             }
         },
         computed: {
-            userInfo () {
-                return this.$store.getters.userInfo
-            }
+            ...mapState({
+                user: state => state.user.info
+            })
         },
         methods: {
             submitForm () {
@@ -70,7 +71,7 @@
                             url: this.api.user.password,
                             method: 'post',
                             data: {
-                                id: this.userInfo.id,
+                                id: this.user.id,
                                 password: this.formData.password,
                                 newPassword: this.formData.newPassword
                             }

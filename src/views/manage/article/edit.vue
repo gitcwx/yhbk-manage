@@ -96,6 +96,7 @@
 
     export default {
         name: 'manage-article-edit',
+        inject: ['closeCurrentPage'],
         data () {
             // 校验编辑器文字超出
             const checkQuillContent = (rule, value, callback) => {
@@ -235,10 +236,7 @@
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
                             if (res.data.code === 's00') {
                                 this.$message.success(res.data.msg)
-                                this.resetForm()
-                                this.$router.push({
-                                    name: 'article.list'
-                                })
+                                this.closeCurrentPage({ name: 'article.list' })
                             } else {
                                 this.$message.warning(res.data.msg)
                             }
