@@ -27,7 +27,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="reloadTableData" >查询</el-button>
-                    <el-button type="success" @click="addItem">新增文章</el-button>
+                    <el-button type="success" @click="handleAdd">新增文章</el-button>
                     <el-button type="danger" @click="deleteSelected">批量删除</el-button>
                 </el-form-item>
             </el-form>
@@ -50,11 +50,12 @@
             <el-table-column prop="likeCount" label="点赞量" width="80"/>
             <el-table-column prop="updatedAt" label="更新时间" width="180"/>
             <el-table-column prop="createdAt" label="创建时间" width="180"/>
-            <el-table-column label="操作" width="220" align="center" fixed="right">
+            <el-table-column label="操作" width="280" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="success" size="mini" @click="viewItem(scope.row)">预览</el-button>
-                    <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>
-                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+                    <el-button type="success" size="mini" @click="handleView(scope.row)">预览</el-button>
+                    <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+                    <el-button type="warning" size="mini" @click="handleReply(scope.row)">评论</el-button>
+                    <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -129,13 +130,17 @@
         },
         methods: {
             // 新增文章
-            addItem () {
+            handleAdd () {
                 this.$router.push({
                     name: 'article.add'
                 })
             },
-            // 编辑用户
-            editItem (item) {
+            // 查看文章详情
+            handleView (item) {
+                window.open('http://blog.youhebuke.com/article/detail?id=' + item.id)
+            },
+            // 编辑文章
+            handleEdit (item) {
                 this.$router.push({
                     name: 'article.edit',
                     query: {
@@ -143,8 +148,16 @@
                     }
                 })
             },
-            // 删除用户
-            deleteItem (item) {
+            handleReply (item) {
+                this.$router.push({
+                    name: 'article.reply',
+                    query: {
+                        id: item.id
+                    }
+                })
+            },
+            // 删除文章
+            handleDelete (item) {
                 this.$confirm('确认删除？').then(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: true })
                     this.$axios({
@@ -167,7 +180,7 @@
                     })
                 })
             },
-            // 获取用户列表
+            // 获取文章列表
             getTableData () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
@@ -208,9 +221,6 @@
                     return
                 }
                 this.$alert(`接口开发中....当前已选${this.multipleSelection.length}项`)
-            },
-            viewItem (item) {
-                window.open('http://blog.youhebuke.com/article/detail?id=' + item.id)
             }
         }
     }

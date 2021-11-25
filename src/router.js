@@ -179,6 +179,20 @@ const routes = [
                     ]
                 }
             },
+            {
+                path: 'article/reply',
+                name: 'article.reply',
+                component: () => import('@/views/manage/article/reply.vue'),
+                meta: {
+                    title: '评论管理',
+                    titleEn: 'Article Reply',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'article.list', path: '/article.list' },
+                        { name: 'article.reply' }
+                    ]
+                }
+            },
             /* article end */
 
             {
