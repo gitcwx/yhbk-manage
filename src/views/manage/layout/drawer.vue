@@ -78,7 +78,7 @@
             }
         },
         created () {
-            this.setting = this.deepClone(this.$store.state.common.setting)
+            this.setting = this.$deepClone(this.$store.state.common.setting)
         },
         methods: {
             crumbChange (value) {

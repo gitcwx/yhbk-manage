@@ -11,7 +11,7 @@
                 <el-form-item label="权限级别">
                     <el-select v-model="searchData.permissionLevel" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in dictionary.roles"
+                            v-for="(item, index) in $dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -21,7 +21,7 @@
                 <el-form-item label="性别">
                     <el-select v-model="searchData.gender" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in dictionary.gender"
+                            v-for="(item, index) in $dictionary.gender"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -31,7 +31,7 @@
                 <el-form-item label="状态">
                     <el-select v-model="searchData.status" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in dictionary.userStatus"
+                            v-for="(item, index) in $dictionary.userStatus"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -41,7 +41,7 @@
                 <el-form-item label="用户来源">
                     <el-select v-model="searchData.from" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in dictionary.from"
+                            v-for="(item, index) in $dictionary.from"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -136,7 +136,7 @@
                         style="width: 100%"
                     >
                         <el-option
-                            v-for="(item, index) in dictionary.gender"
+                            v-for="(item, index) in $dictionary.gender"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -157,7 +157,7 @@
                         style="width: 100%"
                     >
                         <el-option
-                            v-for="(item, index) in dictionary.roles"
+                            v-for="(item, index) in $dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -247,14 +247,14 @@
         },
         created () {
             // 缓存表单默认值
-            this.defaultFormData = this.deepClone(this.formData)
+            this.defaultFormData = this.$deepClone(this.formData)
             // 获取表格数据
             this.getTableData()
         },
         methods: {
             // 新增用户
             addItem () {
-                this.formData = this.deepClone(this.defaultFormData)
+                this.formData = this.$deepClone(this.defaultFormData)
                 this.infoDialogVisible = true
             },
             // 编辑用户
@@ -277,7 +277,7 @@
                 this.$confirm('确认删除？').then(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: true })
                     this.$axios({
-                        url: this.api.user.del,
+                        url: this.$api.user.del,
                         method: 'post',
                         data: {
                             id: item.id
@@ -300,7 +300,7 @@
             getTableData () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.user.list,
+                    url: this.$api.user.list,
                     method: 'post',
                     data: this.searchData
                 }).then(res => {
@@ -333,7 +333,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.user.add,
+                            url: this.$api.user.add,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
@@ -360,7 +360,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.user.password,
+                            url: this.$api.user.password,
                             method: 'post',
                             data: this.passwordFormData
                         }).then(res => {

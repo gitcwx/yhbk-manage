@@ -30,13 +30,13 @@ export default {
 
         // 全局变量方法挂载
         Object.keys(properties).forEach(key => {
-            app.config.globalProperties[key] = properties[key]
+            app.config.globalProperties['$' + key] = properties[key]
         })
 
         // element 全局配置
         app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
 
         // 字典
-        app.config.globalProperties.dictionary = dictionary
+        app.config.globalProperties.$dictionary = dictionary
     }
 }

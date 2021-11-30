@@ -69,7 +69,7 @@
                 user: state => state.user.info
             }),
             language () {
-                return this.getLanguage()
+                return this.$getLanguage()
             }
         },
         created () {},

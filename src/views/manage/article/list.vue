@@ -161,7 +161,7 @@
                 this.$confirm('确认删除？').then(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: true })
                     this.$axios({
-                        url: this.api.article.del,
+                        url: this.$api.article.del,
                         method: 'post',
                         data: {
                             id: item.id
@@ -184,7 +184,7 @@
             getTableData () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.article.list,
+                    url: this.$api.article.list,
                     method: 'post',
                     data: this.searchData
                 }).then(res => {

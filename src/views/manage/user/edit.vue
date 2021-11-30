@@ -11,7 +11,7 @@
                     <el-form-item label="用户头像" prop="avatar">
                         <el-upload
                             :show-file-list="false"
-                            :action="axiosPrefix + api.file.upload"
+                            :action="axiosPrefix + $api.file.upload"
                             :on-success="handleUploadSuccess"
                             :before-upload="beforeUpload"
                             :headers="{
@@ -39,7 +39,7 @@
                     <el-form-item label="性别" prop="gender">
                         <el-select v-model="formData.gender" placeholder="请选择">
                             <el-option
-                                v-for="(item, index) in dictionary.gender"
+                                v-for="(item, index) in $dictionary.gender"
                                 :key="index"
                                 :label="item.label"
                                 :value="item.value"
@@ -88,7 +88,7 @@
                     <el-form-item label="用户权限" prop="permissionLevel">
                         <el-select v-model="formData.permissionLevel" placeholder="请选择">
                             <el-option
-                                v-for="(item, index) in dictionary.roles"
+                                v-for="(item, index) in $dictionary.roles"
                                 :key="index"
                                 :label="item.label"
                                 :value="item.value"
@@ -100,7 +100,7 @@
                     <el-form-item label="用户状态" prop="status">
                         <el-select v-model="formData.status" placeholder="请选择">
                             <el-option
-                                v-for="(item, index) in dictionary.userStatus"
+                                v-for="(item, index) in $dictionary.userStatus"
                                 :key="index"
                                 :label="item.label"
                                 :value="item.value"
@@ -188,7 +188,7 @@
             getUserInfo () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.user.info,
+                    url: this.$api.user.info,
                     method: 'post',
                     data: {
                         id: this.id
@@ -227,7 +227,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.user.edit,
+                            url: this.$api.user.edit,
                             method: 'post',
                             data: this.formData
                         }).then(res => {

@@ -8,7 +8,7 @@
                 <el-form-item label="权限级别">
                     <el-select v-model="searchData.permissionLevel" placeholder="请选择" clearable>
                         <el-option
-                            v-for="(item, index) in dictionary.roles"
+                            v-for="(item, index) in $dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -56,7 +56,7 @@
                         @change="selectPermission($event, scope.row)"
                     >
                         <el-option
-                            v-for="(item, index) in dictionary.roles"
+                            v-for="(item, index) in $dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -127,7 +127,7 @@
                         style="width: 100%"
                     >
                         <el-option
-                            v-for="(item, index) in dictionary.roles"
+                            v-for="(item, index) in $dictionary.roles"
                             :key="index"
                             :label="item.label"
                             :value="item.value"
@@ -220,11 +220,11 @@
         },
         created () {
             // 缓存表单默认值
-            this.defaultFormData = this.deepClone(this.formData)
+            this.defaultFormData = this.$deepClone(this.formData)
             // 获取表格数据
             this.getTableData((data) => {
                 // 缓存所有全部表格数据供下拉选
-                this.tableDataAll = this.deepClone(data)
+                this.tableDataAll = this.$deepClone(data)
             })
         },
         methods: {
@@ -257,9 +257,9 @@
                     if (valid) {
                         let url
                         if (this.formType === 'add') {
-                            url = this.api.permission.add
+                            url = this.$api.permission.add
                         } else if (this.formType === 'edit') {
-                            url = this.api.permission.edit
+                            url = this.$api.permission.edit
                         }
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
@@ -287,13 +287,13 @@
             },
             // 新增页面
             addItem () {
-                this.formData = this.deepClone(this.defaultFormData)
+                this.formData = this.$deepClone(this.defaultFormData)
                 this.dialogVisible = true
                 this.formType = 'add'
             },
             // 编辑页面
             editItem (item) {
-                this.formData = this.deepClone(item)
+                this.formData = this.$deepClone(item)
                 this.dialogVisible = true
                 this.formType = 'edit'
             },
@@ -303,7 +303,7 @@
                     .then(() => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.permission.del,
+                            url: this.$api.permission.del,
                             method: 'post',
                             data: {
                                 id: item.id
@@ -326,7 +326,7 @@
             getTableData (callback) {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.permission.list,
+                    url: this.$api.permission.list,
                     method: 'post',
                     data: this.searchData
                 }).then(res => {
@@ -347,7 +347,7 @@
                 return new Promise((resolve, reject) => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: true })
                     this.$axios({
-                        url: this.api.permission.edit,
+                        url: this.$api.permission.edit,
                         method: 'post',
                         data: params
                     }).then(res => {

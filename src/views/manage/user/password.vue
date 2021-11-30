@@ -68,7 +68,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.user.password,
+                            url: this.$api.user.password,
                             method: 'post',
                             data: {
                                 id: this.user.id,

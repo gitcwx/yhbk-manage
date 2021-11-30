@@ -175,7 +175,7 @@
         },
         created () {
             // 缓存表单默认值
-            this.defaultFormData = this.deepClone(this.formData)
+            this.defaultFormData = this.$deepClone(this.formData)
             this.handleSearch()
         },
         mounted () {
@@ -187,7 +187,7 @@
             handleSearch () {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.tag.list,
+                    url: this.$api.tag.list,
                     method: 'post',
                     data: this.searchData
                 }).then(res => {
@@ -231,7 +231,7 @@
             // 获取当前标签下文章数量
             getArticleCount (id, success, failed) {
                 this.$axios({
-                    url: this.api.tag.count,
+                    url: this.$api.tag.count,
                     method: 'post',
                     data: { id }
                 }).then(res => {
@@ -248,13 +248,13 @@
             },
             // 新增标签
             addItem () {
-                this.formData = this.deepClone(this.defaultFormData)
+                this.formData = this.$deepClone(this.defaultFormData)
                 this.dialogVisible = true
                 this.formType = 'add'
             },
             // 编辑标签
             editItem (item) {
-                this.formData = this.deepClone(item)
+                this.formData = this.$deepClone(item)
                 this.dialogVisible = true
                 this.formType = 'edit'
             },
@@ -264,9 +264,9 @@
                     if (valid) {
                         let url
                         if (this.formType === 'add') {
-                            url = this.api.tag.add
+                            url = this.$api.tag.add
                         } else if (this.formType === 'edit') {
-                            url = this.api.tag.edit
+                            url = this.$api.tag.edit
                         }
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
@@ -295,7 +295,7 @@
             handleDelete (item, index) {
                 this.$store.commit('SET_IS_LOADING', { isLoading: true })
                 this.$axios({
-                    url: this.api.tag.del,
+                    url: this.$api.tag.del,
                     method: 'post',
                     data: {
                         id: item.id
@@ -340,7 +340,7 @@
             },
             getAllArticleCount (callback) {
                 this.$axios({
-                    url: this.api.article.count,
+                    url: this.$api.article.count,
                     method: 'post'
                 }).then(res => {
                     if (res.data.code === 's00') {

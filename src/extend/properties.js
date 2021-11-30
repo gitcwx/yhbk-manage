@@ -9,7 +9,7 @@ const deepClone = function (obj) {
             if (Object.prototype.hasOwnProperty.call(obj, key)) {
                 // 判断ojb子元素是否为对象，如果是，递归复制
                 if (obj[key] && typeof obj[key] === 'object') {
-                    objClone[key] = that.deepClone(obj[key])
+                    objClone[key] = that.$deepClone(obj[key])
                 } else {
                     // 如果不是，简单复制
                     objClone[key] = obj[key]

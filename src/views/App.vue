@@ -27,7 +27,7 @@
                 fullLoadingBackground: state => state.common.fullLoadingBackground
             }),
             locale () {
-                const language = this.getLanguage()
+                const language = this.$getLanguage()
                 return language === 'en' ? en : zh
             },
             pageClass () {

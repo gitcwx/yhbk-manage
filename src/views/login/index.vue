@@ -56,7 +56,7 @@
                     if (valid) {
                         this.$store.commit('SET_FULL_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.user.login,
+                            url: this.$api.user.login,
                             method: 'post',
                             data: this.formData
                         }).then(res => {

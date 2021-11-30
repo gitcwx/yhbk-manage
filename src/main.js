@@ -18,8 +18,8 @@ const app = createApp(App)
 axios.defaults.timeout = 60000
 axios.defaults.baseURL = process.env.VUE_APP_axiosDefaultsBaseURL
 app.config.globalProperties.$axios = axios
-app.config.globalProperties.moment = moment
-app.config.globalProperties.api = api
+app.config.globalProperties.$moment = moment
+app.config.globalProperties.$api = api
 
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('@/mock')
@@ -42,7 +42,7 @@ axios.interceptors.request.use(config => {
         config.headers.Authorization = 'Bearer ' + token
     }
 
-    config.headers.language = app.config.globalProperties.getLanguage()
+    config.headers.language = app.config.globalProperties.$getLanguage()
     return config
 }, error => {
     return Promise.reject(error)
@@ -65,7 +65,7 @@ axios.interceptors.response.use(response => {
 })
 
 router.beforeEach((to, from, next) => {
-    const language = app.config.globalProperties.getLanguage()
+    const language = app.config.globalProperties.$getLanguage()
     // 设置页面title
     if (language === 'zh') {
         to.meta.title && (document.title = to.meta.title)

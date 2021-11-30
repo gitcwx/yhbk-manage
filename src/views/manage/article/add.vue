@@ -50,7 +50,7 @@
                     <el-form-item label="前端展示：">
                         <el-select v-model="formData.status" placeholder="请选择">
                             <el-option
-                                v-for="(item, index) in dictionary.articleStatus"
+                                v-for="(item, index) in $dictionary.articleStatus"
                                 :key="index"
                                 :label="item.label"
                                 :value="item.value"
@@ -67,7 +67,7 @@
             <el-form-item label="封面：">
                 <el-upload
                     :show-file-list="false"
-                    :action="axiosPrefix + api.file.upload"
+                    :action="axiosPrefix + $api.file.upload"
                     :on-success="handleUploadSuccess"
                     :before-upload="beforeUpload"
                     :headers="{
@@ -171,7 +171,7 @@
             // 存储用户id到表单
             this.formData.authorId = this.user.id
             // 存储原始对象，用于重置
-            this.cloneFormData = this.deepClone(this.formData)
+            this.cloneFormData = this.$deepClone(this.formData)
         },
         mounted () {},
         methods: {
@@ -193,7 +193,7 @@
             },
             // 重置按钮
             resetForm () {
-                this.formData = this.deepClone(this.cloneFormData)
+                this.formData = this.$deepClone(this.cloneFormData)
                 this.$refs['ui-quill'].getQuillRef().setHTML(this.formData.content)
                 this.$nextTick(() => {
                     this.$refs['editor-form'].clearValidate()
@@ -205,7 +205,7 @@
                     if (valid) {
                         this.$store.commit('SET_IS_LOADING', { isLoading: true })
                         this.$axios({
-                            url: this.api.article.add,
+                            url: this.$api.article.add,
                             method: 'post',
                             data: this.formData
                         }).then(res => {
