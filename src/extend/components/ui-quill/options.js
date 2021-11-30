@@ -1,9 +1,11 @@
+import 'highlight.js/styles/monokai-sublime.css'
+import 'quill-emoji/dist/quill-emoji.css'
+import Emoji from 'quill-emoji'
+import hljs from 'highlight.js'
+import { ElMessage } from 'element-plus/lib/components'
 import { getToken } from '@/util/cookies.js'
 import { api } from '@/api'
 import store from '@/store'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
-import { ElMessage } from 'element-plus/lib/components'
 
 export const toolbar = [
     [
@@ -14,6 +16,7 @@ export const toolbar = [
         'blockquote',
         'code-block',
         'image',
+        'emoji',
         { list: 'ordered' },
         { list: 'bullet' },
         { script: 'sub' },
@@ -100,7 +103,8 @@ const quillHandler = {
             this.container.appendChild(fileInput)
         }
         fileInput.click()
-    }
+    },
+    emoji: Emoji
 }
 
 export default {
@@ -113,6 +117,9 @@ export default {
             highlight: text => {
                 return hljs.highlightAuto(text).value
             }
-        }
+        },
+        // 'emoji-textarea': true,
+        'emoji-toolbar': true
+        // 'emoji-shortname': true
     }
   }

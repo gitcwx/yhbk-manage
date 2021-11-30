@@ -19,4 +19,15 @@
             content: '14px';
         }
     }
+
+    #emoji-palette {
+        #tab-toolbar {
+            .active {
+                border-bottom-color: $color-primary;
+            }
+        }
+        #tab-panel {
+            padding: 10px 2px;
+        }
+    }
 }

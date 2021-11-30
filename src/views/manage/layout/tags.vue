@@ -1,7 +1,7 @@
 <template>
     <div class="manage-tags" v-if="tagsList.length">
         <ul class="tags-list">
-            <li class="tags-item" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
+            <li class="tags-item" v-for="(item,index) in tagsList" :class="{'is-active': isActive(item.path)}" :key="index">
                 <router-link :to="item.fullPath" class="tags-item-title" :title="$t('router.'+item.title)">
                     {{ $t('router.' + item.title )}}
                 </router-link>
@@ -134,7 +134,7 @@
             color: #666;
             white-space: nowrap;
 
-            &.active {
+            &.is-active {
                 color: #fff;
                 border-color: $color-primary;
                 background-color: $color-primary;
@@ -144,7 +144,7 @@
                 }
             }
 
-            &:not(.active):hover {
+            &:not(.is-active):hover {
                 background: #f8f8f8;
             }
 
