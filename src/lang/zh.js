@@ -27,7 +27,8 @@ export default {
             breadCrumb: '面包屑导航',
             tags: '多页签栏',
             language: '语言',
-            defaultMenuStatus: '默认菜单状态'
+            defaultMenuStatus: '默认菜单状态',
+            menuStatusTips: '刷新进入页面时菜单栏默认状态'
         }
     },
     button: {

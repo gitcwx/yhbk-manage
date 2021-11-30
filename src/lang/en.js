@@ -27,7 +27,8 @@ export default {
             breadCrumb: 'Breadcrumb',
             tags: 'Tags Tab',
             language: 'Language',
-            defaultMenuStatus: 'Menu Status'
+            defaultMenuStatus: 'Menu Status',
+            menuStatusTips: 'Default Menu Status While Refresh Page'
         }
     },
     button: {

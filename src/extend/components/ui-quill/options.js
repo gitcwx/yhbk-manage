@@ -1,10 +1,8 @@
-// import Quill from 'quill'
-// Quill.register('formats/style', Quill.import('../style.scss'), true)
-
 import { getToken } from '@/util/cookies.js'
 import { api } from '@/api'
 import store from '@/store'
-// import hljs from 'highlight.js'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
 import { ElMessage } from 'element-plus/lib/components'
 
 export const toolbar = [
@@ -42,7 +40,7 @@ const uploadConfig = {
     imgPrefix: process.env.VUE_APP_imgPrefix
 }
 
-export const quillHandler = {
+const quillHandler = {
     image: function image () {
         const self = this
 
@@ -104,3 +102,17 @@ export const quillHandler = {
         fileInput.click()
     }
 }
+
+export default {
+    modules: {
+        toolbar: {
+            container: toolbar,
+            handlers: quillHandler
+        },
+        syntax: {
+            highlight: text => {
+                return hljs.highlightAuto(text).value
+            }
+        }
+    }
+  }

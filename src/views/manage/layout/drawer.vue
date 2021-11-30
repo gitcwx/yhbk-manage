@@ -9,7 +9,8 @@
         <el-drawer
             v-model="settingDrawer"
             :with-header="false"
-            :size="380"
+            :size="360"
+            :close-on-click-modal="false"
         >
             <div class="setting-wrap">
                 <div class="setting-title">{{$t('layout.drawer.title')}}</div>
@@ -19,11 +20,14 @@
                 </div> -->
                 <div class="setting-item">
                     <label>{{$t('layout.drawer.breadCrumb')}}</label>
-                    <el-switch v-model="setting.showCrumbs" />
+                    <el-switch v-model="setting.showCrumbs" @change="crumbChange"/>
+                    <div class="associate" :class="{active: isLinked}">
+                        <i class="el-icon-link" @click="changeLinked"></i>
+                    </div>
                 </div>
                 <div class="setting-item">
                     <label>{{$t('layout.drawer.tags')}}</label>
-                    <el-switch v-model="setting.showTags" />
+                    <el-switch v-model="setting.showTags" @change="tagsChange" />
                 </div>
                 <div class="setting-item">
                     <label>{{$t('layout.drawer.language')}}</label>
@@ -33,7 +37,16 @@
                     </el-radio-group>
                 </div>
                 <div class="setting-item">
-                    <label>{{$t('layout.drawer.defaultMenuStatus')}}</label>
+                    <label>
+                        {{$t('layout.drawer.defaultMenuStatus')}}
+                        <el-tooltip
+                            placement="bottom"
+                            :content="$t('layout.drawer.menuStatusTips')"
+                            trigger="hover"
+                        >
+                            <i class="el-icon-info text-warning"></i>
+                        </el-tooltip>
+                    </label>
                     <el-radio-group v-model="setting.collapse" size="mini">
                         <el-radio-button label="auto">{{$t('layout.collapse.auto')}}</el-radio-button>
                         <el-radio-button :label="false">{{$t('layout.collapse.open')}}</el-radio-button>
@@ -51,6 +64,7 @@
         data () {
             return {
                 settingDrawer: false,
+                isLinked: true,
                 setting: {}
             }
         },
@@ -65,6 +79,28 @@
         },
         created () {
             this.setting = this.deepClone(this.$store.state.common.setting)
+        },
+        methods: {
+            crumbChange (value) {
+                if (this.isLinked && value) {
+                    this.setting.showTags = false
+                }
+            },
+            tagsChange (value) {
+                if (this.isLinked && value) {
+                    this.setting.showCrumbs = false
+                }
+            },
+            changeLinked () {
+                if (this.isLinked) {
+                    this.isLinked = false
+                    return
+                }
+                this.isLinked = true
+                if (this.setting.showTags && this.setting.showCrumbs) {
+                    this.setting.showCrumbs = false
+                }
+            }
         }
     }
 </script>
@@ -98,7 +134,7 @@
         }
 
         &.setting-switch-open {
-            transform: translateX(-340px);
+            transform: translateX(-320px);
         }
     }
 
@@ -116,6 +152,43 @@
             justify-content: space-between;
             height: 40px;
             margin-bottom: 10px;
+            position: relative;
+
+            .el-radio-button__inner {
+                padding: 7px;
+            }
+
+            .associate {
+                height: 50px;
+                width: 10px;
+                position: absolute;
+                right: 45px;
+                top: 20px;
+                z-index: 66;
+                border: 2px solid #eee;
+                border-right: 0;
+
+                .el-icon-link {
+                    position: absolute;
+                    top: 50%;
+                    left: -11px;
+                    transform: translateY(-50%);
+                    padding: 3px;
+                    background: #fff;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #eee
+                }
+
+                &.active {
+                    border-color: $color-primary;
+
+                    .el-icon-link {
+                        color: $color-primary;
+                    }
+                }
+            }
         }
     }
 }

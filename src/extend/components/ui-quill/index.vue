@@ -8,7 +8,7 @@
             :readOnly="readOnly"
             :placeholder="placeholder"
             :theme="theme"
-            :toolbar="toolbar"
+            :options="options"
             @textChange="onTextChange"
             @selectionChange="onSelectionChange"
             @editorChange="onEditorChange"
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import { QuillEditor } from '@vueup/vue-quill'
     import '@vueup/vue-quill/dist/vue-quill.snow.css'
-    import { toolbar, quillHandler } from './config'
+    import { QuillEditor } from '@vueup/vue-quill'
+    import quillOption from './options'
     export default {
         name: 'ui-quill',
         components: {
@@ -49,7 +49,7 @@
             },
             placeholder: {
                 type: String,
-                default: ''
+                default: '请输入...'
             },
             // 主题 [snow, bubble, ""]
             theme: {
@@ -66,6 +66,7 @@
         },
         data () {
             return {
+                options: quillOption
             }
         },
         computed: {
@@ -94,11 +95,6 @@
                 this.$emit('blur', editor)
             },
             onQuillReady (quill) {
-                // 新增 / 改写 功能模块
-                const toolbarModule = this.$refs['quill-editor'].getQuill().getModule('toolbar')
-                Object.keys(quillHandler).forEach(name => {
-                    toolbarModule.addHandler(name, quillHandler[name])
-                })
                 this.$emit('ready', quill)
             },
             getQuillRef () {
