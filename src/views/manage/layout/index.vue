@@ -29,12 +29,13 @@
         <el-backtop target=".manage-view">
             <div class="el-backtop-inner">UP</div>
         </el-backtop>
-        <!-- 右侧设置弹窗 -->
+        <!-- 右边setting侧栏 -->
         <manage-drawer />
     </div>
 </template>
 <script>
     import { mapState } from 'vuex'
+    import startDriver from '@/util/driver.js'
     import manageHeader from './header.vue'
     import manageCrumbs from './crumbs.vue'
     import manageMenu from './menu.vue'
@@ -87,7 +88,23 @@
             // 获取用户信息
             this.$store.dispatch('getUserInfo')
         },
+        mounted () {
+            // 弹出导航引导
+            if (!localStorage.getItem('driverReaded')) {
+                startDriver()
+            }
+            // 键盘关闭标签事件
+            document.addEventListener('keydown', this.keydownFn)
+        },
+        beforeUnmount () {
+            document.removeEventListener('keydown', this.keydownFn)
+        },
         methods: {
+            keydownFn (event) {
+                if (event.altKey && event.keyCode === 87) {
+                    this.closeCurrentPage()
+                }
+            },
             closeCurrentPage (nextPath) {
                 const tagsList = this.$store.state.common.tagsList
                 // 移除当前项

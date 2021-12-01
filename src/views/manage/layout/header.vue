@@ -1,7 +1,7 @@
 <template>
     <div class="manage-header">
         <!-- 折叠按钮 -->
-        <div class="collapse-btn" @click="changeCollapse">
+        <div id="collapse-btn" class="collapse-btn" @click="changeCollapse">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
@@ -9,7 +9,7 @@
         <div class="manage-header-right">
             <div class="manage-header-user">
                 <!-- 中英文切换 -->
-                <div class="btn-language" @click="changeLanguage">
+                <div class="btn-language" @click="changeLanguage" id="btn-language">
                     <el-tooltip
                         effect="dark"
                         :content="language === 'en' ? '中文' : 'English'"
@@ -20,7 +20,7 @@
                     </el-tooltip>
                 </div>
                 <!-- 全屏显示 -->
-                <div class="btn-fullscreen" @click="handleFullScreen">
+                <div class="btn-fullscreen" @click="handleFullScreen" id="btn-fullscreen">
                     <el-tooltip
                         effect="dark"
                         :content="fullscreen ? $t('layout.fullscreen.close') : $t('layout.fullscreen.open')"
@@ -158,37 +158,25 @@
             height: 70px;
             align-items: center;
 
-            .btn-fullscreen {
-                transform: rotate(45deg);
-                margin-right: 5px;
-                font-size: 24px;
-            }
-            .btn-bell,
             .btn-language,
             .btn-fullscreen {
                 position: relative;
-                width: 30px;
-                height: 30px;
+                width: 40px;
+                height: 100%;
+                line-height: 70px;
                 text-align: center;
-                border-radius: 15px;
                 cursor: pointer;
             }
-            .btn-bell-badge {
-                position: absolute;
-                right: 0;
-                top: -2px;
-                width: 8px;
-                height: 8px;
-                border-radius: 4px;
-                background: #f56c6c;
-                color: #fff;
-            }
-            .btn-bell .el-icon-bell {
-                color: #fff;
+
+            .btn-fullscreen {
+                .el-icon-rank {
+                    display: inline-block;
+                    transform: rotate(45deg);
+                }
             }
 
             .user-avatar {
-                margin: 0 10px 0 20px;
+                margin: 0 10px;
 
                 img {
                     display: block;

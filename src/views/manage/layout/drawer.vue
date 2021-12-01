@@ -1,6 +1,11 @@
 <template>
     <div class="manage-drawer">
-        <div class="setting-switch" @click="settingDrawer = !settingDrawer" :class="{'setting-switch-open': settingDrawer}">
+        <div
+            id="setting-switch"
+            class="setting-switch"
+            @click="settingDrawer = !settingDrawer"
+            :class="{'setting-switch-open': settingDrawer}"
+        >
             <div class="setting-switch-inner">
                 <i class="el-icon-close" v-if="settingDrawer"></i>
                 <i class="el-icon-setting" v-else></i>

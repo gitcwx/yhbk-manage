@@ -119,7 +119,7 @@
     </div>
 </template>
 <script>
-    import areaList from '@/util/area'
+    import areaList from '@/util/data/area.js'
     import { getToken } from '@/util/cookies.js'
     export default {
         name: 'manage-user-edit',

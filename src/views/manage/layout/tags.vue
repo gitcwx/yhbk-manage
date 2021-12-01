@@ -1,6 +1,6 @@
 <template>
     <div class="manage-tags" v-if="tagsList.length">
-        <ul class="tags-list">
+        <ul class="tags-list" id="tags-list">
             <li class="tags-item" v-for="(item,index) in tagsList" :class="{'is-active': isActive(item.path)}" :key="index">
                 <router-link :to="item.fullPath" class="tags-item-title" :title="$t('router.'+item.title)">
                     {{ $t('router.' + item.title )}}
@@ -8,7 +8,7 @@
                 <span class="tags-item-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
             </li>
         </ul>
-        <div class="tags-close-box">
+        <div class="tags-close-box" id="tags-close-box">
             <el-dropdown @command="handleTags" placement="bottom-end">
                 <div class="tags-close-button">
                     {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down"></i>
@@ -122,6 +122,7 @@
         display: flex;
         align-items: center;
         padding: 4px;
+        background: #fff;
 
         .tags-item {
             margin-right: 5px;
