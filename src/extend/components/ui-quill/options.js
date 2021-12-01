@@ -13,14 +13,13 @@ export const toolbar = [
         'italic',
         'underline',
         'strike',
+        'link',
         'blockquote',
         'code-block',
         'image',
         'emoji',
         { list: 'ordered' },
         { list: 'bullet' },
-        { script: 'sub' },
-        { script: 'super' },
         { indent: '-1' },
         { indent: '+1' },
         { color: [] },
@@ -28,9 +27,9 @@ export const toolbar = [
         { align: [] },
 
         { size: ['small', false, 'large', 'huge'] },
-        { header: [1, 2, 3, 4, 5, 6, false] }
-    ],
-    ['clean']
+        { header: [1, 2, 3, 4, 5, 6, false] },
+        'clean'
+    ]
 ]
 
 const uploadConfig = {
@@ -122,4 +121,4 @@ export default {
         'emoji-toolbar': true
         // 'emoji-shortname': true
     }
-  }
+}

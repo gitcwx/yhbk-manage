@@ -24,6 +24,7 @@
     import '@vueup/vue-quill/dist/vue-quill.snow.css'
     import { QuillEditor } from '@vueup/vue-quill'
     import quillOption from './options'
+    import addQuillTitle from './title'
     export default {
         name: 'ui-quill',
         components: {
@@ -69,9 +70,8 @@
                 options: quillOption
             }
         },
-        computed: {
-        },
-        created () {
+        mounted () {
+            addQuillTitle()
         },
         methods: {
             onTextChange (delta, oldContents, source) {

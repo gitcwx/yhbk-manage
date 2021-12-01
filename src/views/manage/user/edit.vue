@@ -18,7 +18,7 @@
                                 Authorization: 'Bearer ' + getToken()
                             }"
                         >
-                            <div class="avatar-content">
+                            <div class="avatar-content" title="选择图片">
                                 <img v-if="formData.avatar" :src="imgPrefix + formData.avatar" />
                                 <i v-else class="el-icon-plus"></i>
                             </div>
