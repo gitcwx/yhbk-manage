@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器不支持</title>
+    <style>
+        html, body,h1,h2,p,ul,li {margin: 0;padding: 0;color:#333}
+        ul,li {list-style:none;}
+        a {text-decoration: none;color:#0072c6}
+        body{width:960px;margin:0 auto;padding:10px;font-size:14px;line-height:24px;color:#454545;font-family:'Microsoft YaHei',sans-serif;}
+        h1{font-size:40px;line-height:80px;font-weight:100;margin-bottom:10px;}
+        h2{font-size:20px;line-height:25px;font-weight:100;margin:10px 0;}
+        p{margin-bottom:10px;}
+        hr{margin:20px 0;border:0;border-top:1px solid #dadada}
+        .browser{overflow: hidden;margin-top:30px;padding: 10px;}
+        .browser li{float: left;padding:0 80px 0 50px;height:40px;line-height:22px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAB4CAMAAAC3rkCoAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEyQzgxMDU2NTQwOTExRUNBMUUxRUYxNzEzNjE0ODczIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjEyQzgxMDU3NTQwOTExRUNBMUUxRUYxNzEzNjE0ODczIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTJDODEwNTQ1NDA5MTFFQ0ExRTFFRjE3MTM2MTQ4NzMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MTJDODEwNTU1NDA5MTFFQ0ExRTFFRjE3MTM2MTQ4NzMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7jnqssAAADAFBMVEX/884Nc8Esw9UVTc35JTX7vAV4x47+qgMAgf3+5zPvmTBfXJn9/fwMiNrtLlHzjYvjaZdNtGl4s/v+RijqQzXp9/tJ1mj91VKJtP1Wru/Q7NdTHHWVmYr/6a0Ed/8CWOM0qFMyy9WP5K39xhhp1eJO2VcriMz1bGf/85xChfT+dxkPUZeX06WoiF3+XCdK1mT7qqP+ZST/9wLuYlP+bBU2ybP3hHn9QjqJq87WElr+6VT/07K65Mf5Mz2wxlr57HOi5Oz92XAks9b7pBcMPNX+50X+XBz9jQPbM3H+eQn9lBvwqyv/xwP+tBnO2+n+7AX84uTi9ucuNar9Oyqoyv8Kg9lOztv+sgL/+ePk7f3+hRgACMQowOZF03l4rpOPcmv2ytn93dva6/rShTf+nQGBWXn++l4tl+D9lAH+cSQhWc+Fw+7yq8P+9PJiirbqWHozT7f9xMD9yzqt6cWIzZoXltqb5Ou6yeY5DocOZ7L+50v+Ui3+7k3/ZgP+Jy0qwdmUgbb9lgztWFcqYs5zmcIWVpk0bKjb8uR70qVeuHv8wyWo2rUVZOL/9RX7vxBx3o9Niclxoczf8vtA0IpPb8kdqNe13PX+tQ3v+vMVjdur1fn2+/ztm7n/1gLuV0oVYv0OJL0PSIzA6vR+2OX85xn+1jup69ton/3UFmAMkOT+3oT+uWQUffr/oA8OhfpOfrFS2Hp+kY/0IDn3UkE6NJ3LdSgPTpPrT0X2nZj42eUNf88iIaYLXuDeQnyC4KUvxcr7Zjs9rFs3qVQMjOA2p1QYhO/qNTr//fP+6kTcI2EaduwPRoqexvxL2GBJ1W5Dr2IHf9uzdkxmv4BR12+Y6silv9j9dD3u8/gEcP3QoTtRiOSh7LPl0hrc1Tq5l1rUq0P4hDn92hX+t1YmX+kPS5DC0+Q7nuF4MXATWZ9WzefpbyHhbjmIbYy98MyR4OrlyjDl2TDQ+tv+9kULAJfYakbtiiM6olb2kw6+69qTR2KpU0VMpN+lWWWsZ2X96+z////fGXQOAAABAHRSTlP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AU/cHJQAACHBJREFUeNqMl3tck9cZx98m3JQgYjAIFZNAEUyQGIjcKrNcEgSxCCi30lo1lAREBUpFQNIIoiJipSJQKlAvLVChbaSIglgDrVoLUru1bt2s2/DSbbJ1W2ddN0/Pez9vCHz8wR/5JN/P77mc5zxvggFU+QX9wUGtZ8+2BgUv28j5BGDI643Ora6IgvrXWgXznV2nyDl/Klhw1tWKWgsswX7XaeTMBYNdp5UvAub7us6gYBZ87Dqj+tnQBTOTBSS4twgA35nJxwRoJ2kCG9G3z5xpDYLazehsPw42SST7kLKdCx5fFgi4xwfycdBfIpHsBflULyxOGDlCgQsEbwCwjO7EpnULFqyrhy/8Ct0YRQLMA3IS8woAWsneLlhCaAEA6XW2rDDM34yTLkSL4LS8t4TSezAaAnZhdjgnGfEC4EwQ44drHgBuLOiG7SdAibkJFBSA+iWIMoAnCxZiLiQoscNLW4eCX6BZ1mDXSW7kPz9AcB4Kwtg1CHiJchzZDzgpWoB1TGjJyIqpoW0Rx/00KLkuABkzFGNnZkj/GdtzgOEk5iQgYBsuQBte14V5sI7m/ZwjBIWcIwQurCXRzAx8KDLgCyRD2xo4ZgdGEPLGXmauBOhMROKDa5agsluRBICHBwCRCGebjl+FVyVcXXJxMf+E9hA3xMGmSxakZGQft5K6y+R1XTFiAcLWo5XYetL32iI4PEyBNzcwvQBucDxhO7sQzg1dUjcQzryXU4kbd+3ZcSpxs4iLLtID19lK2EOu85y6mpteJRI1FyHzGpluddkn+bugldREYtM8FQBo8fCHlXjX1RW6dWGCaR8fUPXPnXjme6k0NfWZyZ+SpgXnT6byGBkMLx4qarIGtrwm5aHKujjqM+aVNAU8nsqzUNZyH4VCVGQBPsebIkPWmz4i0egQBzzBs6Ksi4pRkUhxSMCCVjnKEpIMOMmzriyeCFqKRF4UeJx4V0qKSxKWIsUDAhRIccoQ1dBQ3NAQxUPZrOWEo2isBQcn4WdRxU7j4+Pr4b9TcRSLGi6OkeS3EJzPkxqKcYIUhIsNUvZ4KMsmDExKo9aPO6EaH4+ScpMUKYowkBo1zuVwV5pkwCFsfhQTlVZzM0MaaPAQ9loxx294+Oej9fVv3W0mQAOPKkbxIXaCw3U6hZJnmtcgJdujIEDRV5g7Grjz/Af0NLlLkRRxx7scru8ODR4lR1LBgM1Ifk7yvm+YS8GTZvHGKEORzz6sGDHceW1PBnMveFmGF2lONFqE5SCBJ/rkzzMTj/gRJ3MXNZTLf0OD3y9XsJzoAcDc0Qzlcrrqd9/0YTiFAg4klseA5yEnl28iwSGfUQYb+xYf3ONM5KcmcJCybPH6UKQYVYz6KMYO/UB++chhUnwHB+WH6Xv+oMhraOjX7ybRtzCP6yiXh1r/OgPmW4LyKoFVkLaE59dHkdU7OMw3dwTk5aIOZ/g+bSnfUx1Kd15wp2rPnhbyuh7lVkOi8uqtVaGHq7ZWwzB36AWQZxmbq1B2pbhPtWS1FV1S7uQ1uG+FrOKuPSJ653r5tWk4dpEezSHI+9c4ebKNQlZzHhz2zuGdE+8wXbof2mJ12dfn3XUa7jy/U943MQHhagSb8vjYlDfv55zmxYsXHw59fsbnDPqJ3xOCK08+GYjNCg+fCcz4Is8dat5bKw+Gz1oJZ8ICXEv+wNnxu8GbDg4OixwWNZ+8og6/4uf5vgW4Df9mveMIXyxe5IDr5ksHS9Xq0n96x2Ec8OUwEwBHYvjitsqPFn6Ke/7qYLgakuVr/sQB53aEzX39niO/cunD7oU9BBgIHdXq8nJvTxRcFTYnRahU/fVHrW4rERs6llJkoQABL5hChGUaVZxRu7SNznEWHhuSaj/kp9Qcm5QUjVIlMxo3kOCinMST4YQlrJ19aPpW2KQIA/SqTJ1R9rc3cqgkKUt1qR8NnjNVREBQpY/Xxst2xUWvhnXfzElMVJNkabiAAi+YbCJChDB0vM6oV8XZR5NZBtKkGiPBl8NsbCKEQqU+LhaG3pV5a4kDTc4i81xJgm8TYJlSr4rV6WL/f6T2NAE6tC1MpMjSyywYgjvqtPab/9wmrv20hyR/S5HlGAHODbOpgGCAXpYZP3spf3BQPPh5D0R7bn60BpLlpVde6SJAeCx41UplWUB2siOfX1krFtd+frqn5/Qb0d1/rDv1SvmpbgLsgCDso1KYouxtH9jO5+fW4q6DtW2VfzdG2zeeqml8SDp2mCpsQoSfhJTt+l/7QO/2XBytFQ+Kxfw/eEc3ptnbp8VTOV6tMMH+pJSpMrPb2wfa+fyYmNzcykFx7j+OpRHqpsEIWA08G01s95eOjhtufXerMoYP8Q8Sj9kTYA0BbgnrgEmG4HMm02qNjQkJtscSHPnbc2OWBiaQYCF1MrAaOGdCjR6etq4bkqu/yx7oTU7+faA3CZLtyb8KY9vg86PRB92On7169obk9uTk5Bc2BJ70hpRtWmM6ORRz8djk6P773r1Hj0pKent7k9uz6xIaIde4Rvs+NT0wNm2Z+d+Sf5WUPA3/BrIbYYK2tmu6H+owenAvEJYRKWWQ/Mujp0sgem+zdwI0i442xmq/ZiacsMQLL9MExMXd3vzxxz9q7buj0yAVG2uvCRaw15XoEEEqZbtio+21ulhSOm2m8FlkU6wiSDgakNSrVJnxRq0ODqdOZzSqZiPfSMG5jg4YHKZJNAlHIauDdjLV7XzONiPTNMHhKAsIUOKuMllcZqZKFZxusfbOXQ2DAwzzxFGNRg9ZmV7z9bNT9+PjbR1hsHQTHHbcVaNRfvLZNoHVRbplVZipogK/QDhb9plpW/40G1fw9oU5eHhTRQrU7mUzrea1W4J9Q0Iidgf3F4AnfCpY6BcBBgB6RqNqExUGqQAAAABJRU5ErkJggg==) no-repeat;}
+        .browser li span {display: block;}
+        .browser .browser-chrome{background-position:0 0px}
+        .browser .browser-edge{background-position:0 -40px;}
+        .browser .browser-firefox{background-position:0 -80px;}
+    </style>
+</head>
+
+<body style="margin-top:50px">
+    <h1>请更换您的浏览器，以便我们更好的为您提供服务！</h1>
+    <p>您正在使用 Internet Explorer（IE或使用该内核的浏览器）。这意味着在更换浏览器前，您将无法访问此网站。</p>
+    <hr>
+    <h2>请注意：微软公司对 Internet Explorer 的支持即将结束</h2>
+    <p>
+        从 2022 年 6 月 15 日 开始，某些版本的 Windows 10 将不再支持 Internet Explorer 11 桌面应用程序。没有关键的浏览器安全更新，您的电脑可能易受有害病毒、间谍软件和其他恶意软件的攻击，它们可以窃取或损害您的业务数据和信息。请参阅
+        <a href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support">
+            Internet Explorer 11 桌面应用程序终止对某些操作系统的支持。
+        </a>
+    </p>
+    <hr>
+    <h2>您可以选择更先进的浏览器</h2>
+    <p>推荐使用以下浏览器的最新版本。如果您的电脑已有以下浏览器的最新版本则直接使用该浏览器访问即可。</p>
+    <ul class="browser">
+        <li class="browser-chrome">
+            <a href="https://www.google.cn/chrome/">
+                谷歌浏览器
+                <span>Google Chrome</span>
+            </a>
+        </li>
+        <li class="browser-edge">
+            <a href="https://www.microsoft.com/zh-cn/edge">
+                Microsoft Edge 浏览器
+                <span>Microsoft Edge</span>
+            </a>
+        </li>
+        <li class="browser-firefox">
+            <a href="https://www.mozilla.org/zh-CN/firefox/new/">
+                火狐浏览器
+                <span>Mozilla Firefox</span>
+            </a>
+        </li>
+    </ul>
+    <hr>
+</body>
+
+</html>

@@ -85,8 +85,6 @@
                         document.webkitCancelFullScreen()
                     } else if (document.mozCancelFullScreen) {
                         document.mozCancelFullScreen()
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen()
                     }
                 } else {
                     if (element.requestFullscreen) {
@@ -95,9 +93,6 @@
                         element.webkitRequestFullScreen()
                     } else if (element.mozRequestFullScreen) {
                         element.mozRequestFullScreen()
-                    } else if (element.msRequestFullscreen) {
-                        // IE11
-                        element.msRequestFullscreen()
                     }
                 }
                 this.fullscreen = !this.fullscreen
