@@ -29,7 +29,6 @@ app.use(extend)
 
 /* 初始化 css */
 require('@/assets/css/reset.scss')
-require('@/assets/fonts/iconfont.css')
 /* 插件 css */
 require('nprogress/nprogress.css')
 /* 页面 css */

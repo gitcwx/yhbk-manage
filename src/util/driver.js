@@ -28,14 +28,6 @@ const driver = new Driver({
 function startDriver () {
     driver.defineSteps([
         {
-            element: '#collapse-btn',
-            popover: {
-                title: '菜单栏操作',
-                description: '点击可展开/折叠菜单栏',
-                position: 'right-top'
-            }
-        },
-        {
             element: '#btn-language',
             popover: {
                 title: '语言切换',
@@ -73,6 +65,14 @@ function startDriver () {
                 title: '系统配置',
                 description: '可配置一些系统参数',
                 position: 'left-bottom'
+            }
+        },
+        {
+            element: '#collapse-btn',
+            popover: {
+                title: '菜单栏操作',
+                description: '点击可展开/折叠菜单栏',
+                position: 'right-bottom'
             }
         }
     ])

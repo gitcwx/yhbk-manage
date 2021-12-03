@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'digital-7';
+    src: url('digital-7.eot?t=1578467045822');
+    src: url('digital-7.eot?t=1578467045822#iefix') format('embedded-opentype'),
+        url('digital-7.woff2?t=1578467045822') format('woff2'),
+        url('digital-7.woff?t=1578467045822') format('woff'),
+        url('digital-7.ttf?t=1578467045822') format('truetype'),
+        url('digital-7.svg?t=1578467045822#cim-icon') format('svg');
+}
+
+.digital-num {
+    font-family: 'digital-7', sans-serif;
+    vertical-align: text-bottom;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

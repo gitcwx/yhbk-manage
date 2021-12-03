@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'DS-DIGIB';
+    src: url('DS-DIGIB.eot?t=1578467045822');
+    src: url('DS-DIGIB.eot?t=1578467045822#iefix') format('embedded-opentype'),
+        url('DS-DIGIB.woff2?t=1578467045822') format('woff2'),
+        url('DS-DIGIB.woff?t=1578467045822') format('woff'),
+        url('DS-DIGIB.ttf?t=1578467045822') format('truetype'),
+        url('DS-DIGIB.svg?t=1578467045822#cim-icon') format('svg');
+}
+
+.digib-num {
+    font-family: 'DS-DIGIB', sans-serif;
+    vertical-align: text-bottom;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

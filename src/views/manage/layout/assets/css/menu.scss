@@ -1,0 +1,60 @@
+.manage-menu {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 70px;
+    bottom: 0;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+
+    .menu-wrap {
+        overflow-y: scroll;
+        flex: 1;
+
+        & > .el-menu {
+            min-height: 100%;
+        }
+        
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+    }
+
+    .collapse-btn-wrap {
+        height: 70px;
+        line-height: 70px;
+        background: #242f42;
+        border-right: 1px solid #e6e6e6;
+        transition: width .3s ease-in-out;
+        width: 250px;
+        position: relative;
+
+        .run-time {
+            padding-left: 20px;
+            color: #fff;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .collapse-btn {
+            cursor: pointer;
+            color: #fff;
+            text-align: center;
+            font-size: 22px;
+            width: 63px;
+            transition: background-color .3s ease-in-out;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            &:hover {
+                background: #48576f;
+            }
+        }
+
+        &.is-collapse {
+            width: 64px;
+        }
+    }
+}
