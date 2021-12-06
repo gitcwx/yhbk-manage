@@ -1,17 +1,20 @@
-.ui-timer {
+.ui-digital {
     display: inline-block;
     line-height: normal;
     vertical-align: text-bottom;
     letter-spacing: 2px;
-    color: var(--timer-color);
+    color: var(--digital-color);
+
+    i {
+        display: inline-block;
+        font-style: normal;
+        vertical-align: initial;
+    }
 
     i[data-text] {
-        display: inline-block;
         position: relative;
-        font-family: 'digital-7', sans-serif;
-        font-style: normal;
+        font-family: var(--digital-font), sans-serif;
         font-size: 1.2em;
-        vertical-align: bottom;
         color: rgba(255, 255, 255, .1);
 
         &::after {
@@ -19,7 +22,7 @@
             top: 0;
             right: 0;
             content: attr(data-text);
-            color: var(--timer-color);
+            color: var(--digital-color);
         }
     }
 }

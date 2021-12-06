@@ -11,6 +11,7 @@ import moment from 'moment'
 import { api } from '@/api'
 import { getToken, setToken } from '@/util/cookies.js'
 import i18n from '@/lang'
+import { ElMessage } from 'element-plus/lib/components'
 
 const app = createApp(App)
 
@@ -40,7 +41,6 @@ axios.interceptors.request.use(config => {
     if (typeof token !== 'undefined') {
         config.headers.Authorization = 'Bearer ' + token
     }
-
     config.headers.language = app.config.globalProperties.$getLanguage()
     return config
 }, error => {
@@ -55,9 +55,11 @@ axios.interceptors.response.use(response => {
     }
     return response
 }, error => {
-    if (error.response && error.response.status === 405) {
-        router.push({ name: 'login' })
+    if (error.response) {
+        ElMessage.warning(error.response.data.msg)
         return new Promise(() => {
+            router.push({ name: 'login' })
+            store.commit('SET_IS_LOADING', { isLoading: false })
         })
     }
     return Promise.reject(error)
@@ -102,11 +104,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-    window.scrollTo({
-        top: 0,
-        // behavior: ['smooth', 'instant'] 平滑滚动 瞬间滚动
-        behavior: 'instant'
-    })
     NProgress.done()
 })
 

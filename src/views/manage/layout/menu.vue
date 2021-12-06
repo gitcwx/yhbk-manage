@@ -43,9 +43,9 @@
 
         <!-- 折叠按钮 -->
         <div class="collapse-btn-wrap" :class="{'is-collapse': collapse}">
-            <div class="run-time" v-if="!collapse">
+            <div class="run-time" v-show="!collapse">
                 本次运行：
-                <ui-timer type="counter" size="20" color="#20a0ff" :value="runTime" class="digital-num" @onStep="onStep"/>
+                <ui-timer type="counter" size="20" color="#20a0ff" :value="runTime" @onStep="onStep"/>
             </div>
             <div id="collapse-btn" class="collapse-btn" @click="changeCollapse">
                 <i v-if="!collapse" class="el-icon-s-fold"></i>

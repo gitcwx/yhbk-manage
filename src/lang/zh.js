@@ -24,12 +24,19 @@ export default {
         drawer: {
             title: '系统参数配置',
             themeColor: '主题色',
+            timer: '头部时间',
             breadCrumb: '面包屑导航',
             tags: '多页签栏',
             language: '语言',
             defaultMenuStatus: '默认菜单状态',
             menuStatusTips: '刷新进入页面时菜单栏默认状态'
         }
+    },
+    unit: {
+        year: '年',
+        month: '月',
+        date: '日',
+        day: '天'
     },
     button: {
         yes: '是',

@@ -24,6 +24,10 @@
                     <el-color-picker v-model="setting.themeColor" />
                 </div> -->
                 <div class="setting-item">
+                    <label>{{$t('layout.drawer.timer')}}</label>
+                    <el-switch v-model="setting.showTimer" @change="timerChange" />
+                </div>
+                <div class="setting-item">
                     <label>{{$t('layout.drawer.breadCrumb')}}</label>
                     <el-switch v-model="setting.showCrumbs" @change="crumbChange"/>
                     <div class="associate" :class="{active: isLinked}">
@@ -86,6 +90,9 @@
             this.setting = this.$deepClone(this.$store.state.common.setting)
         },
         methods: {
+            timerChange (value) {
+                this.setting.showTimer = value
+            },
             crumbChange (value) {
                 if (this.isLinked && value) {
                     this.setting.showTags = false

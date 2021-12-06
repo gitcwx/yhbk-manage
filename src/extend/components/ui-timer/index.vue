@@ -1,6 +1,9 @@
 <template>
-    <div class="ui-timer" :style="{ color, fontSize: calcSize() }">
-        {{ type ? format() : value }}
+    <div
+        class="ui-timer"
+        :style="{ '--timer-color': color, fontSize: calcSize() }"
+        v-html="type ? format() : value"
+    >
     </div>
 </template>
 
@@ -31,11 +34,6 @@
                 current: '',
                 // 定时器
                 timer: null
-            }
-        },
-        computed: {
-            language () {
-                return this.$getLanguage()
             }
         },
         created () {
@@ -116,11 +114,12 @@
                 if (this.type === 'counter' || this.type === 'countdown') {
                     return this.calcTime(this.current)
                 } else if (this.type === 'time') {
-                    return this.$moment(this.current).format('HH时mm分ss秒')
+                    return this.getDateTime('HH:mm:ss')
                 } else if (this.type === 'dateTime') {
-                    return this.$moment(this.current).format('YYYY年MM月DD日 HH时mm分ss秒')
+                    return this.getDateTime(`YYYY${this.$t('unit.year')}MM${this.$t('unit.month')}DD${this.$t('unit.date')} HH:mm:ss`)
                 }
             },
+            // 计时器/倒计时格式化
             calcTime (time) {
                 let result = ''
                 const ss = this.prefixZero(time % 60)
@@ -128,9 +127,35 @@
                 const HH = this.prefixZero(parseInt(time / 3600) % 24)
                 const DD = parseInt(time / 3600 / 24)
                 if (DD) {
-                    result += `${DD}天 `
+                    result += `${DD}${this.$t('unit.day')} `
                 }
-                return result + `${HH}:${mm}:${ss}`
+                result += `${HH}:${mm}:${ss}`
+                return result.replace(/(\d)/g, ($1) => {
+                    return `<i data-text="${$1}">0</i>`
+                })
+            },
+            // 时钟/日期格式化
+            getDateTime (fmt) {
+                const time = new Date(this.current)
+                const o = {
+                    'M+': time.getMonth() + 1,
+                    'D+': time.getDate(),
+                    'H+': time.getHours(),
+                    'm+': time.getMinutes(),
+                    's+': time.getSeconds()
+                }
+                fmt = fmt.replace(/(YYYY+)/, ($1) => {
+                    return String(time.getFullYear()).slice(4 - $1.length, 4)
+                })
+                for (const k in o) {
+                    fmt = fmt.replace(new RegExp('(' + k + ')'), ($1) => {
+                        return ($1.length === 1 ? o[k] : this.prefixZero(o[k]))
+                    })
+                }
+                fmt = fmt.replace(/(\d)/g, ($1) => {
+                    return `<i data-text="${$1}">0</i>`
+                })
+                return fmt
             },
             prefixZero (x) {
                 return x < 10 ? '0' + x : x

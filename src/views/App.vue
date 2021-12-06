@@ -55,6 +55,8 @@
 
             if (!setting) {
                 setting = {
+                    // 显示头部日期时间
+                    showTimer: false,
                     // 默认是否显示面包屑导航
                     showCrumbs: false,
                     // 默认是否显示标签栏

@@ -24,12 +24,19 @@ export default {
         drawer: {
             title: 'System Config Setting',
             themeColor: 'Theme Color',
+            timer: 'Header Timer',
             breadCrumb: 'Breadcrumb',
             tags: 'Tags Tab',
             language: 'Language',
             defaultMenuStatus: 'Menu Status',
             menuStatusTips: 'Default Menu Status While Refresh Page'
         }
+    },
+    unit: {
+        year: '-',
+        month: '-',
+        date: '',
+        day: 'day'
     },
     button: {
         yes: 'Yes',
