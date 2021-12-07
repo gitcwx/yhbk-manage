@@ -76,7 +76,7 @@
                 >
                     <div class="cover-content" title="选择图片">
                         <img v-if="formData.cover" :src="imgPrefix + formData.cover" />
-                        <i v-else class="el-icon-plus"></i>
+                        <i v-else class="manage-icon icon-cloud-upload"></i>
                     </div>
                 </el-upload>
             </el-form-item>

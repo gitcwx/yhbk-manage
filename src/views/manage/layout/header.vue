@@ -14,8 +14,8 @@
                 placement="bottom"
             >
                 <div class="btn-language" @click="changeLanguage" id="btn-language">
-                    <i v-if="language === 'en'" class="yhbk-icon icon-lang-zh"></i>
-                    <i v-else class="yhbk-icon icon-lang-en"></i>
+                    <i v-if="language === 'en'" class="manage-icon icon-lang-zh"></i>
+                    <i v-else class="manage-icon icon-lang-en"></i>
                 </div>
             </el-tooltip>
             <!-- 全屏显示 -->
@@ -25,7 +25,8 @@
                 placement="bottom"
             >
                 <div class="btn-fullscreen" @click="handleFullScreen" id="btn-fullscreen">
-                    <i class="el-icon-rank"></i>
+                    <i v-if="fullscreen" class="manage-icon icon-fullscreen-exit"></i>
+                    <i v-else class="manage-icon icon-fullscreen"></i>
                 </div>
             </el-tooltip>
             <!-- 用户名下拉菜单 -->
@@ -35,7 +36,7 @@
                     <img v-if="user.avatar" :src="imgPrefix + user.avatar" />
                     <img v-else :src="require('@/assets/images/default-avatar.png')">
                     {{user.nickname}}
-                    <i class="el-icon-caret-bottom"></i>
+                    <i class="manage-icon icon-caret-down"></i>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>

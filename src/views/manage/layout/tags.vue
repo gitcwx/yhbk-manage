@@ -5,13 +5,13 @@
                 <router-link :to="item.fullPath" class="tags-item-title" :title="$t('router.'+item.title)">
                     {{ $t('router.' + item.title )}}
                 </router-link>
-                <span class="tags-item-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
+                <span class="tags-item-icon" @click="closeTags(index)"><i class="manage-icon icon-close"></i></span>
             </li>
         </ul>
         <div class="tags-close-box" id="tags-close-box">
             <el-dropdown @command="handleTags" placement="bottom-end">
                 <div class="tags-close-button">
-                    {{$t('layout.tagControl.name')}}<i class="el-icon-arrow-down"></i>
+                    {{$t('layout.tagControl.name')}}<i class="manage-icon icon-down"></i>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -135,6 +135,9 @@
             color: #666;
             white-space: nowrap;
 
+            .icon-close {
+                font-size: 12px;
+            }
             &.is-active {
                 color: #fff;
                 border-color: $color-primary;
@@ -183,8 +186,9 @@
             border-radius: 2px;
             margin-top: 3px;
 
-            .el-icon-arrow-down {
+            .icon-down {
                 margin-left: 6px;
+                font-size: 12px;
             }
         }
     }

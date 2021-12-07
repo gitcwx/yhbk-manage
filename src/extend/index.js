@@ -1,7 +1,9 @@
 import directives from './directives'
 import dictionary from './dictionary'
-import { components, plugins } from './element'
 const properties = require('./properties')
+
+const plugins = []
+const components = []
 
 // 公共组件/模块
 const uiFiles = require.context('./components', true, /\/ui-[^/]+\/index.vue$/)
@@ -32,9 +34,6 @@ export default {
         Object.keys(properties).forEach(key => {
             app.config.globalProperties['$' + key] = properties[key]
         })
-
-        // element 全局配置
-        app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
 
         // 字典
         app.config.globalProperties.$dictionary = dictionary

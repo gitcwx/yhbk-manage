@@ -41,8 +41,8 @@
             <el-table-column label="前端展示" width="80" align="center">
                 <template #default="scope">
                     <span class="ui-table-icon">
-                        <i v-if="scope.row.status === 1" class="el-icon-success text-success"></i>
-                        <i v-else-if="scope.row.status === 2" class="el-icon-error text-danger"></i>
+                        <i v-if="scope.row.status === 1" class="manage-icon icon-check-circle-fill text-success"></i>
+                        <i v-else-if="scope.row.status === 2" class="manage-icon icon-close-circle-fill text-danger"></i>
                     </span>
                 </template>
             </el-table-column>

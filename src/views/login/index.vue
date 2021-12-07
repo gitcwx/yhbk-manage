@@ -14,16 +14,22 @@
                     <el-input
                         v-model="formData.username"
                         placeholder="账号"
-                        prefix-icon="el-icon-user"
-                    />
+                    >
+                        <template #prefix>
+                            <i class="manage-icon icon-user"></i>
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         type="password"
                         placeholder="密码"
                         v-model="formData.password"
-                        prefix-icon="el-icon-lock"
-                    />
+                    >
+                        <template #prefix>
+                            <i class="manage-icon icon-lock-fill"></i>
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm">登录</el-button>

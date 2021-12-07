@@ -4,3 +4,13 @@
 .text-warning { color: $color-warning }
 .text-danger { color: $color-danger }
 .text-info { color: $color-info }
+
+.rotate {
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes rotate {
+    0% {transform: rotate(0)}
+    100% {transform: rotate(360deg)}
+}

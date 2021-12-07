@@ -11,6 +11,7 @@
         <manage-tags v-if="setting.showTags"/>
         <!-- 视图 -->
         <div
+            id="manage-view"
             class="manage-view"
             v-loading="isLoading"
             :element-loading-text="loadingText"

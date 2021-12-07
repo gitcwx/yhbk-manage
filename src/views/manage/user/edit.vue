@@ -20,7 +20,7 @@
                         >
                             <div class="avatar-content" title="选择图片">
                                 <img v-if="formData.avatar" :src="imgPrefix + formData.avatar" />
-                                <i v-else class="el-icon-plus"></i>
+                                <i v-else class="manage-icon icon-cloud-upload"></i>
                             </div>
                         </el-upload>
                     </el-form-item>
@@ -278,7 +278,7 @@
                 background-color: #f1f8ff;
             }
 
-            .el-icon-plus {
+            .icon-cloud-upload {
                 font-size: 40px;
                 vertical-align: middle;
             }

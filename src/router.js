@@ -239,6 +239,15 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
+    scrollBehavior: (to, from, savedPosition) => {
+        const $el = document.getElementById('manage-view')
+        if ($el) {
+            setTimeout(() => {
+                $el.scrollTo(0, 0)
+            }, 300)
+        }
+        return { top: 0, left: 0 }
+    },
     routes
 })
 

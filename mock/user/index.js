@@ -18,19 +18,6 @@ export default Mock => {
             code: 200,
             msg: '查询成功',
             data: [
-                { index: 'dashboard', title: '系统首页', isMenu: true, icon: 'el-icon-s-home' },
-                { index: 'message', title: '系统消息', isMenu: true, icon: 'el-icon-message' },
-                {
-                    index: '6',
-                    title: '个人中心',
-                    isMenu: true,
-                    icon: 'el-icon-user',
-                    children: [
-                        { index: 'userInfo', title: '用户资料', isMenu: true, icon: 'el-icon-document' },
-                        { index: 'password', title: '修改密码', isMenu: true, icon: 'el-icon-lock' }
-                    ]
-                }
-
             ]
         }
     })

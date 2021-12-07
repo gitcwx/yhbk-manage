@@ -14,18 +14,18 @@
                     <template v-if="firstLevel.children">
                         <el-sub-menu :index="nameToPath(firstLevel.name)" :key="firstLevel.id">
                             <template #title>
-                                <i :class="firstLevel.icon"></i>
+                                <i class="manage-icon" :class="firstLevel.icon"></i>
                                 <span>{{ $t('router.' + firstLevel.name) }}</span>
                             </template>
                             <template v-for="secondLevel in firstLevel.children">
                                 <el-sub-menu v-if="secondLevel.children" :index="nameToPath(secondLevel.name)" :key="secondLevel.id">
                                     <template #title>
-                                        <i :class="secondLevel.icon"></i>
+                                        <i class="manage-icon" :class="secondLevel.icon"></i>
                                         {{ $t('router.' + secondLevel.name) }}
                                     </template>
                                 </el-sub-menu>
                                 <el-menu-item v-else-if="secondLevel.isMenu" :index="nameToPath(secondLevel.name)" :key="secondLevel.id">
-                                    <i :class="secondLevel.icon"></i>
+                                    <i class="manage-icon" :class="secondLevel.icon"></i>
                                     {{ $t('router.' + secondLevel.name) }}
                                 </el-menu-item>
                             </template>
@@ -33,7 +33,7 @@
                     </template>
                     <template v-else-if="firstLevel.isMenu">
                         <el-menu-item :index="nameToPath(firstLevel.name)" :key="firstLevel.id">
-                            <i :class="firstLevel.icon"></i>
+                            <i class="manage-icon" :class="firstLevel.icon"></i>
                             <span>{{ $t('router.' + firstLevel.name) }}</span>
                         </el-menu-item>
                     </template>
@@ -48,8 +48,8 @@
                 <ui-timer type="counter" size="20" color="#20a0ff" :value="runTime" @onStep="onStep"/>
             </div>
             <div id="collapse-btn" class="collapse-btn" @click="changeCollapse">
-                <i v-if="!collapse" class="el-icon-s-fold"></i>
-                <i v-else class="el-icon-s-unfold"></i>
+                <i v-if="collapse" class="manage-icon icon-indent"></i>
+                <i v-else class="manage-icon icon-outdent"></i>
             </div>
         </div>
     </div>

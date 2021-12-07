@@ -14,6 +14,11 @@
 
         & > .el-menu {
             min-height: 100%;
+
+            .manage-icon {
+                font-size: 20px;
+                margin-right: 5px;
+            }
         }
         
         &::-webkit-scrollbar {
@@ -41,12 +46,15 @@
             cursor: pointer;
             color: #fff;
             text-align: center;
-            font-size: 22px;
             width: 63px;
             transition: background-color .3s ease-in-out;
             position: absolute;
             right: 0;
             top: 0;
+
+            .manage-icon {
+                font-size: 22px;
+            }
 
             &:hover {
                 background: #48576f;

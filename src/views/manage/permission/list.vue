@@ -44,7 +44,7 @@
         >
             <el-table-column label="图标" width="80" align="center" fixed="left">
                 <template #default="scope">
-                    <i :class="scope.row.icon" :style="{fontSize: '22px'}"></i>
+                    <i class="manage-icon" :class="scope.row.icon" :style="{fontSize: '22px'}"></i>
                 </template>
             </el-table-column>
             <el-table-column prop="text" label="页面名称" width="150" sortable :sort-method="sortZh"/>
@@ -109,7 +109,14 @@
         >
             <el-form ref="dialog-form" :model="formData" :rules="rules" label-width="90px">
                 <el-form-item label="菜单图标" prop="icon">
-                    <el-input v-model="formData.icon" placeholder="请输入图标class" :prefix-icon="formData.icon"/>
+                    <el-input
+                        v-model="formData.icon"
+                        placeholder="请输入图标class"
+                    >
+                        <template #prefix>
+                            <i class="manage-icon" :class="formData.icon"></i>
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <el-form-item label="页面名称" prop="text">
                     <el-input v-model="formData.text" placeholder="请输入" />

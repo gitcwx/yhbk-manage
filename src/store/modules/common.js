@@ -32,14 +32,14 @@ const common = {
         SET_IS_LOADING: (state, { isLoading, loadingText, loadingSpinner, loadingBackground }) => {
             state.isLoading = isLoading
             state.loadingText = loadingText || '加载中...'
-            state.loadingSpinner = loadingSpinner || 'el-icon-loading'
-            state.loadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.45)'
+            // state.loadingSpinner = loadingSpinner || '<i class="manage-icon icon-loading"></i>'
+            state.loadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.2)'
         },
         SET_FULL_LOADING: (state, { isLoading, loadingText, loadingSpinner, loadingBackground }) => {
             state.isFullLoading = isLoading
             state.fullLoadingText = loadingText || '加载中...'
-            state.fullLoadingSpinner = loadingSpinner || 'el-icon-loading'
-            state.fullLoadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.45)'
+            // state.fullLoadingSpinner = loadingSpinner || '<i class="manage-icon icon-loading"></i>'
+            state.fullLoadingBackground = loadingBackground || 'rgba(0, 0, 0, 0.2)'
         },
         SET_COLLAPSE: (state, collapse) => {
             state.collapse = collapse

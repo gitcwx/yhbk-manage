@@ -35,19 +35,17 @@
                                     ({{selectedList[item.id].count}})
                                 </span>
                             </span>
-                            <span class="btn-edit" @click="editItem(item)"><i class="el-icon-edit"></i></span>
+                            <span class="btn-edit" @click="editItem(item)"><i class="manage-icon icon-edit-fill"></i></span>
                             <el-popconfirm
                                 title="确认删除?"
                                 @confirm="handleDelete(item, index)"
-                                icon="el-icon-info"
-                                icon-color="red"
                             >
                                 <template #reference>
-                                    <span class="btn-delete"><i class="el-icon-delete"></i></span>
+                                    <span class="btn-delete"><i class="manage-icon icon-delete-fill"></i></span>
                                 </template>
                             </el-popconfirm>
                             <span class="tag-loading" v-if="selectedList[item.id] && selectedList[item.id].loading">
-                                <i class="el-icon-loading"></i>
+                                <i class="manage-icon icon-loading rotate"></i>
                             </span>
                         </div>
                     </transition-group>

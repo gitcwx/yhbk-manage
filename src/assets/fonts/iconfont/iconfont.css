@@ -1,19 +1,139 @@
 @font-face {
-  font-family: "yhbk-icon"; /* Project id 2755087 */
-  src: url('iconfont.eot?t=1629343778887'); /* IE9 */
-  src: url('iconfont.eot?t=1629343778887#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('iconfont.woff2?t=1629343778887') format('woff2'),
-       url('iconfont.woff?t=1629343778887') format('woff'),
-       url('iconfont.ttf?t=1629343778887') format('truetype'),
-       url('iconfont.svg?t=1629343778887#yhbk-icon') format('svg');
+  font-family: "manage-icon"; /* Project id 2755087 */
+  src: url('iconfont.eot?t=1638866372211'); /* IE9 */
+  src: url('iconfont.eot?t=1638866372211#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1638866372211') format('woff2'),
+       url('iconfont.woff?t=1638866372211') format('woff'),
+       url('iconfont.ttf?t=1638866372211') format('truetype'),
+       url('iconfont.svg?t=1638866372211#manage-icon') format('svg');
 }
 
-.yhbk-icon {
-  font-family: "yhbk-icon" !important;
+.manage-icon {
+  font-family: "manage-icon" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-read:before {
+  content: "\e7d8";
+}
+
+.icon-Partition:before {
+  content: "\e90e";
+}
+
+.icon-control:before {
+  content: "\e67a";
+}
+
+.icon-loading:before {
+  content: "\e756";
+}
+
+.icon-check-circle-fill:before {
+  content: "\e844";
+}
+
+.icon-close:before {
+  content: "\e7fe";
+}
+
+.icon-close-circle-fill:before {
+  content: "\e844";
+}
+
+.icon-info-circle-fill:before {
+  content: "\e845";
+}
+
+.icon-question-circle-fill:before {
+  content: "\e847";
+}
+
+.icon-delete-fill:before {
+  content: "\e863";
+}
+
+.icon-home-fill:before {
+  content: "\e867";
+}
+
+.icon-lock-fill:before {
+  content: "\e86b";
+}
+
+.icon-edit-fill:before {
+  content: "\e870";
+}
+
+.icon-comment:before {
+  content: "\e8e9";
+}
+
+.icon-caret-down:before {
+  content: "\e8ec";
+}
+
+.icon-plus:before {
+  content: "\e8fe";
+}
+
+.icon-setting:before {
+  content: "\e78f";
+}
+
+.icon-adduser:before {
+  content: "\e7ae";
+}
+
+.icon-user:before {
+  content: "\e7b0";
+}
+
+.icon-team:before {
+  content: "\e7b1";
+}
+
+.icon-cloud-upload:before {
+  content: "\e7d9";
+}
+
+.icon-mail:before {
+  content: "\e7df";
+}
+
+.icon-link:before {
+  content: "\e7e4";
+}
+
+.icon-tag:before {
+  content: "\e7e7";
+}
+
+.icon-down:before {
+  content: "\e7ef";
+}
+
+.icon-fullscreen:before {
+  content: "\e7f0";
+}
+
+.icon-fullscreen-exit:before {
+  content: "\e7f1";
+}
+
+.icon-indent:before {
+  content: "\e7f5";
+}
+
+.icon-outdent:before {
+  content: "\e7f6";
+}
+
+.icon-unorderedlist:before {
+  content: "\e7f8";
 }
 
 .icon-lang-zh:before {

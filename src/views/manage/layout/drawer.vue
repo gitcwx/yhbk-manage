@@ -7,8 +7,8 @@
             :class="{'setting-switch-open': settingDrawer}"
         >
             <div class="setting-switch-inner">
-                <i class="el-icon-close" v-if="settingDrawer"></i>
-                <i class="el-icon-setting" v-else></i>
+                <i class="manage-icon icon-close" v-if="settingDrawer"></i>
+                <i class="manage-icon icon-setting" v-else></i>
             </div>
         </div>
         <el-drawer
@@ -31,7 +31,7 @@
                     <label>{{$t('layout.drawer.breadCrumb')}}</label>
                     <el-switch v-model="setting.showCrumbs" @change="crumbChange"/>
                     <div class="associate" :class="{active: isLinked}">
-                        <i class="el-icon-link" @click="changeLinked"></i>
+                        <i class="manage-icon icon-link" @click="changeLinked"></i>
                     </div>
                 </div>
                 <div class="setting-item">
@@ -53,7 +53,7 @@
                             :content="$t('layout.drawer.menuStatusTips')"
                             trigger="hover"
                         >
-                            <i class="el-icon-info text-warning"></i>
+                            <i class="manage-icon icon-question-circle-fill text-primary"></i>
                         </el-tooltip>
                     </label>
                     <el-radio-group v-model="setting.collapse" size="mini">
@@ -125,7 +125,6 @@
         right: 40px;
         width: 40px;
         height: 40px;
-        font-size: 20px;
         cursor: pointer;
         z-index: 9999;
         border-radius: 50%;
@@ -143,6 +142,10 @@
             text-align: center;
             line-height: 40px;
             border-radius: 4px;
+
+            .manage-icon {
+                font-size: 20px;
+            }
         }
 
         &.setting-switch-open {
@@ -180,7 +183,7 @@
                 border: 2px solid #eee;
                 border-right: 0;
 
-                .el-icon-link {
+                .icon-link {
                     position: absolute;
                     top: 50%;
                     left: -11px;
@@ -196,7 +199,7 @@
                 &.active {
                     border-color: $color-primary;
 
-                    .el-icon-link {
+                    .icon-link {
                         color: $color-primary;
                     }
                 }

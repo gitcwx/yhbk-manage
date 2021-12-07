@@ -1,7 +1,7 @@
 <template>
     <div class="page-error page-error-403">
         <div class="error-code">
-            <i class="el-icon-lock"></i>
+            <i class="manage-icon icon-lock-fill"></i>
         </div>
         <div class="error-desc">啊哦~ 权限不足</div>
         <div class="error-handle">

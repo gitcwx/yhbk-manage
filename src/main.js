@@ -11,7 +11,8 @@ import moment from 'moment'
 import { api } from '@/api'
 import { getToken, setToken } from '@/util/cookies.js'
 import i18n from '@/lang'
-import { ElMessage } from 'element-plus/lib/components'
+import ElementPlus from 'element-plus/dist/index.full'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 
@@ -27,6 +28,7 @@ process.env.NODE_ENV === 'devmock' && require('@/mock')
 
 app.use(i18n)
 app.use(extend)
+app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 
 /* 初始化 css */
 require('@/assets/css/reset.scss')
@@ -56,7 +58,7 @@ axios.interceptors.response.use(response => {
     return response
 }, error => {
     if (error.response) {
-        ElMessage.warning(error.response.data.msg)
+        ElementPlus.ElMessage.warning(error.response.data.msg)
         return new Promise(() => {
             router.push({ name: 'login' })
             store.commit('SET_IS_LOADING', { isLoading: false })
