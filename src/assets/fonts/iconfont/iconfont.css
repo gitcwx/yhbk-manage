@@ -1,11 +1,11 @@
 @font-face {
   font-family: "manage-icon"; /* Project id 2755087 */
-  src: url('iconfont.eot?t=1638866372211'); /* IE9 */
-  src: url('iconfont.eot?t=1638866372211#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('iconfont.woff2?t=1638866372211') format('woff2'),
-       url('iconfont.woff?t=1638866372211') format('woff'),
-       url('iconfont.ttf?t=1638866372211') format('truetype'),
-       url('iconfont.svg?t=1638866372211#manage-icon') format('svg');
+  src: url('iconfont.eot?t=1639031217028'); /* IE9 */
+  src: url('iconfont.eot?t=1639031217028#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1639031217028') format('woff2'),
+       url('iconfont.woff?t=1639031217028') format('woff'),
+       url('iconfont.ttf?t=1639031217028') format('truetype'),
+       url('iconfont.svg?t=1639031217028#manage-icon') format('svg');
 }
 
 .manage-icon {
@@ -14,6 +14,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-game:before {
+  content: "\e658";
+}
+
+.icon-games:before {
+  content: "\e63e";
+}
+
+.icon-game-line:before {
+  content: "\e7fb";
 }
 
 .icon-read:before {
@@ -56,10 +68,6 @@
   content: "\e863";
 }
 
-.icon-home-fill:before {
-  content: "\e867";
-}
-
 .icon-lock-fill:before {
   content: "\e86b";
 }
@@ -94,6 +102,10 @@
 
 .icon-team:before {
   content: "\e7b1";
+}
+
+.icon-home:before {
+  content: "\e7c6";
 }
 
 .icon-cloud-upload:before {

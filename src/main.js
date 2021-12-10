@@ -28,7 +28,7 @@ process.env.NODE_ENV === 'devmock' && require('@/mock')
 
 app.use(i18n)
 app.use(extend)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 })
+app.use(ElementPlus, { size: 'mini', zIndex: 3000 })
 
 /* 初始化 css */
 require('@/assets/css/reset.scss')
@@ -58,7 +58,7 @@ axios.interceptors.response.use(response => {
     return response
 }, error => {
     if (error.response) {
-        ElementPlus.ElMessage.warning(error.response.data.msg)
+        app.config.globalProperties.$message.warning(error.response.data.msg)
         return new Promise(() => {
             router.push({ name: 'login' })
             store.commit('SET_IS_LOADING', { isLoading: false })

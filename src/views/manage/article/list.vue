@@ -50,7 +50,7 @@
             <el-table-column prop="likeCount" label="点赞量" width="80"/>
             <el-table-column prop="updatedAt" label="更新时间" width="180"/>
             <el-table-column prop="createdAt" label="创建时间" width="180"/>
-            <el-table-column label="操作" width="280" align="center" fixed="right">
+            <el-table-column label="操作" width="290" align="center" fixed="right">
                 <template #default="scope">
                     <el-button type="success" size="mini" @click="handleView(scope.row)">预览</el-button>
                     <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>

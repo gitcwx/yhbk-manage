@@ -35,8 +35,16 @@
         watch: {
             $route: {
                 immediate: true,
-                handler (newValue) {
-                    if (newValue.matched[0] && newValue.matched[0].path === '/') {
+                handler (newValue, oldValue) {
+                    // onHide事件
+                    if (oldValue && oldValue.matched[0].path === '/') {
+                        const oldPage = oldValue.matched[1].components.default
+                        if (oldPage.onHide) {
+                            oldPage.onHide.call(oldValue.matched[1].instances.default)
+                        }
+                    }
+                    // onShow事件
+                    if (newValue && newValue.matched[0].path === '/') {
                         this.setTags(newValue)
                     }
                 }

@@ -195,6 +195,28 @@ const routes = [
             },
             /* article end */
 
+            /* game start */
+            {
+                path: 'game',
+                name: 'game.folder',
+                redirect: { name: 'game.2048' },
+                meta: { title: '小游戏', titleEn: 'Game' }
+            },
+            {
+                path: 'game/2048',
+                name: 'game.2048',
+                component: () => import('@/views/manage/game/2048/index.vue'),
+                meta: {
+                    title: '2048',
+                    titleEn: '2048',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'game.2048' }
+                    ]
+                }
+            },
+            /* game end */
+
             {
                 path: '403',
                 name: '403',

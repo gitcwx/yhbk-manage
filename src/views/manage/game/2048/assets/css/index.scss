@@ -1,0 +1,66 @@
+.manage-2048 {
+    .tools {
+        padding: 20px 10px;
+        max-width: 500px;
+        .score {
+            font-size: 26px;
+            color: #e42;
+            font-weight: 700;
+        }
+        .start-button {
+            border: none;
+            background: #8f7a66;
+            color: #fff;
+            font-size: 20px;
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            float: right;
+        }
+    }
+
+    .panel {
+        height: 500px;
+        width: 500px;
+        position: relative;
+        touch-action: none;
+        user-select: none;
+        display: flex;
+        flex-wrap: wrap;
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            color: #fff;
+            background: #ccc0b3;
+            line-height: 100px;
+            text-align: center;
+            font-size: 50px;
+            border-radius: 6px;
+            margin: 20px 0 0 20px;
+            transition: all .3s linear;
+        }
+
+        [id^=c0]{top:20px}
+        [id^=c1]{top:140px}
+        [id^=c2]{top:260px}
+        [id^=c3]{top:380px}
+        [id$="0"]{left:20px}
+        [id$="1"]{left:140px}
+        [id$="2"]{left:260px}
+        [id$="3"]{left:380px}
+        .cell2{background-color:#eee3da;color:#776e65}
+        .cell4{background-color:#ede0c8;color:#776e65}
+        .cell8{background-color:#f2b179}
+        .cell16{background-color:#f59563}
+        .cell32{background-color:#f67c5f}
+        .cell64{background-color:#f65e3b}
+        .cell128{background-color:#edcf72}
+        .cell256{background-color:#edcc61}
+        .cell512{background-color:#99cc00}
+        .cell1024{background-color:#33b5e5;font-size:35px}
+        .cell2048{background-color:#0099cc;font-size:35px}
+        .cell4096{background-color:#aa66cc;font-size:35px}
+        .cell8192{background-color:#99c3cc;font-size:35px}
+    }
+}

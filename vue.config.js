@@ -4,10 +4,6 @@ const CompressionPlugin = require('compression-webpack-plugin')
 
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 
-// element-plus 按需加载
-const Components = require('unplugin-vue-components/webpack')
-const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
-
 // const projectTitle = ''
 
 module.exports = {
@@ -102,13 +98,6 @@ module.exports = {
                         return 'not a git repository'
                     }
                 })()
-            })
-        )
-
-        // element-plus 按需加载
-        plugins.push(
-            Components({
-                resolvers: [ElementPlusResolver()]
             })
         )
 
