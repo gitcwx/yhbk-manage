@@ -96,11 +96,4 @@
     }
 </script>
 
-<style lang="scss">
-.manage-user-password {
-    .el-form {
-        width: 600px;
-        padding: 20px;
-    }
-}
-</style>
+<style lang="scss" src="./assets/css/password.scss"></style>

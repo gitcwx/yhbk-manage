@@ -1,5 +1,5 @@
 <template>
-    <div class="manage manage-2048">
+    <div class="manage manage-game-2048">
         <div class="tools">
             <span class="score">score: {{score}}</span>
             <button class="start-button" @click="start">restart</button>
@@ -13,7 +13,7 @@
             @touchmove="touchMove"
             @touchend="touchEnd"
         >
-            <template v-for="x in RN" :key="x">
+            <!-- <template v-for="x in RN" :key="x">
                 <div
                     v-for="y in CN"
                     class="cell"
@@ -23,13 +23,13 @@
                 >
                     {{map[x-1][y-1] || ''}}
                 </div>
-            </template>
+            </template> -->
         </div>
     </div>
 </template>
 <script>
     export default {
-        name: 'manage-2048',
+        name: 'manage-game-2048',
         data () {
             return {
                 map: {},

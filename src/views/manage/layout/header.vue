@@ -41,7 +41,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="user.password">{{$t('layout.dropdown.modifyPassword')}}</el-dropdown-item>
-                        <el-dropdown-item :divided="true" command="signOut">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
+                        <el-dropdown-item command="signOut">{{$t('layout.dropdown.signOut')}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>

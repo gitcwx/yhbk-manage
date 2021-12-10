@@ -92,7 +92,7 @@ const routes = [
                 name: 'user.edit',
                 component: () => import('@/views/manage/user/edit.vue'),
                 meta: {
-                    title: '修改资料',
+                    title: '用户编辑',
                     titleEn: 'User Edit',
                     crumbs: [
                         { name: 'home', path: '/' },

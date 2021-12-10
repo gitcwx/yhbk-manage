@@ -250,44 +250,4 @@
     }
 </script>
 
-<style lang="scss">
-.manage-user-edit {
-    .el-form {
-        width: 866px;
-        padding: 20px 20px 20px 0;
-
-        .el-input,
-        .el-select,
-        .el-cascader {
-            width: 322px
-        }
-
-        .avatar-content {
-            width: 130px;
-            height: 130px;
-            line-height: 130px;
-            text-align: center;
-            border: 1px dashed #c0ccda;
-            background-color: #fbfdff;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
-
-            &:hover {
-                background-color: #f1f8ff;
-            }
-
-            .icon-cloud-upload {
-                font-size: 40px;
-                vertical-align: middle;
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-}
-</style>
+<style lang="scss" src="./assets/css/edit.scss"></style>

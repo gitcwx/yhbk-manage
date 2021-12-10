@@ -71,9 +71,3 @@
         }
     }
 </script>
-<style lang="scss">
-.layout {
-    position: relative;
-    height: 100vh;
-}
-</style>

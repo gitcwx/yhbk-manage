@@ -1,0 +1,89 @@
+.manage-drawer {
+    .setting-switch {
+        position: fixed;
+        bottom: 90px;
+        right: 40px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 9999;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(0, 128, 255, 0.9);
+        text-align: center;
+        line-height: 40px;
+        transition: transform .3s ease-out;
+
+        .setting-switch-inner {
+            height: 100%;
+            width: 100%;
+            background-color: $color-primary;
+            box-shadow: 0 0 6px rgba(0, 128, 255, 0.9);
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+
+            .manage-icon {
+                font-size: 20px;
+            }
+        }
+
+        &.setting-switch-open {
+            transform: translateX(-320px);
+        }
+    }
+
+    .setting-wrap {
+        padding: 10px 15px;
+
+        .setting-title {
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 40px;
+            margin-bottom: 10px;
+            position: relative;
+
+            .el-radio-button__inner {
+                padding: 7px;
+            }
+
+            .associate {
+                height: 50px;
+                width: 10px;
+                position: absolute;
+                right: 45px;
+                top: 20px;
+                z-index: 66;
+                border: 2px solid #eee;
+                border-right: 0;
+
+                .icon-link {
+                    position: absolute;
+                    top: 50%;
+                    left: -11px;
+                    transform: translateY(-50%);
+                    padding: 3px;
+                    background: #fff;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #eee
+                }
+
+                &.active {
+                    border-color: $color-primary;
+
+                    .icon-link {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
+}

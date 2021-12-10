@@ -23,13 +23,4 @@
     }
 </script>
 
-<style lang="scss">
-.manage-crumbs {
-    height: 35px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 5px 10px #ddd;
-    padding: 0 20px;
-}
-</style>
+<style lang="scss" src="./assets/css/crumbs.scss"></style>

@@ -16,7 +16,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item command="other">{{$t('layout.tagControl.closeOthers')}}</el-dropdown-item>
-                        <el-dropdown-item :divided="true" command="all">{{$t('layout.tagControl.closeAll')}}</el-dropdown-item>
+                        <el-dropdown-item command="all">{{$t('layout.tagControl.closeAll')}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -40,7 +40,7 @@
                     if (oldValue && oldValue.matched[0].path === '/') {
                         const oldPage = oldValue.matched[1].components.default
                         if (oldPage.onHide) {
-                            oldPage.onHide.call(oldValue.matched[1].instances.default)
+                            oldPage.onHide.call(oldValue.matched[1].components.default)
                         }
                     }
                     // onShow事件
@@ -118,87 +118,4 @@
 
 </script>
 
-<style lang="scss">
-.manage-tags {
-    position: relative;
-    background: #fff;
-    padding-right: 120px;
-    box-shadow: 0 5px 10px #ddd;
-    z-index: 99;
-
-    .tags-list {
-        display: flex;
-        align-items: center;
-        padding: 4px;
-        background: #fff;
-
-        .tags-item {
-            margin-right: 5px;
-            border-radius: 3px;
-            font-size: 12px;
-            cursor: pointer;
-            border: 1px solid #e9eaec;
-            background: #fff;
-            padding: 2px 5px 2px 12px;
-            color: #666;
-            white-space: nowrap;
-
-            .icon-close {
-                font-size: 12px;
-            }
-            &.is-active {
-                color: #fff;
-                border-color: $color-primary;
-                background-color: $color-primary;
-
-                .tags-item-title {
-                    color: #fff;
-                }
-            }
-
-            &:not(.is-active):hover {
-                background: #f8f8f8;
-            }
-
-            .tags-item-title {
-                display: inline-block;
-                max-width: 80px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                margin-right: 5px;
-                color: #666;
-                vertical-align: bottom;
-            }
-        }
-    }
-
-    .tags-close-box {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        box-sizing: border-box;
-        text-align: center;
-        width: 110px;
-        background: #fff;
-        box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
-        z-index: 10;
-
-        .tags-close-button {
-            padding: 5px 6px 5px 12px;
-            cursor: pointer;
-            background-color: $color-primary;
-            color: #fff;
-            font-size: 12px;
-            border-radius: 2px;
-            margin-top: 3px;
-
-            .icon-down {
-                margin-left: 6px;
-                font-size: 12px;
-            }
-        }
-    }
-}
-</style>
+<style lang="scss" src="./assets/css/tags.scss"></style>
