@@ -177,7 +177,8 @@
             this.handleSearch()
         },
         mounted () {
-            this.getAllArticleCount(() => {
+            this.getArticleCount({}, (data) => {
+                this.allArticleCount = data.count || 0
                 this.initEcharts()
             })
         },
@@ -219,7 +220,7 @@
                     return
                 }
                 this.selectedList[item.id] = { loading: true }
-                this.getArticleCount(item.id, (data) => {
+                this.getArticleCount({ tagIds: item.id }, (data) => {
                     this.selectedList[item.id] = { active: true, loading: false, count: data.count, name: item.name }
                     this.reloadEchart()
                 }, () => {
@@ -227,16 +228,16 @@
                 })
             },
             // 获取当前标签下文章数量
-            getArticleCount (id, success, failed) {
+            getArticleCount (params, success, failed) {
                 this.$axios({
-                    url: this.$api.tag.count,
+                    url: this.$api.article.count,
                     method: 'post',
-                    data: { id }
+                    data: params
                 }).then(res => {
                     if (res.data.code === 's00') {
-                        success(res.data.data)
+                        !!success && typeof success === 'function' && success(res.data.data)
                     } else {
-                        failed()
+                        !!failed && typeof failed === 'function' && failed()
                         this.$message.warning(res.data.msg)
                     }
                 }).catch(() => {
@@ -335,21 +336,6 @@
                 }
                 this.echartsOption.series[0].data = echartsList
                 this.echartsObj.setOption(this.echartsOption, true)
-            },
-            getAllArticleCount (callback) {
-                this.$axios({
-                    url: this.$api.article.count,
-                    method: 'post'
-                }).then(res => {
-                    if (res.data.code === 's00') {
-                        this.allArticleCount = res.data.data.count || 0
-                        !!callback && typeof callback === 'function' && callback()
-                    } else {
-                        this.$message.warning(res.data.msg)
-                    }
-                }).catch(() => {
-                    this.$message.error('未知错误，请稍后重试')
-                })
             }
         }
     }
