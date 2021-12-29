@@ -95,9 +95,9 @@
             <el-table-column prop="lastLoginAt" label="上次登录时间" min-width="180"/>
             <el-table-column label="操作" width="220" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="primary" size="mini" @click="editItem(scope.row)">编辑</el-button>
-                    <el-button type="warning" size="mini" @click="editPassword(scope.row)">改密</el-button>
-                    <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+                    <el-button type="primary" @click="editItem(scope.row)">编辑</el-button>
+                    <el-button type="warning" @click="editPassword(scope.row)">改密</el-button>
+                    <el-button type="danger" @click="deleteItem(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

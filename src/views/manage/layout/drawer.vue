@@ -40,7 +40,7 @@
                 </div>
                 <div class="setting-item">
                     <label>{{$t('layout.drawer.language')}}</label>
-                    <el-radio-group v-model="setting.language" size="mini">
+                    <el-radio-group v-model="setting.language">
                         <el-radio-button label="zh">中文</el-radio-button>
                         <el-radio-button label="en">English</el-radio-button>
                     </el-radio-group>
@@ -56,7 +56,7 @@
                             <i class="manage-icon icon-question-circle-fill text-primary"></i>
                         </el-tooltip>
                     </label>
-                    <el-radio-group v-model="setting.collapse" size="mini">
+                    <el-radio-group v-model="setting.collapse">
                         <el-radio-button label="auto">{{$t('layout.collapse.auto')}}</el-radio-button>
                         <el-radio-button :label="false">{{$t('layout.collapse.open')}}</el-radio-button>
                         <el-radio-button :label="true">{{$t('layout.collapse.close')}}</el-radio-button>
