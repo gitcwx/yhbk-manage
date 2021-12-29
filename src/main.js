@@ -58,10 +58,16 @@ axios.interceptors.response.use(response => {
     return response
 }, error => {
     if (error.response) {
-        app.config.globalProperties.$message.warning(error.response.data.msg)
-        return new Promise(() => {
+        store.commit('SET_IS_LOADING', { isLoading: false })
+        if (error.response.data && error.response.data.msg) {
+            app.config.globalProperties.$message.warning(error.response.data.msg)
+        } else {
+            app.config.globalProperties.$message.warning(error.response.statusText)
+        }
+        if (error.response.status === 401 || error.response.status === 405) {
             router.push({ name: 'login' })
-            store.commit('SET_IS_LOADING', { isLoading: false })
+        }
+        return new Promise(() => {
         })
     }
     return Promise.reject(error)

@@ -198,7 +198,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             setActive (item) {
@@ -242,7 +242,7 @@
                     }
                 }).catch(() => {
                     failed()
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             // 新增标签
@@ -311,7 +311,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             initEcharts () {

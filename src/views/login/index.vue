@@ -89,7 +89,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_FULL_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             onClose () {

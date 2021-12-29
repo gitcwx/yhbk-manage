@@ -203,7 +203,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             // 图片上传检测
@@ -239,7 +239,7 @@
                             }
                         }).catch(() => {
                             this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                            this.$message.error('未知错误，请稍后重试')
+                            this.$message.error(this.$t('ErrMsg'))
                         })
                     } else {
                         return false

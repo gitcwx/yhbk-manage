@@ -151,7 +151,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             handleDelete (item) {
@@ -173,7 +173,7 @@
                         }
                     }).catch(() => {
                         this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                        this.$message.error('未知错误，请稍后重试')
+                        this.$message.error(this.$t('ErrMsg'))
                     })
                 })
             },
@@ -193,7 +193,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             },
             reloadTableData () {
@@ -213,7 +213,7 @@
             },
             deleteSelected () {
                 if (this.multipleSelection.length === 0) {
-                    this.$message.warning('请选择要删除的分类')
+                    this.$message.error(this.$t('ErrMsg'))
                     return
                 }
                 this.$alert(`接口开发中....当前已选${this.multipleSelection.length}项`)
@@ -235,7 +235,7 @@
                     }
                 }).catch(() => {
                     this.$store.commit('SET_IS_LOADING', { isLoading: false })
-                    this.$message.error('未知错误，请稍后重试')
+                    this.$message.error(this.$t('ErrMsg'))
                 })
             }
         }
