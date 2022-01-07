@@ -1,0 +1,87 @@
+.manage-game-cube {
+    .game-panel {
+        width: 300px;
+        height: 500px;
+    }
+
+    .cube-box {
+        position: relative;
+        width: 0;
+        height: 0;
+        top: 0;
+        left: 0;
+        font-size: var(--piece-font-size);
+        transform-style: preserve-3d;
+        perspective: 100000;
+        -webkit-perspective: 100000;
+        transform: rotate3d(0, 1, 0, 0deg);
+
+        .cube-piece {
+            width: 1em;
+            height: 1em;
+            position: absolute;
+            transform-style: preserve-3d;
+
+            .face {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform-style: preserve-3d;
+                border: 2px solid #fff;
+                border-radius: 3px;
+            }
+            // 前 后 上 下 左 右
+            // 红 橙 黄 白 蓝 绿
+            // ['#c50209', '#f9640a', '#f9fd0c', '#f7f8f5', '#0500c1', '#138804']
+            .face0 {
+                transform: translateZ(0.5em);
+                background-color: #c50209;
+            }
+            .face1 {
+                transform: translateZ(-0.5em);
+                background-color: #f9640a;
+            }
+            .face2 {
+                transform: translateY(-0.5em) rotateX(90deg);
+                background-color: #f9fd0c;
+            }
+            .face3 {
+                transform: translateY(0.5em) rotateX(90deg);
+                background-color: #f7f8f5;
+            }
+            .face4 {
+                transform: translateX(-0.5em) rotateY(90deg);
+                background-color: #0500c1;
+            }
+            .face5 {
+                transform: translateX(0.5em) rotateY(90deg);
+                background-color: #138804;
+            }
+        }
+
+        .inner-bg {
+            background-color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            &.inner-bg-x {
+                width: var(--length-z);
+                height: var(--length-y);
+                transform: var(--bg-translate) rotateY(90deg);
+            }
+            &.inner-bg-y {
+                width: var(--length-x);
+                height: var(--length-z);
+                transform: var(--bg-translate) rotateX(90deg);
+            }
+            &.inner-bg-z {
+                width: var(--length-x);
+                height: var(--length-y);
+                transform: var(--bg-translate);
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
 <template>
     <!-- 顶部 -->
-    <manage-header />
+    <!-- <manage-header /> -->
     <!-- 菜单 -->
-    <manage-menu />
+    <!-- <manage-menu /> -->
     <!-- 主体 -->
     <div class="manage-body" :class="{ 'is-menu-collapse': collapse }">
         <!-- 面包屑 -->

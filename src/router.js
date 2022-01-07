@@ -180,16 +180,16 @@ const routes = [
                 }
             },
             {
-                path: 'article/reply',
-                name: 'article.reply',
-                component: () => import('@/views/manage/article/reply.vue'),
+                path: 'article/comment',
+                name: 'article.comment',
+                component: () => import('@/views/manage/article/comment.vue'),
                 meta: {
                     title: '评论管理',
-                    titleEn: 'Article Reply',
+                    titleEn: 'Article Comment',
                     crumbs: [
                         { name: 'home', path: '/' },
                         { name: 'article.list', path: '/article.list' },
-                        { name: 'article.reply' }
+                        { name: 'article.comment' }
                     ]
                 }
             },
@@ -212,6 +212,19 @@ const routes = [
                     crumbs: [
                         { name: 'home', path: '/' },
                         { name: 'game.2048' }
+                    ]
+                }
+            },
+            {
+                path: 'game/cube',
+                name: 'game.cube',
+                component: () => import('@/views/manage/game/cube/index.vue'),
+                meta: {
+                    title: '魔方',
+                    titleEn: 'cube',
+                    crumbs: [
+                        { name: 'home', path: '/' },
+                        { name: 'game.cube' }
                     ]
                 }
             },

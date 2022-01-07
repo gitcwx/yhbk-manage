@@ -1,12 +1,12 @@
 <template>
-    <div class="manage manage-article-reply">
+    <div class="manage manage-article-comment">
 
     </div>
 </template>
 
 <script>
     export default {
-        name: 'manage-article-reply',
+        name: 'manage-article-comment',
         data () {
             return {
 

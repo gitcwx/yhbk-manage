@@ -5,7 +5,7 @@
             <button class="start-button" @click="start">restart</button>
         </div>
         <div
-            class="panel"
+            class="game-panel"
             @mousedown="touchStart"
             @mousemove="touchMove"
             @mouseup="touchEnd"

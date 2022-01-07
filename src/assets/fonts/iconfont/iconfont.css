@@ -1,11 +1,11 @@
 @font-face {
   font-family: "manage-icon"; /* Project id 2755087 */
-  src: url('iconfont.eot?t=1639031217028'); /* IE9 */
-  src: url('iconfont.eot?t=1639031217028#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('iconfont.woff2?t=1639031217028') format('woff2'),
-       url('iconfont.woff?t=1639031217028') format('woff'),
-       url('iconfont.ttf?t=1639031217028') format('truetype'),
-       url('iconfont.svg?t=1639031217028#manage-icon') format('svg');
+  src: url('iconfont.eot?t=1641522993556'); /* IE9 */
+  src: url('iconfont.eot?t=1641522993556#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1641522993556') format('woff2'),
+       url('iconfont.woff?t=1641522993556') format('woff'),
+       url('iconfont.ttf?t=1641522993556') format('truetype'),
+       url('iconfont.svg?t=1641522993556#manage-icon') format('svg');
 }
 
 .manage-icon {
@@ -14,6 +14,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mofang:before {
+  content: "\e606";
 }
 
 .icon-game:before {
