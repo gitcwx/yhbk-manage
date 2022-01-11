@@ -2,85 +2,93 @@
     .game-panel {
         width: 300px;
         height: 500px;
+        background-color: #eee;
     }
 
-    .cube-box {
+    .cube-layout {
         position: relative;
-        width: 0;
-        height: 0;
-        top: 0;
-        left: 0;
-        font-size: var(--piece-font-size);
-        transform-style: preserve-3d;
-        perspective: 100000;
-        -webkit-perspective: 100000;
-        transform: rotate3d(0, 1, 0, 0deg);
+        cursor: grab;
+        user-select: none;
 
-        .cube-piece {
-            width: 1em;
-            height: 1em;
+        .cube-piece-box {
             position: absolute;
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+            font-size: var(--piece-font-size);
             transform-style: preserve-3d;
+            perspective: 100000;
+            -webkit-perspective: 100000;
+            transform: rotate3d(1, 1, 1, 45deg);
 
-            .face {
+            .cube-piece {
+                width: 0;
+                height: 0;
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
                 transform-style: preserve-3d;
-                border: 2px solid #fff;
-                border-radius: 3px;
-            }
-            // 前 后 上 下 左 右
-            // 红 橙 黄 白 蓝 绿
-            // ['#c50209', '#f9640a', '#f9fd0c', '#f7f8f5', '#0500c1', '#138804']
-            .face0 {
-                transform: translateZ(0.5em);
-                background-color: #c50209;
-            }
-            .face1 {
-                transform: translateZ(-0.5em);
-                background-color: #f9640a;
-            }
-            .face2 {
-                transform: translateY(-0.5em) rotateX(90deg);
-                background-color: #f9fd0c;
-            }
-            .face3 {
-                transform: translateY(0.5em) rotateX(90deg);
-                background-color: #f7f8f5;
-            }
-            .face4 {
-                transform: translateX(-0.5em) rotateY(90deg);
-                background-color: #0500c1;
-            }
-            .face5 {
-                transform: translateX(0.5em) rotateY(90deg);
-                background-color: #138804;
-            }
-        }
 
-        .inner-bg {
-            background-color: #fff;
-            position: absolute;
-            top: 0;
-            left: 0;
+                .face {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 1em;
+                    height: 1em;
+                    transform-style: preserve-3d;
+                    padding: 2px;
+                    background-color: #fff;
 
-            &.inner-bg-x {
-                width: var(--length-z);
-                height: var(--length-y);
-                transform: var(--bg-translate) rotateY(90deg);
-            }
-            &.inner-bg-y {
-                width: var(--length-x);
-                height: var(--length-z);
-                transform: var(--bg-translate) rotateX(90deg);
-            }
-            &.inner-bg-z {
-                width: var(--length-x);
-                height: var(--length-y);
-                transform: var(--bg-translate);
+                    &::after {
+                        content: "";
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 3px;
+                    }
+
+                    &.is-bg::after {
+                        background-color: #fff;
+                    }
+                }
+                // 前 后 上 下 左 右
+                // 红 橙 黄 白 蓝 绿
+                // ['#c50209', '#f9640a', '#f9fd0c', '#f7f8f5', '#0500c1', '#138804']
+                .face0 {
+                    transform: translate3d(-0.5em, -0.5em, 0.5em);
+                    &::after {
+                        background-color: #c50209;
+                    }
+                }
+                .face1 {
+                    transform: translate3d(-0.5em, -0.5em, -0.5em);
+                    &::after {
+                        background-color: #f9640a;
+                    }
+                }
+                .face2 {
+                    transform: translate3d(-0.5em, -1em, 0) rotateX(90deg);
+                    &::after {
+                        background-color: #f9fd0c;
+                    }
+                }
+                .face3 {
+                    transform: translate3d(-0.5em, 0, 0) rotateX(90deg);
+                    &::after {
+                        background-color: #f7f8f5;
+                    }
+                }
+                .face4 {
+                    transform: translate3d(-1em, -0.5em, 0) rotateY(90deg);
+                    &::after {
+                        background-color: #0500c1;
+                    }
+                }
+                .face5 {
+                    transform: translate3d(0, -0.5em, 0) rotateY(90deg);
+                    &::after {
+                        background-color: #138804;
+                    }
+                }
             }
         }
     }

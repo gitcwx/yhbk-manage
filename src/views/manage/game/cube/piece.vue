@@ -1,11 +1,11 @@
 <template>
     <div class="cube-piece" :style="{transform: `translate3d(${position[0]}em, ${position[1]}em,${position[2]}em)`}">
-        <template v-for="(item, index) in opacity">
-            <div
-                v-if="item === '1'"
-                :key="index"
-                :class="['face', 'face' + index]"
-            ></div>
+        <template v-for="(item, index) in opacity" :key="index">
+            <div :class="[
+                'face',
+                'face' + index,
+                item === '0' ? 'is-bg' : ''
+            ]"></div>
         </template>
     </div>
 </template>
