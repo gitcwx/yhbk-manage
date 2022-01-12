@@ -1,7 +1,7 @@
 <template>
     <div class="manage manage-game-cube">
         <div class="game-control">
-
+            <button @click="rotate('x1rz1')">旋转</button>
         </div>
         <div class="game-panel">
             <div
@@ -19,9 +19,9 @@
                     <cube-piece
                         v-for="(item, index) in positions"
                         :key="index"
-                        :opacity="opacitys[index]"
+                        :colors="colorsList[index]"
                         :position="positions[index]"
-                        :size="size"
+                        :rotate="rotatePieces[index]"
                     />
                 </div>
             </div>
@@ -50,8 +50,10 @@
                 origin: '',
                 // 小方位置集合
                 positions: [],
-                // 小方6面显示状态集合
-                opacitys: [],
+                // 小方6面颜色显示状态集合
+                colorsList: [],
+                // 旋转块集合
+                rotatePieces: [],
 
                 // 拖动起始状态
                 dragInfo: {
@@ -65,7 +67,9 @@
                     speedY: 0
                 },
                 // 惯性定时器
-                moveTimer: null
+                moveTimer: null,
+                // 旋转
+                stepTimer: null
             }
         },
         created () {
@@ -73,7 +77,7 @@
         },
         mounted () {
             document.addEventListener('mouseup', this.dragEnd)
-            this.animateFun()
+            this.dragAnimate()
         },
         beforeUnmount () {
             document.removeEventListener('mouseup', this.dragEnd)
@@ -101,12 +105,14 @@
                             // 右下角 [331] => [1em, 1em, 1em]
                             this.positions.push([k - 0.5 - this.X / 2, j - 0.5 - this.Y / 2, this.Z / 2 + 0.5 - i])
                             // 颜色配置
-                            this.opacitys.push(temp.join(''))
+                            this.colorsList.push(temp.join(''))
+                            // 初始化旋转角度
+                            this.rotatePieces.push({})
                         }
                     }
                 }
                 // 存储初始位置状态
-                this.origin = this.positions.flat().join('')
+                this.origin = this.colorsList.join('')
             },
             dragStart (event) {
                 if (this.moveTimer) {
@@ -173,13 +179,81 @@
                     this.dragInfo.rotateY = this.dragInfo.rotateY + moveY
                 }, 30)
             },
-            animateFun () {
+            //
+            dragAnimate () {
                 const that = this
                 this.$refs['cube-piece-box'].style.transform = `rotateX(${-this.dragInfo.rotateY}deg) rotateY(${this.dragInfo.rotateX}deg)`
-                window.requestAnimationFrame(that.animateFun)
+                window.requestAnimationFrame(that.dragAnimate)
+            },
+            // 指令分解
+            rotate (command) {
+                // 按 X Y Z 轴旋转 3*3*3 为例
+                // x1 左顺时针 x3r 右逆时针 y1 上顺时针
+                if (!/^([xyz][1-9]r?)+$/.test(command)) {
+                    this.$message.error('指令错误')
+                    return
+                }
+                const steps = command.match(/[xyz][1-9]r?/g)
+                this.stepTimer = setInterval(() => {
+                    if (steps.length) {
+                        this.rotateStep(steps[0])
+                        steps.shift()
+                    } else {
+                        clearInterval(this.stepTimer)
+                        this.stepTimer = null
+                    }
+                }, 1000)
+            },
+            rotateStep (step) {
+                // x轴 -> position[0] y轴 -> position[1] z轴 -> position[2]
+                const axis = 'xyz'.indexOf(step[0])
+                // 层数
+                const tier = step[1]
+                // 旋转角度
+                const deg = step[2] === 'r' ? 90 : -90
+                this.positions.forEach((item, index) => {
+                    // 前面 position[2] === 1 左边 position[0] === -1
+                    const pos = [
+                        tier - 0.5 - this.X / 2,
+                        tier - 0.5 - this.Y / 2,
+                        this.Z / 2 + 0.5 - tier
+                    ]
+
+                    if (item[axis] === pos[axis]) {
+                        this.rotatePieces[index] = {
+                            transform: 'rotate' + ['X(', 'Y(', 'Z('][axis] + deg + 'deg)',
+                            transformOrigin: `${pos[0]}em${pos[1]}em${pos[2]}em`,
+                            transition: true
+                        }
+                    }
+                })
             }
         }
     }
+    // 3*3*3
+    // colorsList: [
+    //     '101010', '101000', '101001',
+    //     '100010', '100000', '100001',
+    //     '100110', '100100', '100101',
+    //     '001010', '001000', '001001',
+    //     '000010', '000000', '000001',
+    //     '000110', '000100', '000101',
+    //     '011010', '011000', '011001',
+    //     '010010', '010000', '010001',
+    //     '010110', '010100', '010101'
+    // ]
+
+    // positions: [
+    //     [-1, -1, 1], [0, -1, 1], [1, -1, 1],
+    //     [-1, 0, 1], [0, 0, 1], [1, 0, 1],
+    //     [-1, 1, 1], [0, 1, 1], [1, 1, 1],
+    //     [-1, -1, 0], [0, -1, 0], [1, -1, 0],
+    //     [-1, 0, 0], [0, 0, 0], [1, 0, 0],
+    //     [-1, 1, 0], [0, 1, 0], [1, 1, 0],
+    //     [-1, -1, -1], [0, -1, -1], [1, -1, -1],
+    //     [-1, 0, -1], [0, 0, -1], [1, 0, -1],
+    //     [-1, 1, -1], [0, 1, -1], [1, 1, -1]
+    // ]
 </script>
 
 <style lang="scss" src="./assets/css/index.scss"></style>
