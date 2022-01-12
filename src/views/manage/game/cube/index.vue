@@ -6,9 +6,14 @@
         <div class="game-panel">
             <div
                 class="cube-layout"
-                :style="{width, height,'--piece-font-size': size}"
-                @mousedown="grabStart"
-                @mousemove="grabMove"
+                :style="{
+                    width,
+                    height,
+                    '--piece-font-size': size,
+                    cursor: dragInfo.isMoving ? 'grabbing' : 'grab'
+                }"
+                @mousedown="dragStart"
+                @mousemove="dragMove"
             >
                 <div class="cube-piece-box" ref="cube-piece-box">
                     <cube-piece
@@ -55,15 +60,23 @@
                     startX: 0,
                     startY: 0,
                     timeStamp: 0,
-                    isMoving: false
-                }
+                    isMoving: false,
+                    speedX: 0,
+                    speedY: 0
+                },
+                // 惯性定时器
+                moveTimer: null
             }
         },
         created () {
             this.paint()
         },
         mounted () {
-            document.addEventListener('mouseup', this.grabEnd)
+            document.addEventListener('mouseup', this.dragEnd)
+            this.animateFun()
+        },
+        beforeUnmount () {
+            document.removeEventListener('mouseup', this.dragEnd)
         },
         methods: {
             paint () {
@@ -95,35 +108,75 @@
                 // 存储初始位置状态
                 this.origin = this.positions.flat().join('')
             },
-            grabStart (event) {
+            dragStart (event) {
+                if (this.moveTimer) {
+                    clearInterval(this.moveTimer)
+                    this.moveTimer = null
+                }
                 this.dragInfo.isMoving = true
                 this.dragInfo.timeStamp = event.timeStamp
                 this.dragInfo.startX = event.screenX
                 this.dragInfo.startY = event.screenY
+                this.dragInfo.speedX = 0
+                this.dragInfo.speedY = 0
             },
-            grabMove (event) {
+            dragMove (event) {
                 if (this.dragInfo.isMoving) {
                     const moveX = event.screenX - this.dragInfo.startX
                     const moveY = event.screenY - this.dragInfo.startY
-                    // const distance = Math.sqrt(Math.pow(moveX, 2) + Math.pow(moveY, 2))
-                    // const duration = event.timeStamp - this.dragInfo.timeStamp
-                    // const speed = distance / duration // px / ms
-                    this.dragInfo.rotateX = moveX + this.dragInfo.rotateX
-                    this.dragInfo.rotateY = moveY + this.dragInfo.rotateY
-                    this.cubeMove(this.dragInfo.rotateX, this.dragInfo.rotateY)
-
+                    const duration = event.timeStamp - this.dragInfo.timeStamp // ms
+                    // 拖动速度
+                    this.dragInfo.speedX = moveX / duration * 1000 // px / s
+                    this.dragInfo.speedY = moveY / duration * 1000 // px / s
+                    // 旋转角度计算
+                    const rotateYAbs = Math.abs(this.dragInfo.rotateY % 360)
+                    if (rotateYAbs > 90 && rotateYAbs < 270) {
+                        this.dragInfo.rotateX = this.dragInfo.rotateX - moveX
+                    } else {
+                        this.dragInfo.rotateX = this.dragInfo.rotateX + moveX
+                    }
+                    this.dragInfo.rotateY = this.dragInfo.rotateY + moveY
+                    // 刷新起始位置
                     this.dragInfo.startX = event.screenX
                     this.dragInfo.startY = event.screenY
                 }
             },
-            grabEnd (event) {
+            dragEnd () {
                 this.dragInfo.isMoving = false
                 this.dragInfo.timeStamp = 0
                 this.dragInfo.startX = 0
                 this.dragInfo.startY = 0
+                // 惯性移动
+                this.afterDragEnd()
             },
-            cubeMove (rotateX, rotateY) {
-                this.$refs['cube-piece-box'].style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+            afterDragEnd () {
+                this.moveTimer = setInterval(() => {
+                    this.dragInfo.speedX *= 0.8
+                    this.dragInfo.speedY *= 0.8
+                    if (Math.abs(this.dragInfo.speedX) < 1 && Math.abs(this.dragInfo.speedY) < 1) {
+                        this.dragInfo.speedX = 0
+                        this.dragInfo.speedY = 0
+                        clearInterval(this.moveTimer)
+                        this.moveTimer = null
+                        return
+                    }
+
+                    const moveX = Math.abs(this.dragInfo.speedX) > 1 ? this.dragInfo.speedX : 0
+                    const moveY = Math.abs(this.dragInfo.speedY) > 1 ? this.dragInfo.speedY : 0
+
+                    const rotateYAbs = Math.abs(this.dragInfo.rotateY % 360)
+                    if (rotateYAbs > 90 && rotateYAbs < 270) {
+                        this.dragInfo.rotateX = this.dragInfo.rotateX - moveX
+                    } else {
+                        this.dragInfo.rotateX = this.dragInfo.rotateX + moveX
+                    }
+                    this.dragInfo.rotateY = this.dragInfo.rotateY + moveY
+                }, 30)
+            },
+            animateFun () {
+                const that = this
+                this.$refs['cube-piece-box'].style.transform = `rotateX(${-this.dragInfo.rotateY}deg) rotateY(${this.dragInfo.rotateX}deg)`
+                window.requestAnimationFrame(that.animateFun)
             }
         }
     }
