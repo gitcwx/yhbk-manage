@@ -21,18 +21,17 @@
             perspective: 100000;
             -webkit-perspective: 100000;
 
-            .piece-rotate-wrap {
-                width: 0;
-                height: 0;
-                position: absolute;
-                transform-style: preserve-3d;
-            }
-
             .cube-piece {
                 width: 0;
                 height: 0;
                 position: absolute;
                 transform-style: preserve-3d;
+
+                .piece-rotate-wrap {
+                    width: 0;
+                    height: 0;
+                    transform-style: preserve-3d;
+                }
 
                 .face {
                     position: absolute;

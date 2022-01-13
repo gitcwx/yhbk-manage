@@ -5,7 +5,7 @@
             :style="{
                 transform: rotate.transform || '',
                 transformOrigin: rotate.origin || '',
-                transition: rotate.transition ? 'transform 0.8s linear' : ''
+                transition: rotate.transition ? 'transform 0.5s linear' : ''
             }"
         >
             <div

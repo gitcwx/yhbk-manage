@@ -1,7 +1,7 @@
 <template>
     <div class="manage manage-game-cube">
         <div class="game-control">
-            <button @click="rotate('x1rz1')">旋转</button>
+            <button @click="rotate('y3rx1z3')">旋转</button>
         </div>
         <div class="game-panel">
             <div
@@ -194,7 +194,11 @@
                     return
                 }
                 const steps = command.match(/[xyz][1-9]r?/g)
-                this.stepTimer = setInterval(() => {
+                // 定时器立即执行一次
+                this.stepTimer = ((fun) => {
+                    fun()
+                    return setInterval(fun, 800)
+                })(() => {
                     if (steps.length) {
                         this.rotateStep(steps[0])
                         steps.shift()
@@ -202,15 +206,15 @@
                         clearInterval(this.stepTimer)
                         this.stepTimer = null
                     }
-                }, 1000)
+                })
             },
             rotateStep (step) {
                 // x轴 -> position[0] y轴 -> position[1] z轴 -> position[2]
                 const axis = 'xyz'.indexOf(step[0])
                 // 层数
                 const tier = step[1]
-                // 旋转角度
-                const deg = step[2] === 'r' ? 90 : -90
+                // 旋转角度 r: 反转
+                const direction = step[2] === 'r' ? -1 : 1
                 this.positions.forEach((item, index) => {
                     // 前面 position[2] === 1 左边 position[0] === -1
                     const pos = [
@@ -221,12 +225,33 @@
 
                     if (item[axis] === pos[axis]) {
                         this.rotatePieces[index] = {
-                            transform: 'rotate' + ['X(', 'Y(', 'Z('][axis] + deg + 'deg)',
-                            transformOrigin: `${pos[0]}em${pos[1]}em${pos[2]}em`,
-                            transition: true
+                            transform: 'rotate' + ['X(', 'Y(', 'Z('][axis] + (direction * 90) + 'deg)',
+                            // 原始位置是基于中心点偏移，所以旋转原点回归中心点
+                            origin: `${-item[0]}em ${-item[1]}em ${-item[2]}em`,
+                            transition: true,
+                            sign: item,
+                            direction
                         }
                     }
                 })
+                // 旋转完成之后，旋转位置回归，颜色重绘
+                setTimeout(() => {
+                    this.rotatePieces = []
+                    for (let i = 0; i < this.X * this.Y * this.Z; i++) {
+                        this.rotatePieces.push({})
+                    }
+                    this.rotatePieces.forEach((item, index) => {
+                        if (item.sign) {
+                            // 颜色重绘
+                            this.rePaint(item, index)
+                            // 旋转位置回归
+                            item = {}
+                        }
+                    })
+                }, 550)
+            },
+            rePaint (item, index) {
+
             }
         }
     }
