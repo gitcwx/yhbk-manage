@@ -1,7 +1,7 @@
 <template>
     <div class="manage manage-game-cube">
         <div class="game-control">
-            <button @click="rotate('y3rx1z3')">旋转</button>
+            <button @click="rotate('z1z2rz3')">旋转</button>
         </div>
         <div class="game-panel">
             <div
@@ -22,6 +22,7 @@
                         :colors="colorsList[index]"
                         :position="positions[index]"
                         :rotate="rotatePieces[index]"
+                        :axisText="calcAxis(index)"
                     />
                 </div>
             </div>
@@ -89,15 +90,15 @@
                 // 初始化每一个小方块的颜色和位置
                 for (let i = 1; i < this.Z + 1; i++) {
                     temp[0] = i === 1 ? 1 : 0
-                    temp[1] = i === this.Z ? 1 : 0
+                    temp[1] = i === this.Z ? 2 : 0
 
                     for (let j = 1; j < this.Y + 1; j++) {
-                        temp[2] = j === 1 ? 1 : 0
-                        temp[3] = j === this.Y ? 1 : 0
+                        temp[2] = j === 1 ? 3 : 0
+                        temp[3] = j === this.Y ? 4 : 0
 
                         for (let k = 1; k < this.X + 1; k++) {
-                            temp[4] = k === 1 ? 1 : 0
-                            temp[5] = k === this.X ? 1 : 0
+                            temp[4] = k === 1 ? 5 : 0
+                            temp[5] = k === this.X ? 6 : 0
                             // 根据中心点偏移
                             // 3*3*3 阶
                             // 左上角 [111] => [-1em, -1em, 1em]
@@ -229,56 +230,108 @@
                             // 原始位置是基于中心点偏移，所以旋转原点回归中心点
                             origin: `${-item[0]}em ${-item[1]}em ${-item[2]}em`,
                             transition: true,
-                            sign: item,
-                            direction
+                            pos: item
                         }
                     }
                 })
                 // 旋转完成之后，旋转位置回归，颜色重绘
                 setTimeout(() => {
+                    const cloneColor = this.$deepClone(this.colorsList)
+                    this.rotatePieces.forEach((item, index) => {
+                        if (item.pos) {
+                            // 颜色重绘
+                            const newIndex = this.getNewIndex(item.pos, index, step)
+                            if (newIndex !== undefined) {
+                                cloneColor[index] = this.rotatePieceColor(this.colorsList[newIndex], axis, direction)
+                            }
+                        }
+                    })
+                    this.colorsList = this.$deepClone(cloneColor)
+                    // 旋转位置回归
                     this.rotatePieces = []
                     for (let i = 0; i < this.X * this.Y * this.Z; i++) {
                         this.rotatePieces.push({})
                     }
-                    this.rotatePieces.forEach((item, index) => {
-                        if (item.sign) {
-                            // 颜色重绘
-                            this.rePaint(item, index)
-                            // 旋转位置回归
-                            item = {}
-                        }
-                    })
                 }, 550)
             },
-            rePaint (item, index) {
-
+            getNewIndex (pos, index, step) {
+                let newIndex
+                // const x = pos[0]
+                const y = pos[1]
+                const z = pos[2]
+                if (step[0] === 'z') {
+                    if (step[2] === 'r') {
+                        newIndex = 3 * (index - (1 - z) * 6) - (10 * y + 8)
+                    } else if (!step[2]) {
+                        newIndex = (10 * y + 16) - 3 * (index - (1 - z) * 12)
+                    }
+                }
+                return newIndex
+            },
+            rotatePieceColor (color, axis, direction) {
+                //  前面正转 第一块 '103050' => '105003'
+                //          第二块 '103000' => '100003'
+                //  前面反转 第一块 '103050' => '100530'
+                //          第二块 '103000' => '100030'
+                const newColor = color.split('')
+                if (axis === 2 && direction === 1) {
+                    newColor[2] = color[4]
+                    newColor[3] = color[5]
+                    newColor[4] = color[3]
+                    newColor[5] = color[2]
+                } else if (axis === 2 && direction === -1) {
+                    newColor[2] = color[5]
+                    newColor[3] = color[4]
+                    newColor[4] = color[2]
+                    newColor[5] = color[3]
+                }
+                return newColor.join('')
+            },
+            replaceColor (arr, oldArr, indexs, oldIndexs) {
+                for (let i = 0; i < indexs.length; i++) {
+                    arr[indexs[i]] = oldArr[oldIndexs[i]]
+                }
+                return arr
+            },
+            calcAxis (index) {
+                const x = this.positions[index][0]
+                const y = this.positions[index][1]
+                const z = this.positions[index][2]
+                // 轴标
+                let axisText = ''
+                // 层数
+                let tier = ''
+                // 翻转
+                let action = ''
+                if (x && y === 0 && z === 0) {
+                    axisText = 'X'
+                    if (x === this.X / 2 - 0.5) {
+                        tier = this.X
+                    } else if (-x === this.X / 2 - 0.5) {
+                        tier = 1
+                        action = 'rotateY(180deg)'
+                    }
+                } else if (x === 0 && y && z === 0) {
+                    axisText = 'Y'
+                    if (y === this.Y / 2 - 0.5) {
+                        action = 'rotateY(180deg)'
+                        tier = this.Y
+                    } else if (-y === this.Y / 2 - 0.5) {
+                        tier = 1
+                    }
+                } else if (x === 0 && y === 0 && z) {
+                    axisText = 'Z'
+                    if (z === this.Z / 2 - 0.5) {
+                        tier = 1
+                    } else if (-z === this.Z / 2 - 0.5) {
+                        action = 'rotateY(180deg)'
+                        tier = this.Z
+                    }
+                }
+                return [axisText, tier, action]
             }
         }
     }
-    // 3*3*3
-    // colorsList: [
-    //     '101010', '101000', '101001',
-    //     '100010', '100000', '100001',
-    //     '100110', '100100', '100101',
-    //     '001010', '001000', '001001',
-    //     '000010', '000000', '000001',
-    //     '000110', '000100', '000101',
-    //     '011010', '011000', '011001',
-    //     '010010', '010000', '010001',
-    //     '010110', '010100', '010101'
-    // ]
-
-    // positions: [
-    //     [-1, -1, 1], [0, -1, 1], [1, -1, 1],
-    //     [-1, 0, 1], [0, 0, 1], [1, 0, 1],
-    //     [-1, 1, 1], [0, 1, 1], [1, 1, 1],
-    //     [-1, -1, 0], [0, -1, 0], [1, -1, 0],
-    //     [-1, 0, 0], [0, 0, 0], [1, 0, 0],
-    //     [-1, 1, 0], [0, 1, 0], [1, 1, 0],
-    //     [-1, -1, -1], [0, -1, -1], [1, -1, -1],
-    //     [-1, 0, -1], [0, 0, -1], [1, 0, -1],
-    //     [-1, 1, -1], [0, 1, -1], [1, 1, -1]
-    // ]
 </script>
 
 <style lang="scss" src="./assets/css/index.scss"></style>

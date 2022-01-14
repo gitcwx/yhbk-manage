@@ -9,10 +9,15 @@
             }"
         >
             <div
-                :class="['face', 'face' + index, item === '0' ? 'is-bg' : '']"
+                :class="['face', 'face' + item, item === '0' ? 'is-bg' : '']"
                 v-for="(item, index) in colors"
                 :key="index"
-            ></div>
+            >
+                <span class="axis-text" v-if="axisText[0] && axisText[1]" :style="{transform: axisText[2]}">
+                    <b>{{axisText[0]}}</b>
+                    {{axisText[1]}}
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +40,12 @@
                 type: Object,
                 default () {
                     return {}
+                }
+            },
+            axisText: {
+                type: Array,
+                default () {
+                    return ['', '', '']
                 }
             }
         },
