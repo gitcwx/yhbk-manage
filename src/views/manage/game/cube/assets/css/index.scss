@@ -18,8 +18,8 @@
             left: 50%;
             font-size: var(--piece-font-size);
             transform-style: preserve-3d;
-            perspective: 100000;
-            -webkit-perspective: 100000;
+            perspective: 100000000;
+            -webkit-perspective: 100000000;
 
             .cube-piece {
                 width: 0;

@@ -1,7 +1,7 @@
 <template>
     <div class="manage manage-game-cube">
         <div class="game-control">
-            <button @click="rotate('z1z2rz3')">旋转</button>
+            <button @click="rotate('y2x2rz2')">旋转</button>
         </div>
         <div class="game-panel">
             <div
@@ -74,7 +74,7 @@
             }
         },
         created () {
-            this.paint()
+            this.init()
         },
         mounted () {
             document.addEventListener('mouseup', this.dragEnd)
@@ -84,7 +84,7 @@
             document.removeEventListener('mouseup', this.dragEnd)
         },
         methods: {
-            paint () {
+            init () {
                 // 前 后 上 下 左 右
                 const temp = [0, 0, 0, 0, 0, 0]
                 // 初始化每一个小方块的颜色和位置
@@ -256,42 +256,59 @@
             },
             getNewIndex (pos, index, step) {
                 let newIndex
-                // const x = pos[0]
+                const x = pos[0]
                 const y = pos[1]
                 const z = pos[2]
+                // 算法参见例3
                 if (step[0] === 'z') {
                     if (step[2] === 'r') {
                         newIndex = 3 * (index - (1 - z) * 6) - (10 * y + 8)
                     } else if (!step[2]) {
                         newIndex = (10 * y + 16) - 3 * (index - (1 - z) * 12)
                     }
+                } else if (step[0] === 'x') {
+                    if (step[2] === 'r') {
+                        newIndex = (index - x - 1) / 3 - (10 * y - 9 - x)
+                    } else if (!step[2]) {
+                        newIndex = (10 * y + 17 + x) - (index - x - 1) / 3
+                    }
+                } else if (step[0] === 'y') {
+                    if (step[2] === 'r') {
+                        newIndex = index + 8 * x + 10 * z
+                    } else if (!step[2]) {
+                        newIndex = 10 * (2 - z) + 6 * (1 + y) - 8 * x - index
+                    }
                 }
                 return newIndex
             },
             rotatePieceColor (color, axis, direction) {
-                //  前面正转 第一块 '103050' => '105003'
-                //          第二块 '103000' => '100003'
-                //  前面反转 第一块 '103050' => '100530'
-                //          第二块 '103000' => '100030'
+                // 算法参见例4
                 const newColor = color.split('')
-                if (axis === 2 && direction === 1) {
-                    newColor[2] = color[4]
-                    newColor[3] = color[5]
-                    newColor[4] = color[3]
-                    newColor[5] = color[2]
+                let indexs = []
+                let oldIndexs = []
+                if (axis === 0 && direction === 1) {
+                    indexs = [0, 1, 2, 3]
+                    oldIndexs = [3, 2, 0, 1]
+                } else if (axis === 0 && direction === -1) {
+                    indexs = [0, 1, 2, 3]
+                    oldIndexs = [2, 3, 1, 0]
+                } else if (axis === 1 && direction === 1) {
+                    indexs = [0, 1, 4, 5]
+                    oldIndexs = [4, 5, 1, 0]
+                } else if (axis === 1 && direction === -1) {
+                    indexs = [0, 1, 4, 5]
+                    oldIndexs = [5, 4, 0, 1]
+                } else if (axis === 2 && direction === 1) {
+                    indexs = [2, 3, 4, 5]
+                    oldIndexs = [4, 5, 3, 2]
                 } else if (axis === 2 && direction === -1) {
-                    newColor[2] = color[5]
-                    newColor[3] = color[4]
-                    newColor[4] = color[2]
-                    newColor[5] = color[3]
+                    indexs = [2, 3, 4, 5]
+                    oldIndexs = [5, 4, 2, 3]
+                }
+                for (let i = 0; i < indexs.length; i++) {
+                    newColor[indexs[i]] = color[oldIndexs[i]]
                 }
                 return newColor.join('')
-            },
-            replaceColor (arr, oldArr, indexs, oldIndexs) {
-                for (let i = 0; i < indexs.length; i++) {
-                    arr[indexs[i]] = oldArr[oldIndexs[i]]
-                }
-                return arr
             },
             calcAxis (index) {
                 const x = this.positions[index][0]
