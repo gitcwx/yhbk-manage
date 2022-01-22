@@ -1,7 +1,7 @@
 <template>
     <div class="manage manage-game-cube">
         <div class="game-control">
-            <button @click="rotate('y2x2rz2')">旋转</button>
+            <button @click="rotate('x1y1z1z1ry1rx1r')">旋转</button>
         </div>
         <div class="game-panel">
             <div
@@ -240,7 +240,7 @@
                     this.rotatePieces.forEach((item, index) => {
                         if (item.pos) {
                             // 颜色重绘
-                            const newIndex = this.getNewIndex(item.pos, index, step)
+                            const newIndex = this.getNewIndex(item.pos, index, axis, direction)
                             if (newIndex !== undefined) {
                                 cloneColor[index] = this.rotatePieceColor(this.colorsList[newIndex], axis, direction)
                             }
@@ -254,30 +254,16 @@
                     }
                 }, 550)
             },
-            getNewIndex (pos, index, step) {
+            getNewIndex (pos, index, axis, direction) {
                 let newIndex
-                const x = pos[0]
-                const y = pos[1]
-                const z = pos[2]
+                const [x, y, z] = pos
                 // 算法参见例3
-                if (step[0] === 'z') {
-                    if (step[2] === 'r') {
-                        newIndex = 3 * (index - (1 - z) * 6) - (10 * y + 8)
-                    } else if (!step[2]) {
-                        newIndex = (10 * y + 16) - 3 * (index - (1 - z) * 12)
-                    }
-                } else if (step[0] === 'x') {
-                    if (step[2] === 'r') {
-                        newIndex = (index - x - 1) / 3 - (10 * y - 9 - x)
-                    } else if (!step[2]) {
-                        newIndex = (10 * y + 17 + x) - (index - x - 1) / 3
-                    }
-                } else if (step[0] === 'y') {
-                    if (step[2] === 'r') {
-                        newIndex = index + 8 * x + 10 * z
-                    } else if (!step[2]) {
-                        newIndex = 10 * (2 - z) + 6 * (1 + y) - 8 * x - index
-                    }
+                if (axis === 0) {
+                    newIndex = (direction * (30 * y - index) + (3 + direction) / 2 * (2 * x + 26)) / 3
+                } else if (axis === 1) {
+                    newIndex = direction * (-index - 8 * x - 10 * z) + (1 + direction) / 2 * (6 * y + 26)
+                } else if (axis === 2) {
+                    newIndex = direction * (10 * y - 3 * index + (3 + direction) / 2 * (26 - 18 * z))
                 }
                 return newIndex
             },
