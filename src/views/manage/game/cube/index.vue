@@ -22,7 +22,6 @@
                         :colors="colorsList[index]"
                         :position="positions[index]"
                         :rotate="rotatePieces[index]"
-                        :axisText="calcAxis(index)"
                     />
                 </div>
             </div>
@@ -226,7 +225,7 @@
 
                     if (item[axis] === pos[axis]) {
                         this.rotatePieces[index] = {
-                            transform: 'rotate' + ['X(', 'Y(', 'Z('][axis] + (direction * 90) + 'deg)',
+                            transform: 'rotate' + ['X(', 'Y(', 'Z('][axis] + (direction * 90 * (axis === 2 ? 1 : -1)) + 'deg)', // z轴转向不同
                             // 原始位置是基于中心点偏移，所以旋转原点回归中心点
                             origin: `${-item[0]}em ${-item[1]}em ${-item[2]}em`,
                             transition: true,
@@ -242,7 +241,8 @@
                             // 颜色重绘
                             const newIndex = this.getNewIndex(item.pos, index, axis, direction)
                             if (newIndex !== undefined) {
-                                cloneColor[index] = this.rotatePieceColor(this.colorsList[newIndex], axis, direction)
+                                // 旋转之后index改变，颜色不变，但是需要颜色顺序要调整
+                                cloneColor[newIndex] = this.rotatePieceColor(this.colorsList[index], axis, direction)
                             }
                         }
                     })
@@ -263,7 +263,9 @@
                 } else if (axis === 1) {
                     newIndex = direction * (-index - 8 * x - 10 * z) + (1 + direction) / 2 * (6 * y + 26)
                 } else if (axis === 2) {
-                    newIndex = direction * (10 * y - 3 * index + (3 + direction) / 2 * (26 - 18 * z))
+                    // dir=-1  =>   -3 * index + 10 * y - 36 * z + 52
+                    // dir=1   =>    3 * index - 10 * y + 18 * z - 26
+                    newIndex = direction * (3 * index - 10 * y) + (3 * direction - 1) / 2 * (18 * z - 26)
                 }
                 return newIndex
             },
@@ -274,16 +276,16 @@
                 let oldIndexs = []
                 if (axis === 0 && direction === 1) {
                     indexs = [0, 1, 2, 3]
-                    oldIndexs = [3, 2, 0, 1]
+                    oldIndexs = [2, 3, 1, 0]
                 } else if (axis === 0 && direction === -1) {
                     indexs = [0, 1, 2, 3]
-                    oldIndexs = [2, 3, 1, 0]
+                    oldIndexs = [3, 2, 0, 1]
                 } else if (axis === 1 && direction === 1) {
                     indexs = [0, 1, 4, 5]
-                    oldIndexs = [4, 5, 1, 0]
+                    oldIndexs = [5, 4, 0, 1]
                 } else if (axis === 1 && direction === -1) {
                     indexs = [0, 1, 4, 5]
-                    oldIndexs = [5, 4, 0, 1]
+                    oldIndexs = [4, 5, 1, 0]
                 } else if (axis === 2 && direction === 1) {
                     indexs = [2, 3, 4, 5]
                     oldIndexs = [4, 5, 3, 2]
@@ -295,43 +297,6 @@
                     newColor[indexs[i]] = color[oldIndexs[i]]
                 }
                 return newColor.join('')
-            },
-            calcAxis (index) {
-                const x = this.positions[index][0]
-                const y = this.positions[index][1]
-                const z = this.positions[index][2]
-                // 轴标
-                let axisText = ''
-                // 层数
-                let tier = ''
-                // 翻转
-                let action = ''
-                if (x && y === 0 && z === 0) {
-                    axisText = 'X'
-                    if (x === this.X / 2 - 0.5) {
-                        tier = this.X
-                    } else if (-x === this.X / 2 - 0.5) {
-                        tier = 1
-                        action = 'rotateY(180deg)'
-                    }
-                } else if (x === 0 && y && z === 0) {
-                    axisText = 'Y'
-                    if (y === this.Y / 2 - 0.5) {
-                        action = 'rotateY(180deg)'
-                        tier = this.Y
-                    } else if (-y === this.Y / 2 - 0.5) {
-                        tier = 1
-                    }
-                } else if (x === 0 && y === 0 && z) {
-                    axisText = 'Z'
-                    if (z === this.Z / 2 - 0.5) {
-                        tier = 1
-                    } else if (-z === this.Z / 2 - 0.5) {
-                        action = 'rotateY(180deg)'
-                        tier = this.Z
-                    }
-                }
-                return [axisText, tier, action]
             }
         }
     }
