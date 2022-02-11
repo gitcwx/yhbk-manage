@@ -11,8 +11,16 @@ import moment from 'moment'
 import { api } from '@/api'
 import { getToken, setToken } from '@/util/cookies.js'
 import i18n from '@/lang'
-import ElementPlus from 'element-plus/dist/index.full'
-import 'element-plus/dist/index.css'
+
+/* elplus */
+import {
+    ElLoading,
+    ElMessage,
+    ElMessageBox
+ } from 'element-plus'
+import 'element-plus/es/components/loading/style/css'
+import 'element-plus/es/components/message/style/css'
+import 'element-plus/es/components/message-box/style/css'
 
 const app = createApp(App)
 
@@ -23,12 +31,17 @@ app.config.globalProperties.$axios = axios
 app.config.globalProperties.$moment = moment
 app.config.globalProperties.$api = api
 
+/* elplus 服务式调用 */
+app.config.globalProperties.$ElLoading = ElLoading
+app.config.globalProperties.$message = ElMessage
+app.config.globalProperties.$confirm = ElMessageBox.confirm
+app.config.globalProperties.$alert = ElMessageBox.alert
+
 /* 加载devmock环境 */
 process.env.NODE_ENV === 'devmock' && require('@/mock')
 
 app.use(i18n)
 app.use(extend)
-app.use(ElementPlus, { size: 'mini', zIndex: 3000 })
 
 /* 初始化 css */
 require('@/assets/css/reset.scss')
@@ -60,9 +73,9 @@ axios.interceptors.response.use(response => {
     if (error.response) {
         store.commit('SET_IS_LOADING', { isLoading: false })
         if (error.response.data && error.response.data.msg) {
-            app.config.globalProperties.$message.warning(error.response.data.msg)
+            ElMessage.warning(error.response.data.msg)
         } else {
-            app.config.globalProperties.$message.warning(error.response.statusText)
+            ElMessage.warning(error.response.statusText)
         }
         if (error.response.status === 401 || error.response.status === 405) {
             router.push({ name: 'login' })

@@ -10,14 +10,7 @@
         <!-- 标签栏 -->
         <manage-tags v-if="setting.showTags"/>
         <!-- 视图 -->
-        <div
-            id="manage-view"
-            class="manage-view"
-            v-loading="isLoading"
-            :element-loading-text="loadingText"
-            :element-loading-spinner="loadingSpinner"
-            :element-loading-background="loadingBackground"
-        >
+        <div id="manage-view" class="manage-view">
             <router-view v-slot="{ Component }">
                 <transition name="body-move">
                     <keep-alive :include="aliveTags">
@@ -27,7 +20,7 @@
             </router-view>
         </div>
         <!-- 返回顶部 -->
-        <el-backtop target=".manage-view">
+        <el-backtop target="#manage-view">
             <div class="el-backtop-inner">UP</div>
         </el-backtop>
         <!-- 右边setting侧栏 -->
@@ -58,7 +51,9 @@
             }
         },
         data () {
-            return {}
+            return {
+                loadingInstance: null
+            }
         },
         computed: {
             ...mapState({
@@ -78,6 +73,24 @@
                 loadingSpinner: state => state.common.loadingSpinner,
                 loadingBackground: state => state.common.loadingBackground
             })
+        },
+        watch: {
+            isLoading: {
+                immediate: true,
+                handler (newVal) {
+                    if (newVal) {
+                        const that = this
+                        that.loadingInstance = this.$ElLoading.service({
+                            target: '#manage-view',
+                            text: that.loadingText,
+                            spinner: that.loadingSpinner,
+                            background: that.loadingBackground
+                        })
+                    } else if (this.loadingInstance) {
+                        this.loadingInstance.close()
+                    }
+                }
+            }
         },
         created () {
             // 菜单栏是否折叠

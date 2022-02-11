@@ -1,13 +1,6 @@
 <template>
     <el-config-provider :locale="locale">
-        <div
-            class="layout"
-            :class="pageClass"
-            v-loading="isFullLoading"
-            :element-loading-text="fullLoadingText"
-            :element-loading-spinner="fullLoadingSpinner"
-            :element-loading-background="fullLoadingBackground"
-        >
+        <div class="layout" :class="pageClass">
             <router-view />
         </div>
     </el-config-provider>
@@ -19,6 +12,11 @@
     import { mapState } from 'vuex'
     export default {
         name: 'app-layout',
+        data () {
+            return {
+                loadingInstance: null
+            }
+        },
         computed: {
             ...mapState({
                 isFullLoading: state => state.common.isFullLoading,
@@ -36,6 +34,23 @@
                     return 'layout-manage'
                 } else {
                     return 'layout-page'
+                }
+            }
+        },
+        watch: {
+            isFullLoading: {
+                immediate: true,
+                handler (newVal) {
+                    if (newVal) {
+                        const that = this
+                        that.loadingInstance = this.$ElLoading.service({
+                            text: that.fullLoadingText,
+                            spinner: that.fullLoadingSpinner,
+                            background: that.fullLoadingBackground
+                        })
+                    } else if (this.loadingInstance) {
+                        this.loadingInstance.close()
+                    }
                 }
             }
         },

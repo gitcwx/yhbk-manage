@@ -21,6 +21,6 @@
 </script>
 <style lang="scss">
 .manage-dashboard {
-    height: 2000px;
+
 }
 </style>

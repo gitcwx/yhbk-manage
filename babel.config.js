@@ -13,16 +13,17 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ],
   plugins: [
-    ...prodPlugins,
-    [
-      'import',
-      {
-        libraryName: 'element-plus',
-        customStyleName: (name) => {
-          name = name.slice(3)
-          return `element-plus/packages/theme-chalk/src/${name}.scss`
-        }
-      }
-    ]
+    ...prodPlugins
+    // [
+    //   'import',
+    //   {
+    //     libraryName: 'element-plus',
+    //     customStyleName: (name) => {
+    //       name = name.slice(3)
+    //       console.log(name)
+    //       return `element-plus/es/components/${name}/style/css`
+    //     }
+    //   }
+    // ]
   ]
 }

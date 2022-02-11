@@ -2,14 +2,14 @@ const common = {
     state: {
         // manage内局部loading
         isLoading: false,
-        loadingText: '',
+        loadingText: '加载中...',
         loadingSpinner: '',
-        loadingBackground: '',
+        loadingBackground: 'rgba(0, 0, 0, 0.2)',
         // 全屏loading
         isFullLoading: false,
-        fullLoadingText: '',
+        fullLoadingText: '加载中...',
         fullLoadingSpinner: '',
-        fullLoadingBackground: '',
+        fullLoadingBackground: 'rgba(0, 0, 0, 0.2)',
 
         // 当前菜单是否折叠
         collapse: false,

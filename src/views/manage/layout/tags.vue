@@ -2,10 +2,16 @@
     <div class="manage-tags" v-if="tagsList.length">
         <ul class="tags-list" id="tags-list">
             <li class="tags-item" v-for="(item,index) in tagsList" :class="{'is-active': isActive(item.path)}" :key="index">
-                <router-link :to="item.fullPath" class="tags-item-title" :title="$t('router.'+item.title)">
+                <router-link :to="item.fullPath" class="tags-item-title">
                     {{ $t('router.' + item.title )}}
                 </router-link>
-                <span class="tags-item-icon" @click="closeTags(index)"><i class="manage-icon icon-close"></i></span>
+                <el-tooltip
+                    effect="dark"
+                    content="ALT + W 快捷关闭"
+                    placement="bottom"
+                >
+                    <span class="tags-item-icon" @click="closeTags(index)"><i class="manage-icon icon-close"></i></span>
+                </el-tooltip>
             </li>
         </ul>
         <div class="tags-close-box" id="tags-close-box">

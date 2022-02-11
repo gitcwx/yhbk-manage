@@ -38,7 +38,7 @@
             <el-table-column prop="title" label="标题" min-width="250" />
             <el-table-column prop="categoryName" label="文章分类" width="120" />
             <el-table-column label="文章标签" width="150" :formatter="(row) => {return row.tags.map(v=> v.name).join(',')}" />
-            <el-table-column label="前端展示" width="80" align="center">
+            <el-table-column label="前端展示" width="100" align="center">
                 <template #default="scope">
                     <span class="ui-table-icon">
                         <i v-if="scope.row.status === 1" class="manage-icon icon-check-circle-fill text-success"></i>
@@ -52,10 +52,10 @@
             <el-table-column prop="createdAt" label="创建时间" width="180"/>
             <el-table-column label="操作" width="290" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="success" @click="handleView(scope.row)">预览</el-button>
-                    <el-button type="primary" @click="handleEdit(scope.row)">编辑</el-button>
-                    <el-button type="warning" @click="handleReply(scope.row)">评论</el-button>
-                    <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                    <el-button size="small" type="success" @click="handleView(scope.row)">预览</el-button>
+                    <el-button size="small" type="primary" @click="handleEdit(scope.row)">编辑</el-button>
+                    <el-button size="small" type="warning" @click="handleReply(scope.row)">评论</el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

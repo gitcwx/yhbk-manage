@@ -4,6 +4,11 @@ const CompressionPlugin = require('compression-webpack-plugin')
 
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 
+// element-plus 按需加载
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+
 // const projectTitle = ''
 
 module.exports = {
@@ -70,6 +75,17 @@ module.exports = {
                 })
             )
         }
+
+        plugins.push(
+            AutoImport({
+                resolvers: [ElementPlusResolver()]
+            })
+        )
+        plugins.push(
+            Components({
+                resolvers: [ElementPlusResolver()]
+            })
+        )
 
         // GZIP压缩
         plugins.push(

@@ -26,9 +26,9 @@
             <el-table-column prop="createdAt" label="创建时间" />
             <el-table-column label="操作" width="290" align="center" fixed="right">
                 <template #default="scope">
-                    <el-button type="success" @click="handleView(scope.row)">查看</el-button>
-                    <el-button type="primary" @click="handleEdit(scope.row)">编辑</el-button>
-                    <el-button type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                    <el-button size="small" type="success" @click="handleView(scope.row)">查看</el-button>
+                    <el-button size="small" type="primary" @click="handleEdit(scope.row)">编辑</el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
